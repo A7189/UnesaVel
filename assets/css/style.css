@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+:root {
+    --page-gutter: clamp(24px, 6vw, 120px);
+}
+
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     background-color: var(--bg-main);
@@ -14,39 +18,35 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* Base Mobile - 100% Fluid */
 .app-shell {
     width: 100%;
-    max-width: 100%;
     background-color: var(--bg-main);
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
-    padding-bottom: 120px; /* Jarak aman di atas floating navbar */
+    padding-bottom: calc(clamp(80px, 12vh, 144px) + env(safe-area-inset-bottom));
     display: flex;
     flex-direction: column;
 }
 
-/* Pasang position relative + z-index isolasi di tiap section agar browser Apple ga stack overlaps */
 .app-header {
-    padding: 24px 24px 8px 24px;
+    padding: clamp(24px, 4vh, 60px) var(--page-gutter) clamp(16px, 2vh, 40px);
     position: relative;
     z-index: 5;
-    display: block;
 }
 
 .top-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
+    margin-bottom: clamp(24px, 4vh, 48px);
 }
 
 .btn-icon {
     background: var(--bg-surface);
     border: none;
-    width: 44px;
-    height: 44px;
+    width: clamp(40px, 5vw, 64px);
+    height: clamp(40px, 5vw, 64px);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -54,23 +54,23 @@ body {
     cursor: pointer;
     box-shadow: var(--shadow-soft);
     color: var(--text-main);
-    font-size: 16px;
+    font-size: clamp(14px, 2vw, 24px);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .profile-avatar img {
-    width: 44px;
-    height: 44px;
+    width: clamp(40px, 5vw, 64px);
+    height: clamp(40px, 5vw, 64px);
     border-radius: 50%;
     object-fit: cover;
 }
 
 .hero-content h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 36px;
-    line-height: 1.25;
+    font-size: clamp(36px, 6vw, 72px);
+    line-height: 1.2;
     font-weight: 500;
-    margin-bottom: 8px;
+    margin-bottom: 1.5vh;
 }
 
 .accent-text {
@@ -80,9 +80,9 @@ body {
 
 .subtitle {
     color: var(--text-muted);
-    font-size: 14px;
+    font-size: clamp(14px, 2vw, 24px);
     max-width: 100%;
-    margin-bottom: 8px;
+    margin-bottom: 2vh;
 }
 
 .hero-bg-wrapper {
@@ -90,36 +90,16 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 340px;
-    background: linear-gradient(180deg, transparent 40%, var(--bg-main) 100%);
+    height: clamp(300px, 50vh, 700px);
+    background: linear-gradient(180deg, transparent 30%, var(--bg-main) 100%);
     z-index: -1;
-    pointer-events: none; /* Mencegah bug klik di Safari */
+    pointer-events: none;
 }
 
-/* Reset gap & push search agar tidak overlap ke section-section di bawahnya */
-.search-section {
+section {
     position: relative;
     z-index: 10;
-    padding: 0 24px;
-    margin-top: 12px;
-    margin-bottom: 28px;
-    display: block;
+    width: 100%;
+    padding: 0 var(--page-gutter);
+    margin-bottom: clamp(24px, 5vh, 60px);
 }
-
-.destinations-section {
-    position: relative;
-    z-index: 10;
-    padding: 0 24px;
-    margin-bottom: 28px;
-    display: block;
-}
-
-.quick-actions-section {
-    position: relative;
-    z-index: 10;
-    padding: 0 24px;
-    margin-bottom: 32px;
-    display: block;
-}
-
-

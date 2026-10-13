@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#eff2eb">
+    <title>Explore - UnesaVel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+    <link rel="stylesheet" href="../assets/css/explore.css">
+</head>
+<body>
+    <main class="app-shell explore-page">
+        <header class="app-header explore-header">
+            <div class="explore-heading">
+                <p class="explore-eyebrow">JELAJAHI UNESA</p>
+                <h1>Temukan <span class="accent-text">tempatmu.</span></h1>
+                <p class="explore-subtitle">Cari lokasi kampus dan tempat menarik di sekitarmu.</p>
+            </div>
+
+            <div class="starting-location" aria-live="polite">
+                <div class="location-symbol" aria-hidden="true">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div class="location-copy">
+                    <span class="location-label">LOKASI AWAL</span>
+                    <p id="location-status">Gunakan lokasi perangkatmu untuk memulai</p>
+                </div>
+                <button class="location-button" id="detect-location" type="button" aria-label="Gunakan lokasi saya">
+                    <i class="fa-solid fa-crosshairs" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            <label class="search-bar explore-search" for="location-search">
+                <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+                <input id="location-search" type="search" placeholder="Cari gedung atau lokasi..." autocomplete="off">
+                <button class="search-clear" id="clear-search" type="button" aria-label="Hapus pencarian" hidden>
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+            </label>
+        </header>
+
+        <section class="explore-results" aria-labelledby="results-heading">
+            <div class="section-header explore-results-header">
+                <div>
+                    <h2 id="results-heading">Lokasi untuk dijelajahi</h2>
+                    <p class="results-count" id="results-count" aria-live="polite">6 lokasi</p>
+                </div>
+            </div>
+
+            <div class="location-grid" id="location-list">
+                <article class="location-card" data-search="gerbang utama ketintang pintu masuk kampus surabaya">
+                    <img src="../assets/images/Gerbang%20K1.jpg" alt="Gerbang utama Universitas Negeri Surabaya" loading="lazy">
+                    <div class="location-card-content">
+                        <span class="location-category">AREA KAMPUS</span>
+                        <h3>Gerbang Utama UNESA</h3>
+                        <p><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Ketintang, Surabaya</p>
+                        <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Gerbang+Utama+UNESA+Ketintang" target="_blank" rel="noopener noreferrer">
+                            Lihat di peta <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="location-card" data-search="fakultas teknik informatika rumpun informatika ketintang">
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=900&q=85" alt="Gedung perkuliahan informatika" loading="lazy">
+                    <div class="location-card-content">
+                        <span class="location-category">FAKULTAS</span>
+                        <h3>Rumpun Informatika</h3>
+                        <p><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Ketintang, Surabaya</p>
+                        <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Rumpun+Informatika+UNESA" target="_blank" rel="noopener noreferrer">
+                            Lihat di peta <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="location-card" data-search="gedung rektorat administrasi kantor ketintang">
+                    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85" alt="Gedung perkantoran kampus" loading="lazy">
+                    <div class="location-card-content">
+                        <span class="location-category">FASILITAS</span>
+                        <h3>Gedung Rektorat</h3>
+                        <p><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Ketintang, Surabaya</p>
+                        <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Gedung+Rektorat+UNESA+Ketintang" target="_blank" rel="noopener noreferrer">
+                            Lihat di peta <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="location-card" data-search="perpustakaan pusat buku belajar fasilitas ketintang">
+                    <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=900&q=85" alt="Ruang perpustakaan" loading="lazy">
+                    <div class="location-card-content">
+                        <span class="location-category">FASILITAS</span>
+                        <h3>Perpustakaan UNESA</h3>
+                        <p><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Ketintang, Surabaya</p>
+                        <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Perpustakaan+UNESA+Ketintang" target="_blank" rel="noopener noreferrer">
+                            Lihat di peta <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="location-card" data-search="rumpun kedokteran fakultas kesehatan lidah wetan">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=85" alt="Fasilitas kesehatan kampus" loading="lazy">
+                    <div class="location-card-content">
+                        <span class="location-category">FAKULTAS</span>
+                        <h3>Rumpun Kedokteran</h3>
+                        <p><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Lidah Wetan, Surabaya</p>
+                        <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Rumpun+Kedokteran+UNESA+Lidah+Wetan" target="_blank" rel="noopener noreferrer">
+                            Lihat di peta <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="location-card" data-search="danau unesa taman ruang terbuka lidah wetan">
+                    <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=85" alt="Pemandangan danau dan ruang terbuka" loading="lazy">
+                    <div class="location-card-content">
+                        <span class="location-category">RUANG TERBUKA</span>
+                        <h3>Danau UNESA</h3>
+                        <p><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Lidah Wetan, Surabaya</p>
+                        <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Danau+UNESA+Lidah+Wetan" target="_blank" rel="noopener noreferrer">
+                            Lihat di peta <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            <p class="empty-results" id="empty-results" role="status" hidden>
+                Lokasi tidak ditemukan. Coba kata kunci lain.
+            </p>
+        </section>
+    </main>
+
+    <div id="bottom-nav-container"></div>
+
+    <script src="../assets/js/navbar.js"></script>
+    <script src="../assets/js/explore.js"></script>
+</body>
+</html>

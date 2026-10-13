@@ -22,136 +22,113 @@
             </div>
             
             <div class="hero-content">
-                <h1>Your Journey, <br><span class="accent-text">Intelligently Planned.</span></h1>
-                <p class="subtitle">AI-powered travel planning made effortless.</p>
+                <h1>Your Journey, <br><span class="accent-text">Commuter Friends.</span></h1>
+                <p class="subtitle">Less Hassle More Fun.</p>
             </div>
             
             <div class="hero-bg-wrapper"></div>
         </header>
 
         <section class="search-section">
-            <div class="search-bar">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" placeholder="Where do you want to go?" readonly>
-                <button class="mic-btn"><i class="fa-solid fa-microphone"></i></button>
-            </div>
+            <form class="search-bar dashboard-search" id="dashboard-search-form" role="search">
+                <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+                <input id="dashboard-search-input" type="search" placeholder="Where do you want to go?" autocomplete="off" aria-label="Cari lokasi">
+                <button class="mic-btn dashboard-search-submit" type="submit" aria-label="Cari di Explore">
+                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </button>
+            </form>
+            <p class="dashboard-search-status" id="dashboard-search-status" role="status" aria-live="polite" hidden></p>
         </section>
 
         <section class="destinations-section">
             <div class="section-header">
-                <h3>Inspiring Destinations</h3>
-                <a href="#" class="see-all">See all</a>
+                <h3>Recently Visited</h3>
+                <a href="pages/explore.html" class="see-all">See all</a>
             </div>
             
             <div class="destinations-carousel">
-                <!-- Card 1 -->
-                <div class="destination-card" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=400&q=80');">
+                <article class="destination-card" data-map-search="Gerbang Kampus, Ketintang, UNESA">
+                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Gerbang Kampus" loading="lazy">
                     <div class="card-info">
                         <h4>Gerbang Kampus</h4>
                         <p>Ketintang</p>
                     </div>
-                    <button class="arrow-btn"><i class="fa-solid fa-arrow-right"></i></button>
-                </div>
+                    <button class="arrow-btn" type="button" aria-label="Buka Gerbang Kampus di peta"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </article>
                 
-                <!-- Card 2 -->
-                <div class="destination-card" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=400&q=80');">
+                <article class="destination-card" data-map-search="Rumpun Informatika, Ketintang, UNESA">
+                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Rumpun Informatika" loading="lazy">
                     <div class="card-info">
                         <h4>Rumpun Informatika</h4>
                         <p>Ketintang</p>
                     </div>
-                    <button class="arrow-btn"><i class="fa-solid fa-arrow-right"></i></button>
-                </div>
+                    <button class="arrow-btn" type="button" aria-label="Buka Rumpun Informatika di peta"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </article>
 
-                <!-- Card 3 -->
-                <div class="destination-card" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%), url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=400&q=80');">
+                <article class="destination-card" data-map-search="Rumpun Kedokteran, Lidah Wetan, UNESA">
+                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Rumpun Kedokteran" loading="lazy">
                     <div class="card-info">
                         <h4>Rumpun Kedokteran</h4>
                         <p>Lidah Wetan</p>
                     </div>
-                    <button class="arrow-btn"><i class="fa-solid fa-arrow-right"></i></button>
-                </div>
+                    <button class="arrow-btn" type="button" aria-label="Buka Rumpun Kedokteran di peta"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </article>
 
-                <!-- Card 4 (Baru) -->
-                <div class="destination-card" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%), url('https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=400&q=80');">
+                <article class="destination-card" data-map-search="Gunung Bromo, Jawa Timur">
+                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Gunung Bromo" loading="lazy">
                     <div class="card-info">
                         <h4>Gunung Bromo</h4>
                         <p>Jawa Timur</p>
                     </div>
-                    <button class="arrow-btn"><i class="fa-solid fa-arrow-right"></i></button>
-                </div>
+                    <button class="arrow-btn" type="button" aria-label="Buka Gunung Bromo di peta"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </article>
 
-                <!-- Card 5 (Baru) -->
-                <div class="destination-card" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%), url('https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&w=400&q=80');">
+                <article class="destination-card" data-map-search="Danau Toba, Sumatera Utara">
+                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Danau Toba" loading="lazy">
                     <div class="card-info">
                         <h4>Danau Toba</h4>
                         <p>Sumatera Utara</p>
                     </div>
-                    <button class="arrow-btn"><i class="fa-solid fa-arrow-right"></i></button>
-                </div>
+                    <button class="arrow-btn" type="button" aria-label="Buka Danau Toba di peta"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </article>
 
-                <!-- Card 6 (Baru) -->
-                <div class="destination-card" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%), url('https://images.unsplash.com/photo-1516690553959-71a414d6b9b6?auto=format&fit=crop&w=400&q=80');">
+                <article class="destination-card" data-map-search="Raja Ampat, Papua Barat">
+                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Raja Ampat" loading="lazy">
                     <div class="card-info">
                         <h4>Raja Ampat</h4>
                         <p>Papua Barat</p>
                     </div>
-                    <button class="arrow-btn"><i class="fa-solid fa-arrow-right"></i></button>
-                </div>
+                    <button class="arrow-btn" type="button" aria-label="Buka Raja Ampat di peta"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </article>
 
-                <!-- Card 7 (Baru) -->
-                <div class="destination-card" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%), url('https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?auto=format&fit=crop&w=400&q=80');">
+                <article class="destination-card" data-map-search="Nusa Penida, Bali">
+                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Nusa Penida" loading="lazy">
                     <div class="card-info">
                         <h4>Nusa Penida</h4>
                         <p>Bali</p>
                     </div>
-                    <button class="arrow-btn"><i class="fa-solid fa-arrow-right"></i></button>
-                </div>
+                    <button class="arrow-btn" type="button" aria-label="Buka Nusa Penida di peta"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </article>
 
-                <!-- Card 8 (Baru) -->
-                <div class="destination-card" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%), url('https://images.unsplash.com/photo-1584801121043-46231eb9ffaf?auto=format&fit=crop&w=400&q=80');">
+                <article class="destination-card" data-map-search="Candi Borobudur, Jawa Tengah">
+                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Borobudur" loading="lazy">
                     <div class="card-info">
                         <h4>Borobudur</h4>
                         <p>Jawa Tengah</p>
                     </div>
-                    <button class="arrow-btn"><i class="fa-solid fa-arrow-right"></i></button>
-                </div>
+                    <button class="arrow-btn" type="button" aria-label="Buka Borobudur di peta"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </article>
 
-                <!-- Card 9 (Baru) -->
-                <div class="destination-card" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%), url('https://images.unsplash.com/photo-1512100356356-de1b84283e18?auto=format&fit=crop&w=400&q=80');">
+                <article class="destination-card" data-map-search="Labuan Bajo, Nusa Tenggara Timur">
+                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Labuan Bajo" loading="lazy">
                     <div class="card-info">
                         <h4>Labuan Bajo</h4>
                         <p>NTT</p>
                     </div>
-                    <button class="arrow-btn"><i class="fa-solid fa-arrow-right"></i></button>
-                </div>
-            </div>
-            
-            <!-- Titik-titik ini sengaja dikosongin, nanti JS yang ngisi otomatis -->
-            <div class="carousel-indicators"></div>
-        </section>
-
-        <section class="quick-actions-section">
-            <h3>Quick Actions</h3>
-            <div class="actions-grid">
-                <div class="action-item">
-                    <div class="icon-box"><i class="fa-solid fa-sparkles"></i></div>
-                    <span>AI Itinerary</span>
-                </div>
-                <div class="action-item">
-                    <div class="icon-box"><i class="fa-solid fa-route"></i></div>
-                    <span>Smart Route</span>
-                </div>
-                <div class="action-item">
-                    <div class="icon-box"><i class="fa-solid fa-wallet"></i></div>
-                    <span>Budget Plan</span>
-                </div>
-                <div class="action-item">
-                    <div class="icon-box"><i class="fa-solid fa-map"></i></div>
-                    <span>Travel Guide</span>
-                </div>
+                    <button class="arrow-btn" type="button" aria-label="Buka Labuan Bajo di peta"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </article>
             </div>
         </section>
-        
     </div>
 
     <div id="bottom-nav-container"></div>
