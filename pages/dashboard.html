@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journey - Intelligently Planned</title>
+   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+</head>
+</head>
+<body>
+    <div class="app-shell">
+        <header class="app-header">
+            <div class="top-nav">
+                <button class="btn-icon menu-btn"><i class="fa-solid fa-bars-staggered"></i></button>
+                <div class="profile-avatar">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="User Profile">
+                </div>
+            </div>
+            
+            <div class="hero-content">
+                <h1>Your Journey, <br><span class="accent-text">Commuter Friends.</span></h1>
+                <p class="subtitle">Less Hassle More Fun.</p>
+            </div>
+            
+            <div class="hero-bg-wrapper"></div>
+        </header>
+
+        <section class="search-section">
+            <form class="search-bar dashboard-search" id="dashboard-search-form" role="search">
+                <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+                <input id="dashboard-search-input" type="search" placeholder="Where do you want to go?" autocomplete="off" aria-label="Cari lokasi">
+                <button class="mic-btn dashboard-search-submit" type="submit" aria-label="Cari di Explore">
+                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </button>
+            </form>
+            <p class="dashboard-search-status" id="dashboard-search-status" role="status" aria-live="polite" hidden></p>
+        </section>
+
+        <section class="destinations-section">
+            <div class="section-header">
+                <h3>Recently Visited</h3>
+                <a href="pages/explore.html" class="see-all">See all</a>
+            </div>
+            
+            <div class="destinations-carousel">
+                <article class="destination-card" data-map-search="Gerbang Kampus, Ketintang, UNESA">
+                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Gerbang Kampus" loading="lazy">
+                    <div class="card-info">
+                        <h4>Gerbang Kampus</h4>
+                        <p>Ketintang</p>
+                    </div>
+                    <button class="arrow-btn" type="button" aria-label="Buka Gerbang Kampus di peta"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </article>
+                
+                <article class="destination-card" data-map-search="Rumpun Informatika, Ketintang, UNESA">
+                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Rumpun Informatika" loading="lazy">
+                    <div class="card-info">
+                        <h4>Rumpun Informatika</h4>
+                        <p>Ketintang</p>
+                    </div>
+                    <button class="arrow-btn" type="button" aria-label="Buka Rumpun Informatika di peta"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </article>
+
+                <article class="destination-card" data-map-search="Rumpun Kedokteran, Lidah Wetan, UNESA">
+                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Rumpun Kedokteran" loading="lazy">
+                    <div class="card-info">
+                        <h4>Rumpun Kedokteran</h4>
+                        <p>Lidah Wetan</p>
+                    </div>
+                    <button class="arrow-btn" type="button" aria-label="Buka Rumpun Kedokteran di peta"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </article>
+
+                <article class="destination-card" data-map-search="Gunung Bromo, Jawa Timur">
+                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Gunung Bromo" loading="lazy">
+                    <div class="card-info">
+                        <h4>Gunung Bromo</h4>
+                        <p>Jawa Timur</p>
+                    </div>
+                    <button class="arrow-btn" type="button" aria-label="Buka Gunung Bromo di peta"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </article>
+
+                <article class="destination-card" data-map-search="Danau Toba, Sumatera Utara">
+                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Danau Toba" loading="lazy">
+                    <div class="card-info">
+                        <h4>Danau Toba</h4>
+                        <p>Sumatera Utara</p>
+                    </div>
+                    <button class="arrow-btn" type="button" aria-label="Buka Danau Toba di peta"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </article>
+
+                <article class="destination-card" data-map-search="Raja Ampat, Papua Barat">
+                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Raja Ampat" loading="lazy">
+                    <div class="card-info">
+                        <h4>Raja Ampat</h4>
+                        <p>Papua Barat</p>
+                    </div>
+                    <button class="arrow-btn" type="button" aria-label="Buka Raja Ampat di peta"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </article>
+
+                <article class="destination-card" data-map-search="Nusa Penida, Bali">
+                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Nusa Penida" loading="lazy">
+                    <div class="card-info">
+                        <h4>Nusa Penida</h4>
+                        <p>Bali</p>
+                    </div>
+                    <button class="arrow-btn" type="button" aria-label="Buka Nusa Penida di peta"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </article>
+
+                <article class="destination-card" data-map-search="Candi Borobudur, Jawa Tengah">
+                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Borobudur" loading="lazy">
+                    <div class="card-info">
+                        <h4>Borobudur</h4>
+                        <p>Jawa Tengah</p>
+                    </div>
+                    <button class="arrow-btn" type="button" aria-label="Buka Borobudur di peta"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </article>
+
+                <article class="destination-card" data-map-search="Labuan Bajo, Nusa Tenggara Timur">
+                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Labuan Bajo" loading="lazy">
+                    <div class="card-info">
+                        <h4>Labuan Bajo</h4>
+                        <p>NTT</p>
+                    </div>
+                    <button class="arrow-btn" type="button" aria-label="Buka Labuan Bajo di peta"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </article>
+            </div>
+        </section>
+    </div>
+    <div id="bottom-nav-container"></div>
+    <script src="../assets/js/navbar.js"></script>
+    <script src="../assets/js/script.js"></script>
+</body>
+</body>
+</html>

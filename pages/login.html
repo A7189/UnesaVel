@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - UNESA Shuttle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="login-card">
+            
+            <div class="icon-container">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            </div>
+            
+            <div class="login-header">
+                <h2>Masuk ke Akun</h2>
+                <p>Gunakan email mahasiswa untuk memesan tiket shuttle Ketintang - Lidah Wetan.</p>
+            </div>
+
+            <form class="login-form" id="loginForm">
+                <div class="input-group">
+                    <i class="fa-solid fa-envelope left-icon"></i>
+                    <input type="text" id="emailInput" placeholder="Email atau Username" required>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fa-solid fa-lock left-icon"></i>
+                    <input type="password" placeholder="Password" required>
+                    <i class="fa-solid fa-eye-slash right-icon"></i>
+                </div>
+
+                <a href="#" class="forgot-pass">Lupa password?</a>
+
+                <button type="submit" class="btn-login">
+                    Masuk Sekarang
+                </button>
+            </form>
+
+            <div class="divider">
+                <span>Atau masuk dengan</span>
+            </div>
+
+            <div class="social-login">
+                <button class="social-btn">
+                    <i class="fa-brands fa-google" style="color: #DB4437;"></i>
+                </button>
+                <button class="social-btn">
+                    <i class="fa-brands fa-facebook" style="color: #4267B2;"></i>
+                </button>
+                <button class="social-btn">
+                    <i class="fa-brands fa-apple" style="color: #000000;"></i>
+                </button>
+            </div>
+            
+        </div>
+    </div>
+    <script src="../assets/js/login.js"></script>
+</body>
+</html>
