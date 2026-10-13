@@ -1,0 +1,43 @@
+:root {
+    /* LIGHT MODE (Default) */
+    --primary: #4b6a50;
+    --secondary: #678a6d;
+    --bg-main: #eff2eb;
+    --bg-surface: #ffffff;
+    --text-main: #2c3e30;
+    --text-muted: #7c8e80;
+    --border-color: #ccd4c9;
+    
+    /* Warna Banner Gradien */
+    --banner-grad-start: #e7efe4;
+    --banner-grad-end: #d4e4d1;
+
+    /* Warna Statis (Tidak akan berubah walau di Dark Mode) */
+    --static-white: #ffffff;
+    --static-dark: #2c3e30;
+    
+    /* Radius & Shadow */
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --radius-sm: 12px;
+    --shadow-soft: 0 4px 20px rgba(75, 106, 80, 0.05);
+    --shadow-hover: 0 -4px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* DARK MODE PREPARATION */
+/* Nanti tinggal dipanggil via JS: document.documentElement.setAttribute('data-theme', 'dark'); */
+[data-theme="dark"] {
+    --primary: #85a88c; 
+    --secondary: #59785e;
+    --bg-main: #121613;
+    --bg-surface: #1e2620;
+    --text-main: #e6ebe7;
+    --text-muted: #a0afa4;
+    --border-color: #2c3e30;
+    
+    --banner-grad-start: #232e25;
+    --banner-grad-end: #171f19;
+    
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 -4px 24px rgba(0, 0, 0, 0.5);
+}

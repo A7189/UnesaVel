@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journey - Intelligently Planned</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/navbar.css">
+</head>
+<body>
+    <div class="app-shell">
+        <header class="app-header">
+            <div class="top-nav">
+                <button class="btn-icon menu-btn"><i class="fa-solid fa-bars-staggered"></i></button>
+                <div class="profile-avatar">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="User Profile">
+                </div>
+            </div>
+            
+            <div class="hero-content">
+                <h1>Your Journey, <br><span class="accent-text">Intelligently Planned.</span></h1>
+                <p class="subtitle">AI-powered travel planning made effortless.</p>
+            </div>
+            
+            <div class="hero-bg-wrapper"></div>
+        </header>
+
+        <section class="search-section">
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" placeholder="Where do you want to go?" readonly>
+                <button class="mic-btn"><i class="fa-solid fa-microphone"></i></button>
+            </div>
+        </section>
+
+        <section class="destinations-section">
+            <div class="section-header">
+                <h3>Inspiring Destinations</h3>
+                <a href="#" class="see-all">See all</a>
+            </div>
+            
+            <div class="destinations-carousel">
+                <!-- Card 1 -->
+                <div class="destination-card" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=400&q=80');">
+                    <div class="card-info">
+                        <h4>Gerbang Kampus</h4>
+                        <p>Ketintang</p>
+                    </div>
+                    <button class="arrow-btn"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="destination-card" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=400&q=80');">
+                    <div class="card-info">
+                        <h4>Rumpun Informatika</h4>
+                        <p>Ketintang</p>
+                    </div>
+                    <button class="arrow-btn"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="destination-card" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%), url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=400&q=80');">
+                    <div class="card-info">
+                        <h4>Rumpun Kedokteran</h4>
+                        <p>Lidah Wetan</p>
+                    </div>
+                    <button class="arrow-btn"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+
+                <!-- Card 4 (Baru) -->
+                <div class="destination-card" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%), url('https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=400&q=80');">
+                    <div class="card-info">
+                        <h4>Gunung Bromo</h4>
+                        <p>Jawa Timur</p>
+                    </div>
+                    <button class="arrow-btn"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+
+                <!-- Card 5 (Baru) -->
+                <div class="destination-card" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%), url('https://images.unsplash.com/photo-1549473889-14f410d83298?auto=format&fit=crop&w=400&q=80');">
+                    <div class="card-info">
+                        <h4>Danau Toba</h4>
+                        <p>Sumatera Utara</p>
+                    </div>
+                    <button class="arrow-btn"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+
+                <!-- Card 6 (Baru) -->
+                <div class="destination-card" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%), url('https://images.unsplash.com/photo-1516690553959-71a414d6b9b6?auto=format&fit=crop&w=400&q=80');">
+                    <div class="card-info">
+                        <h4>Raja Ampat</h4>
+                        <p>Papua Barat</p>
+                    </div>
+                    <button class="arrow-btn"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+
+                <!-- Card 7 (Baru) -->
+                <div class="destination-card" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%), url('https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?auto=format&fit=crop&w=400&q=80');">
+                    <div class="card-info">
+                        <h4>Nusa Penida</h4>
+                        <p>Bali</p>
+                    </div>
+                    <button class="arrow-btn"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+
+                <!-- Card 8 (Baru) -->
+                <div class="destination-card" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%), url('https://images.unsplash.com/photo-1584801121043-46231eb9ffaf?auto=format&fit=crop&w=400&q=80');">
+                    <div class="card-info">
+                        <h4>Borobudur</h4>
+                        <p>Jawa Tengah</p>
+                    </div>
+                    <button class="arrow-btn"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+
+                <!-- Card 9 (Baru) -->
+                <div class="destination-card" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%), url('https://images.unsplash.com/photo-1512100356356-de1b84283e18?auto=format&fit=crop&w=400&q=80');">
+                    <div class="card-info">
+                        <h4>Labuan Bajo</h4>
+                        <p>NTT</p>
+                    </div>
+                    <button class="arrow-btn"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <!-- Titik-titik ini sengaja dikosongin, nanti JS yang ngisi otomatis -->
+            <div class="carousel-indicators"></div>
+        </section>
+
+        <section class="quick-actions-section">
+            <h3>Quick Actions</h3>
+            <div class="actions-grid">
+                <div class="action-item">
+                    <div class="icon-box"><i class="fa-solid fa-sparkles"></i></div>
+                    <span>AI Itinerary</span>
+                </div>
+                <div class="action-item">
+                    <div class="icon-box"><i class="fa-solid fa-route"></i></div>
+                    <span>Smart Route</span>
+                </div>
+                <div class="action-item">
+                    <div class="icon-box"><i class="fa-solid fa-wallet"></i></div>
+                    <span>Budget Plan</span>
+                </div>
+                <div class="action-item">
+                    <div class="icon-box"><i class="fa-solid fa-map"></i></div>
+                    <span>Travel Guide</span>
+                </div>
+            </div>
+        </section>
+        
+    </div>
+
+    <div id="bottom-nav-container"></div>
+
+    <script src="assets/js/navbar.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
