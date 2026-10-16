@@ -225,7 +225,7 @@ body {
 
 @media (min-width: 1920px) and (min-aspect-ratio: 2/1) {
     .login-wrapper {
-        background-image: url('../images/Gerbang K1.jpg');
+        background-image: url('../images/GerbangK1.jpg');
         background-position: center 40%;
     }
 

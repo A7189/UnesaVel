@@ -3,102 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Riwayat Tiket - Journey</title>
+    <title>Riwayat Perjalanan - UnesaVel</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <link rel="stylesheet" href="../assets/css/variables.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/components.css">
-    <link rel="stylesheet" href="../assets/css/history.css">
     <link rel="stylesheet" href="../assets/css/navbar.css">
+    <link rel="stylesheet" href="../assets/css/history.css">
+
+    <!-- Obat Anti Kedip Putih -->
     <script>
         const savedTheme = localStorage.getItem('theme');
-        const isExplore = window.location.pathname.endsWith('explore.html');
-        if (savedTheme === 'dark' && !isExplore) {
+        if (savedTheme === 'dark') {
             document.documentElement.setAttribute('data-theme', 'dark');
         }
     </script>
 </head>
-<body>
+<body class="history-page">
     <div class="app-shell">
-        <header class="app-header compact-header" style="margin-bottom: 2vh;">
-            <div class="top-nav" style="margin-bottom: 0;">
-                <button class="btn-icon" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i></button>
-                <h2 class="page-title">Tiket Saya</h2>
-                <div style="width: 40px;"></div>
+        
+        <header class="page-header">
+            <div>
+                <h2>Riwayat Perjalanan</h2>
+                <p style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">Tiket dan aktivitas terbarumu</p>
             </div>
         </header>
 
-        <section class="ticket-history-list">
-            <div class="section-header">
-                <h3>Perjalanan Mendatang</h3>
+        <section class="history-timeline">
+            <div class="timeline-date current-date">
+                <span class="timeline-dot active-dot"></span>
+                Hari Ini
             </div>
 
             <a href="ticket-detail.html" class="history-card active-ticket">
-                <div class="card-glow"></div>
-                <div class="hc-header">
-                    <span class="status-badge active">Sedang Berjalan</span>
-                    <span class="hc-date">Hari ini, 10:15 WIB</span>
-                </div>
-                <div class="hc-body">
-                    <div class="route-info">
-                        <div class="route-node">
-                            <h4>Ketintang</h4>
-                            <p>Gerbang Kampus</p>
+                <div class="card-main">
+                    <div class="route-vertical">
+                        <div class="route-point departure">
+                            <h4>Rumpun Informatika</h4>
+                            <span>Berangkat • 13:00 WIB</span>
                         </div>
-                        <div class="route-divider">
-                            <i class="fa-solid fa-van-shuttle"></i>
-                            <div class="line"></div>
-                        </div>
-                        <div class="route-node">
-                            <h4>Lidah Wetan</h4>
-                            <p>Rektorat</p>
+                        <div class="route-point destination">
+                            <h4>Gerbang Utama</h4>
+                            <span>Estimasi Tiba • 13:20 WIB</span>
                         </div>
                     </div>
-                </div>
-                <div class="hc-footer">
-                    <div class="seat-info">
-                        <i class="fa-solid fa-chair"></i> Kursi 04
+
+                    <div class="card-right-col">
+                        <div class="seat-badge">08</div>
+                        <span class="status-badge active-badge">Aktif</span>
                     </div>
-                    <div class="action-text">Lihat Tiket <i class="fa-solid fa-chevron-right"></i></div>
+                </div>
+
+                <div class="card-details">
+                    <div class="card-meta">
+                        <strong>Rp 5.000</strong>
+                        ID: UNS-99A1X
+                    </div>
+                    <div class="card-time" style="color: var(--primary); background: rgba(75, 106, 80, 0.1);">
+                        <i class="fa-solid fa-bus" style="margin-right: 4px;"></i> Sedang jalan
+                    </div>
                 </div>
             </a>
 
-            <div class="section-header" style="margin-top: 32px;">
-                <h3>Riwayat Sebelumnya</h3>
+            <!-- Penanda Tanggal 1 -->
+            <div class="timeline-date">
+                <span class="timeline-dot"></span>
+                16 Okt 2026
             </div>
 
+            <!-- Kartu Tiket 1 (Bisa Diklik ke Detail) -->
             <a href="ticket-detail.html" class="history-card">
-                <div class="hc-header">
-                    <span class="status-badge completed">Selesai</span>
-                    <span class="hc-date">12 Okt 2026, 15:30 WIB</span>
-                </div>
-                <div class="hc-body">
-                    <div class="route-info">
-                        <div class="route-node">
-                            <h4>Lidah Wetan</h4>
-                            <p>Fakultas Kedokteran</p>
-                        </div>
-                        <div class="route-divider">
-                            <i class="fa-solid fa-check"></i>
-                            <div class="line"></div>
-                        </div>
-                        <div class="route-node">
+                <div class="card-main">
+                    <div class="route-vertical">
+                        <div class="route-point departure">
                             <h4>Ketintang</h4>
-                            <p>Rumpun Informatika</p>
+                            <span>Keberangkatan • 10:15 WIB</span>
+                        </div>
+                        <div class="route-point destination">
+                            <h4>Lidah Wetan</h4>
+                            <span>Tujuan • 10:45 WIB</span>
                         </div>
                     </div>
-                </div>
-                <div class="hc-footer">
-                    <div class="seat-info">
-                        <i class="fa-solid fa-chair"></i> Kursi 12
+
+                    <div class="card-right-col">
+                        <div class="seat-badge">04</div>
+                        <span class="status-badge">Selesai</span>
                     </div>
-                    <div class="action-text">Detail <i class="fa-solid fa-chevron-right"></i></div>
+                </div>
+
+                <div class="card-details">
+                    <div class="card-meta">
+                        <strong>Rp 5.000</strong>
+                        ID: UNS-88X2Q
+                    </div>
+                    <div class="card-time">
+                        <i class="fa-regular fa-clock" style="margin-right: 4px;"></i> 30 mnt
+                    </div>
                 </div>
             </a>
+
+            <!-- Penanda Tanggal 2 -->
+            <div class="timeline-date">
+                <span class="timeline-dot"></span>
+                15 Okt 2026
+            </div>
+
+            <!-- Kartu Tiket 2 -->
+            <a href="ticket-detail.html" class="history-card">
+                <div class="card-main">
+                    <div class="route-vertical">
+                        <div class="route-point departure">
+                            <h4>Lidah Wetan</h4>
+                            <span>Keberangkatan • 14:00 WIB</span>
+                        </div>
+                        <div class="route-point destination">
+                            <h4>Ketintang</h4>
+                            <span>Tujuan • 14:35 WIB</span>
+                        </div>
+                    </div>
+
+                    <div class="card-right-col">
+                        <div class="seat-badge">12</div>
+                        <span class="status-badge">Selesai</span>
+                    </div>
+                </div>
+
+                <div class="card-details">
+                    <div class="card-meta">
+                        <strong>Rp 5.000</strong>
+                        ID: UNS-92Z4P
+                    </div>
+                    <div class="card-time">
+                        <i class="fa-regular fa-clock" style="margin-right: 4px;"></i> 35 mnt
+                    </div>
+                </div>
+            </a>
+
         </section>
+
     </div>
+    
     <div id="bottom-nav-container"></div>
+
     <script src="../assets/js/navbar.js"></script>
     <script src="../assets/js/script.js"></script>
 </body>

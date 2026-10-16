@@ -1,3 +1,8 @@
+/* 
+ * File: assets/css/variables.css
+ * Description: CSS variables for theming and styling (COLORS, BORDER RADIUS, SHADOWS, etc.)
+ */
+
 :root {
     --primary: #4b6a50;
     --secondary: #678a6d;
