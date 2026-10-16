@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="../assets/css/navbar.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme');
+        const isExplore = window.location.pathname.endsWith('explore.html');
+        if (savedTheme === 'dark' && !isExplore) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 </head>
 </head>
 <body>
@@ -49,7 +56,7 @@
             
             <div class="destinations-carousel">
                 <article class="destination-card" data-map-search="Gerbang Kampus, Ketintang, UNESA">
-                    <img class="destination-image" src="assets/images/Gerbang K1.jpg" alt="Foto sementara Gerbang Kampus" loading="lazy">
+                    <img class="destination-image" src="assets/images/GerbangK1.jpg" alt="Foto sementara Gerbang Kampus" loading="lazy">
                     <div class="card-info">
                         <h4>Gerbang Kampus</h4>
                         <p>Ketintang</p>
@@ -58,7 +65,7 @@
                 </article>
                 
                 <article class="destination-card" data-map-search="Rumpun Informatika, Ketintang, UNESA">
-                    <img class="destination-image" src="assets/images/Gerbang K1.jpg" alt="Foto sementara Rumpun Informatika" loading="lazy">
+                    <img class="destination-image" src="assets/images/GerbangK1.jpg" alt="Foto sementara Rumpun Informatika" loading="lazy">
                     <div class="card-info">
                         <h4>Rumpun Informatika</h4>
                         <p>Ketintang</p>
@@ -67,7 +74,7 @@
                 </article>
 
                 <article class="destination-card" data-map-search="Rumpun Kedokteran, Lidah Wetan, UNESA">
-                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Rumpun Kedokteran" loading="lazy">
+                    <img class="destination-image" src="assets/images/gerbangK1.JPG" alt="Foto sementara Rumpun Kedokteran" loading="lazy">
                     <div class="card-info">
                         <h4>Rumpun Kedokteran</h4>
                         <p>Lidah Wetan</p>
@@ -76,7 +83,7 @@
                 </article>
 
                 <article class="destination-card" data-map-search="Gunung Bromo, Jawa Timur">
-                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Gunung Bromo" loading="lazy">
+                    <img class="destination-image" src="assets/images/gerbangK1.JPG" alt="Foto sementara Gunung Bromo" loading="lazy">
                     <div class="card-info">
                         <h4>Gunung Bromo</h4>
                         <p>Jawa Timur</p>
@@ -85,7 +92,7 @@
                 </article>
 
                 <article class="destination-card" data-map-search="Danau Toba, Sumatera Utara">
-                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Danau Toba" loading="lazy">
+                    <img class="destination-image" src="assets/images/gerbangK1.JPG" alt="Foto sementara Danau Toba" loading="lazy">
                     <div class="card-info">
                         <h4>Danau Toba</h4>
                         <p>Sumatera Utara</p>
@@ -94,7 +101,7 @@
                 </article>
 
                 <article class="destination-card" data-map-search="Raja Ampat, Papua Barat">
-                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Raja Ampat" loading="lazy">
+                    <img class="destination-image" src="assets/images/gerbangK1.JPG" alt="Foto sementara Raja Ampat" loading="lazy">
                     <div class="card-info">
                         <h4>Raja Ampat</h4>
                         <p>Papua Barat</p>
@@ -103,7 +110,7 @@
                 </article>
 
                 <article class="destination-card" data-map-search="Nusa Penida, Bali">
-                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Nusa Penida" loading="lazy">
+                    <img class="destination-image" src="assets/images/gerbangK1.JPG" alt="Foto sementara Nusa Penida" loading="lazy">
                     <div class="card-info">
                         <h4>Nusa Penida</h4>
                         <p>Bali</p>
@@ -112,7 +119,7 @@
                 </article>
 
                 <article class="destination-card" data-map-search="Candi Borobudur, Jawa Tengah">
-                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Borobudur" loading="lazy">
+                    <img class="destination-image" src="assets/images/gerbangK1.JPG" alt="Foto sementara Borobudur" loading="lazy">
                     <div class="card-info">
                         <h4>Borobudur</h4>
                         <p>Jawa Tengah</p>
@@ -121,7 +128,7 @@
                 </article>
 
                 <article class="destination-card" data-map-search="Labuan Bajo, Nusa Tenggara Timur">
-                    <img class="destination-image" src="assets/images/Gerbang%20K1.jpg" alt="Foto sementara Labuan Bajo" loading="lazy">
+                    <img class="destination-image" src="assets/images/gerbangK1.JPG" alt="Foto sementara Labuan Bajo" loading="lazy">
                     <div class="card-info">
                         <h4>Labuan Bajo</h4>
                         <p>NTT</p>
@@ -130,6 +137,96 @@
                 </article>
             </div>
         </section>
+        
+       <section class="live-radar-section">
+            <div class="section-header">
+                <h3>Live Radar</h3>
+            </div>
+            
+            <div class="map-container">
+                <div class="map-bg" style="background-image: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="map-overlay"></div>
+                
+                <div class="bus-pin" style="top: 45%; left: 40%;" data-id="Bus 01" data-seats="4" data-loc="Sekitar Royal Plaza" data-est="5 Mnt">
+                    <div class="bus-icon"><i class="fa-solid fa-van-shuttle"></i></div>
+                </div>
+                
+                <div class="bus-pin" style="top: 25%; left: 65%;" data-id="Bus 02" data-seats="12" data-loc="Tol Gunung Sari" data-est="15 Mnt">
+                    <div class="bus-icon" style="transform: scale(0.8); opacity: 0.8;"><i class="fa-solid fa-van-shuttle"></i></div>
+                </div>
+                
+                <div class="bus-pin" style="top: 75%; left: 25%;" data-id="Bus 03" data-seats="0" data-loc="Halte Ketintang" data-est="Tiba">
+                    <div class="bus-icon" style="transform: scale(0.7); opacity: 0.6;"><i class="fa-solid fa-van-shuttle"></i></div>
+                </div>
+                
+                <div class="bus-pin" style="top: 65%; left: 75%;" data-id="Bus 04" data-seats="2" data-loc="PTC Mall" data-est="20 Mnt">
+                    <div class="bus-icon" style="transform: scale(0.7); opacity: 0.5;"><i class="fa-solid fa-van-shuttle"></i></div>
+                </div>
+                
+                <div class="floating-badge" id="bus-info-badge">
+                    <div class="badge-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div class="badge-text">
+                        <strong id="badge-title">Pilih armada</strong>
+                        <p id="badge-desc">Ketuk ikon bus untuk melihat detail</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<section class="promo-section">
+            <div class="section-header">
+                <h3>Promo Khusus</h3>
+                <a href="#" class="see-all">See all</a>
+            </div>
+            
+            <div class="ticket-list">
+                <!-- Voucher 1 -->
+                <div class="ticket-card">
+                    <div class="ticket-left">
+                        <span class="promo-tag">🔥 Flash Promo Mahasiswa</span>
+                        <h4>Ketintang <i class="fa-solid fa-arrow-right-long" style="margin: 0 6px; color: var(--text-muted);"></i> Lidah Wetan</h4>
+                        <p class="time"><i class="fa-regular fa-clock"></i> Berangkat 10:15 WIB</p>
+                    </div>
+                    <div class="ticket-divider"></div>
+                    <div class="ticket-right">
+                        <p class="price-strike">Rp 5.000</p>
+                        <p class="price-new">Rp 2.000</p>
+                        <button class="btn-claim" type="button">Klaim</button>
+                    </div>
+                </div>
+
+                <!-- Voucher 2 -->
+                <div class="ticket-card">
+                    <div class="ticket-left">
+                        <span class="promo-tag" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">💸 Diskon UKT</span>
+                        <h4>Lidah Wetan <i class="fa-solid fa-arrow-right-long" style="margin: 0 6px; color: var(--text-muted);"></i> Ketintang</h4>
+                        <p class="time"><i class="fa-regular fa-clock"></i> Berangkat 11:30 WIB</p>
+                    </div>
+                    <div class="ticket-divider"></div>
+                    <div class="ticket-right">
+                        <p class="price-strike">Rp 5.000</p>
+                        <p class="price-new">Rp 3.000</p>
+                        <button class="btn-claim" type="button">Klaim</button>
+                    </div>
+                </div>
+
+                <!-- Voucher 3 -->
+                <div class="ticket-card">
+                    <div class="ticket-left">
+                        <span class="promo-tag" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);">✨ Special Event</span>
+                        <h4>Ketintang <i class="fa-solid fa-arrow-right-long" style="margin: 0 6px; color: var(--text-muted);"></i> Rektorat</h4>
+                        <p class="time"><i class="fa-regular fa-clock"></i> Berangkat 13:00 WIB</p>
+                    </div>
+                    <div class="ticket-divider"></div>
+                    <div class="ticket-right">
+                        <p class="price-strike">Rp 5.000</p>
+                        <p class="price-new">Gratis</p>
+                        <button class="btn-claim" type="button">Klaim</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
     <div id="bottom-nav-container"></div>
     <script src="../assets/js/navbar.js"></script>

@@ -38,9 +38,16 @@
     gap: 14px;
     margin-bottom: 16px;
     padding: 14px 18px;
-    border: 1px solid var(--border-color);
+    /* Ganti border jadi lebih tipis dan ngasih shadow halus */
+    border: 1px solid rgba(75, 106, 80, 0.08);
     border-radius: var(--radius-md);
     background: var(--bg-surface);
+    box-shadow: 0 4px 16px rgba(75, 106, 80, 0.03); 
+    transition: box-shadow 0.3s ease;
+}
+
+.starting-location:hover {
+    box-shadow: 0 8px 24px rgba(75, 106, 80, 0.06);
 }
 
 .location-symbol {
@@ -88,6 +95,13 @@
     color: var(--primary);
     cursor: pointer;
     font-size: 17px;
+    /* Tambah transisi empuk pas dipencet */
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.location-button:active,
+.search-clear:active {
+    transform: scale(0.92);
 }
 
 .location-button:hover,
@@ -145,13 +159,16 @@
     overflow: hidden;
     border-radius: var(--radius-lg);
     background: var(--bg-surface);
-    box-shadow: var(--shadow-soft);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    /* Ganti shadow bawaan jadi shadow berlapis ala iOS */
+    border: 1px solid rgba(75, 106, 80, 0.08); 
+    box-shadow: 0 12px 28px rgba(75, 106, 80, 0.04), 0 4px 10px rgba(0,0,0,0.01); 
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
 }
 
 .location-card:hover {
     transform: translateY(-3px);
-    box-shadow: var(--shadow-hover);
+    /* Efek shadow melebar pas di hover */
+    box-shadow: 0 16px 36px rgba(75, 106, 80, 0.08), 0 6px 12px rgba(0,0,0,0.03); 
 }
 
 .location-card > img {

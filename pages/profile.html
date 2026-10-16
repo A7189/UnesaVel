@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Journey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/profile.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme');
+        const isExplore = window.location.pathname.endsWith('explore.html');
+        if (savedTheme === 'dark' && !isExplore) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+</head>
+<body class="profile-page">
+    <div class="app-shell">
+        <!-- Header Profile -->
+        <section class="profile-header-section">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80" alt="Profile" class="profile-avatar-large">
+            <h1 class="profile-name">Pragaza Aji Narpati</h1>
+            <span class="profile-role">Software Developer</span>
+        </section>
+
+        <div class="section-header" style="margin-bottom: 12px; padding: 0 var(--page-gutter);">
+            <h3 style="font-size: 16px;">Akun</h3>
+        </div>
+
+        <!-- Group Akun -->
+        <div class="settings-group">
+            <a href="#" class="settings-item">
+                <div class="settings-item-left">
+                    <div class="settings-icon"><i class="fa-regular fa-user"></i></div>
+                    Edit Profil
+                </div>
+                <div class="settings-item-right"><i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+            <a href="#" class="settings-item">
+                <div class="settings-item-left">
+                    <div class="settings-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    Keamanan
+                </div>
+                <div class="settings-item-right"><i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+        </div>
+
+        <div class="section-header" style="margin-bottom: 12px; padding: 0 var(--page-gutter);">
+            <h3 style="font-size: 16px;">Preferensi</h3>
+        </div>
+
+        <!-- Group Preferensi (Termasuk Dark Mode) -->
+        <div class="settings-group">
+            <div class="settings-item">
+                <div class="settings-item-left">
+                    <div class="settings-icon" style="color: #6366f1; background: rgba(99, 102, 241, 0.1);"><i class="fa-solid fa-moon"></i></div>
+                    Dark Mode
+                </div>
+                <div class="settings-item-right">
+                    <!-- Ini Switch UI nya -->
+                    <label class="theme-switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            <a href="#" class="settings-item">
+                <div class="settings-item-left">
+                    <div class="settings-icon" style="color: #f59e0b; background: rgba(245, 158, 11, 0.1);"><i class="fa-regular fa-bell"></i></div>
+                    Notifikasi
+                </div>
+                <div class="settings-item-right"><i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+        </div>
+
+        <!-- Tombol Logout Nembak ke Login -->
+        <a href="login.html" class="btn-logout">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar Akun
+        </a>
+
+    </div>
+    <div id="bottom-nav-container"></div>
+    <script src="../assets/js/navbar.js"></script>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

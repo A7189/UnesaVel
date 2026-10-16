@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Tiket - Journey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/history.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme');
+        const isExplore = window.location.pathname.endsWith('explore.html');
+        if (savedTheme === 'dark' && !isExplore) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+</head>
+<body>
+    <div class="app-shell">
+        <header class="app-header compact-header" style="margin-bottom: 2vh;">
+            <div class="top-nav" style="margin-bottom: 0;">
+                <button class="btn-icon" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i></button>
+                <h2 class="page-title">Tiket Saya</h2>
+                <div style="width: 40px;"></div>
+            </div>
+        </header>
+
+        <section class="ticket-history-list">
+            <div class="section-header">
+                <h3>Perjalanan Mendatang</h3>
+            </div>
+
+            <a href="ticket-detail.html" class="history-card active-ticket">
+                <div class="card-glow"></div>
+                <div class="hc-header">
+                    <span class="status-badge active">Sedang Berjalan</span>
+                    <span class="hc-date">Hari ini, 10:15 WIB</span>
+                </div>
+                <div class="hc-body">
+                    <div class="route-info">
+                        <div class="route-node">
+                            <h4>Ketintang</h4>
+                            <p>Gerbang Kampus</p>
+                        </div>
+                        <div class="route-divider">
+                            <i class="fa-solid fa-van-shuttle"></i>
+                            <div class="line"></div>
+                        </div>
+                        <div class="route-node">
+                            <h4>Lidah Wetan</h4>
+                            <p>Rektorat</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hc-footer">
+                    <div class="seat-info">
+                        <i class="fa-solid fa-chair"></i> Kursi 04
+                    </div>
+                    <div class="action-text">Lihat Tiket <i class="fa-solid fa-chevron-right"></i></div>
+                </div>
+            </a>
+
+            <div class="section-header" style="margin-top: 32px;">
+                <h3>Riwayat Sebelumnya</h3>
+            </div>
+
+            <a href="ticket-detail.html" class="history-card">
+                <div class="hc-header">
+                    <span class="status-badge completed">Selesai</span>
+                    <span class="hc-date">12 Okt 2026, 15:30 WIB</span>
+                </div>
+                <div class="hc-body">
+                    <div class="route-info">
+                        <div class="route-node">
+                            <h4>Lidah Wetan</h4>
+                            <p>Fakultas Kedokteran</p>
+                        </div>
+                        <div class="route-divider">
+                            <i class="fa-solid fa-check"></i>
+                            <div class="line"></div>
+                        </div>
+                        <div class="route-node">
+                            <h4>Ketintang</h4>
+                            <p>Rumpun Informatika</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hc-footer">
+                    <div class="seat-info">
+                        <i class="fa-solid fa-chair"></i> Kursi 12
+                    </div>
+                    <div class="action-text">Detail <i class="fa-solid fa-chevron-right"></i></div>
+                </div>
+            </a>
+        </section>
+    </div>
+    <div id="bottom-nav-container"></div>
+    <script src="../assets/js/navbar.js"></script>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

@@ -12,6 +12,13 @@
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="../assets/css/navbar.css">
     <link rel="stylesheet" href="../assets/css/explore.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme');
+        const isExplore = window.location.pathname.endsWith('explore.html');
+        if (savedTheme === 'dark' && !isExplore) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 </head>
 <body>
     <main class="app-shell explore-page">
@@ -136,5 +143,6 @@
 
     <script src="../assets/js/navbar.js"></script>
     <script src="../assets/js/explore.js"></script>
+    <script src="../assets/js/script.js"></script>
 </body>
 </html>

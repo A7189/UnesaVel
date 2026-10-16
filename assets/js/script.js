@@ -58,3 +58,62 @@ document.querySelectorAll(".destination-card").forEach((card) => {
     });
   }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const busPins = document.querySelectorAll('.bus-pin');
+    const badge = document.getElementById('bus-info-badge');
+    const badgeTitle = document.getElementById('badge-title');
+    const badgeDesc = document.getElementById('badge-desc');
+
+    if (busPins.length > 0 && badge) {
+        busPins.forEach(pin => {
+            pin.addEventListener('click', (e) => {
+                e.stopPropagation();
+
+                busPins.forEach(p => p.classList.remove('active'));
+
+                pin.classList.add('active');
+
+                const id = pin.getAttribute('data-id');
+                const seats = pin.getAttribute('data-seats');
+                const loc = pin.getAttribute('data-loc');
+                const est = pin.getAttribute('data-est');
+
+                badgeTitle.textContent = `${id} (Sisa ${seats} Kursi)`;
+                badgeDesc.textContent = `Posisi: ${loc} (Est. ${est})`;
+
+                badge.classList.add('show');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.bus-pin') && !e.target.closest('.floating-badge')) {
+                busPins.forEach(p => p.classList.remove('active'));
+                badge.classList.remove('show');
+            }
+        });
+    }
+});
+
+const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+const toggleSwitch = document.getElementById('darkModeToggle');
+
+if (currentTheme) {
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    if (currentTheme === 'dark' && toggleSwitch) {
+        toggleSwitch.checked = true;
+    }
+}
+
+
+if (toggleSwitch) {
+    toggleSwitch.addEventListener('change', function(e) {
+        if (e.target.checked) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark'); // Simpan ingatan ke dark
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light'); // Simpan ingatan ke light
+        }    
+    });
+}

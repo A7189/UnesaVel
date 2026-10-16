@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Tiket - Journey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/ticket-detail.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme');
+        const isExplore = window.location.pathname.endsWith('explore.html');
+        if (savedTheme === 'dark' && !isExplore) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+</head>
+<body class="ticket-detail-page">
+    
+    <div class="ticket-bg-accent"></div>
+
+    <header class="transparent-header">
+        <div class="top-nav">
+            <button class="btn-icon" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i></button>
+            <h2 class="page-title">Boarding Pass</h2>
+            <div style="width: 40px;"></div>
+        </div>
+    </header>
+
+    <div class="ticket-wrapper">
+        
+        <!-- Boarding Pass Card -->
+        <div class="boarding-pass">
+            <div class="bp-header">
+                <div class="qr-section">
+                    <p style="font-size: 12px; color: var(--text-muted); font-weight: 600; margin-bottom: 4px;">SCAN SAAT NAIK</p>
+                    <div class="qr-placeholder">
+                        <i class="fa-solid fa-qrcode"></i>
+                    </div>
+                    <span class="ticket-id">UNS-88X2Q</span>
+                </div>
+            </div>
+
+            <div class="bp-body">
+                <div class="bp-row">
+                    <div class="bp-col">
+                        <span class="bp-label">Berangkat</span>
+                        <span class="bp-value">Ketintang</span>
+                    </div>
+                    <div class="bp-col right">
+                        <span class="bp-label">Tujuan</span>
+                        <span class="bp-value">Lidah Wetan</span>
+                    </div>
+                </div>
+
+                <div class="bp-row">
+                    <div class="bp-col">
+                        <span class="bp-label">Tanggal</span>
+                        <span class="bp-value">16 Okt 2026</span>
+                    </div>
+                    <div class="bp-col right">
+                        <span class="bp-label">Jam Keberangkatan</span>
+                        <span class="bp-value">10:15 WIB</span>
+                    </div>
+                </div>
+
+                <div class="bp-row" style="padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.05);">
+                    <div class="bp-col">
+                        <span class="bp-label">Armada</span>
+                        <span class="bp-value">Bus 01 (L 1234 XY)</span>
+                    </div>
+                    <div class="bp-col right">
+                        <span class="bp-label">Nomor Kursi</span>
+                        <span class="bp-value" style="color: var(--primary); font-size: 20px;">04</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Driver Rating Card -->
+        <div class="driver-card">
+            <div class="driver-avatar">
+                <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div class="driver-info">
+                <h4>Pak Budi</h4>
+                <p>Beri nilai pelayanan driver</p>
+            </div>
+            <div class="rating-stars" id="star-rating">
+                <i class="fa-solid fa-star" data-val="1"></i>
+                <i class="fa-solid fa-star" data-val="2"></i>
+                <i class="fa-solid fa-star" data-val="3"></i>
+                <i class="fa-solid fa-star" data-val="4"></i>
+                <i class="fa-solid fa-star" data-val="5"></i>
+            </div>
+        </div>
+
+        <!-- Action Button -->
+        <div class="action-buttons">
+            <button class="btn-download" onclick="alert('Tiket berhasil diunduh ke galeri!')">
+                <i class="fa-solid fa-download"></i> Simpan E-Ticket
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Script buat fungsi klik bintang rating -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const stars = document.querySelectorAll('.rating-stars i');
+            
+            stars.forEach(star => {
+                star.addEventListener('click', (e) => {
+                    const value = parseInt(e.target.getAttribute('data-val'));
+                    
+                    // Reset semua bintang
+                    stars.forEach(s => s.classList.remove('active'));
+                    
+                    // Nyalain bintang dari 1 sampai yang diklik
+                    for(let i = 0; i < value; i++) {
+                        stars[i].classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
