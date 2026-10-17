@@ -1,0 +1,868 @@
+
+:root {
+  --booking-primary: var(--primary, #42684b);
+  --booking-bg: var(--background, #f4f6f2);
+  --booking-surface: var(--surface, #ffffff);
+  --booking-text: var(--text, #26352a);
+  --booking-muted: var(--text-secondary, #7b857b);
+  --booking-border: var(--border, #e1e7df);
+  --booking-danger: #c34444;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--booking-bg);
+  color: var(--booking-text);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+/* ==============================
+   HALAMAN BOOKING
+============================== */
+
+.booking-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 0 20px 40px;
+  background: var(--booking-bg);
+  color: var(--booking-text);
+}
+
+/* ==============================
+   HEADER DAN BRAND
+============================== */
+
+.booking-header {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 18px 0 0;
+  gap: 0;
+}
+
+.booking-header .brand {
+  align-self: flex-start;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--booking-text);
+  text-decoration: none;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--booking-primary);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.brand-name {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* Tombol kembali tepat di bawah brand */
+
+.booking-header .booking-back-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 8px 0 0;
+  padding: 0;
+}
+
+.booking-back-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid var(--booking-border);
+  border-radius: 8px;
+  background: var(--booking-surface);
+  color: var(--booking-text);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  transition: background 0.2s, color 0.2s;
+}
+
+.booking-back-button:hover {
+  background: var(--booking-primary);
+  color: #fff;
+}
+
+.booking-back-button:focus-visible {
+  outline: 2px solid var(--booking-primary);
+  outline-offset: 3px;
+}
+
+/* ==============================
+   KONTEN DAN JUDUL
+============================== */
+
+.booking-content {
+  width: 100%;
+  max-width: 520px;
+  margin: 8px auto 0;
+}
+
+.page-heading {
+  margin-bottom: 24px;
+}
+
+.page-heading h1 {
+  margin: 0 0 7px;
+  font-size: 27px;
+  line-height: 1.25;
+  letter-spacing: -0.6px;
+}
+
+.page-heading p {
+  margin: 0;
+  color: var(--booking-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#bookingForm {
+  width: 100%;
+}
+
+/* ==============================
+   LOKASI PENJEMPUTAN DAN TUJUAN
+============================== */
+
+.route-section,
+.form-section {
+  width: 100%;
+  margin-bottom: 22px;
+  overflow: visible;
+}
+
+.route-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 12px;
+  overflow: visible;
+}
+
+.location-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 58px;
+  border: 1px solid var(--booking-border);
+  border-radius: 13px;
+  background: var(--booking-surface);
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+
+.location-input:focus-within {
+  border-color: var(--booking-primary);
+  box-shadow: 0 0 0 3px rgba(66, 104, 75, 0.10);
+}
+
+.location-dot {
+  position: absolute;
+  left: 15px;
+  z-index: 1;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--booking-primary);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.pickup-dot {
+  background: var(--booking-primary);
+}
+
+.destination-dot {
+  background: var(--booking-surface);
+}
+
+.search-location input[type="text"] {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 56px;
+  padding: 12px 78px 12px 38px;
+  border: none;
+  outline: none;
+  border-radius: inherit;
+  background: transparent;
+  color: var(--booking-text);
+  font-size: 14px;
+}
+
+.search-location input[type="text"]::placeholder {
+  color: var(--booking-muted);
+  opacity: 1;
+}
+
+.clear-location {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  transform: translateY(-50%);
+  border: none;
+  border-radius: 50%;
+  background: var(--booking-bg);
+  color: var(--booking-muted);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.clear-location:hover {
+  background: var(--booking-border);
+  color: var(--booking-text);
+}
+
+.clear-location[hidden] {
+  display: none;
+}
+
+.swap-button {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  transform: translateY(-50%);
+  border: 1px solid var(--booking-border);
+  border-radius: 50%;
+  background: var(--booking-surface);
+  color: var(--booking-primary);
+  font-size: 21px;
+  line-height: 1;
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.10);
+  transition: background 0.18s, transform 0.18s;
+}
+
+.swap-button:hover {
+  background: var(--booking-bg);
+}
+
+.swap-button:active {
+  transform: translateY(-50%) scale(0.94);
+}
+
+/* ==============================
+   DROPDOWN LOKASI
+============================== */
+
+.location-options {
+  position: absolute;
+  top: calc(100% + 7px);
+  right: 0;
+  left: 0;
+  z-index: 30;
+  display: none;
+  max-height: 270px;
+  padding: 7px;
+  overflow-y: auto;
+  border: 1px solid var(--booking-border);
+  border-radius: 14px;
+  background: var(--booking-surface);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+}
+
+.location-options.show {
+  display: block;
+}
+
+.location-option {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--booking-text);
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.location-option + .location-option {
+  margin-top: 3px;
+}
+
+.location-option:hover,
+.location-option:focus-visible {
+  outline: none;
+  background: var(--booking-bg);
+}
+
+.location-option-name {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.location-option-campus {
+  color: var(--booking-muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.location-not-found {
+  padding: 14px 12px;
+  color: var(--booking-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ==============================
+   PESAN ERROR
+============================== */
+
+.form-error {
+  margin: 7px 0 0;
+  color: var(--booking-danger);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.form-error:empty {
+  display: none;
+}
+
+/* ==============================
+   TANGGAL DAN JAM
+============================== */
+
+.date-time-section {
+  padding-top: 2px;
+}
+
+.date-time-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.input-box,
+.time-picker-group {
+  width: 100%;
+  min-width: 0;
+}
+
+.input-box label,
+.time-picker-group > .form-label,
+.passenger-label {
+  display: block;
+  margin: 0 0 9px;
+  color: var(--booking-text);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Input tanggal */
+
+.input-box input[type="date"] {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 48px;
+  min-height: 48px;
+  padding: 11px 12px;
+  border: 1px solid var(--booking-border);
+  border-radius: 10px;
+  outline: none;
+  background: var(--booking-surface);
+  color: var(--booking-text);
+  font-size: 14px;
+}
+
+.input-box input[type="date"]:focus {
+  border-color: var(--booking-primary);
+  box-shadow: 0 0 0 3px rgba(66, 104, 75, 0.10);
+}
+
+/* ==============================
+   TIME PICKER
+============================== */
+
+.time-picker-group {
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+}
+
+.time-picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3px;
+  width: 100%;
+  height: 48px;
+  min-height: 48px;
+  margin: 0;
+  padding: 3px 7px;
+  overflow: hidden;
+  border: 1px solid var(--booking-border);
+  border-radius: 10px;
+  background: var(--booking-surface);
+  color: var(--booking-text);
+}
+
+.time-picker:focus-within {
+  border-color: var(--booking-primary);
+  box-shadow: 0 0 0 3px rgba(66, 104, 75, 0.10);
+}
+
+.time-picker-column {
+  display: grid;
+  grid-template-columns: 18px minmax(25px, 1fr) 18px;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.time-picker-label {
+  display: none;
+}
+
+.time-picker-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--booking-muted);
+  font-size: 9px;
+  line-height: 1;
+}
+
+.time-picker-arrow:hover {
+  background: var(--booking-bg);
+  color: var(--booking-primary);
+}
+
+.time-picker-arrow:active {
+  transform: scale(0.92);
+}
+
+.time-picker-arrow:focus-visible {
+  outline: 2px solid var(--booking-primary);
+  outline-offset: 1px;
+}
+
+/* Input jam dan menit yang bisa diketik */
+
+.time-picker-value {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 30px;
+  margin: 0;
+  padding: 0 1px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  background: var(--booking-bg);
+  color: var(--booking-text);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 30px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  user-select: text;
+  cursor: text;
+}
+
+.time-picker-value:focus {
+  outline: 1px solid var(--booking-primary);
+  background: var(--booking-surface);
+}
+
+.time-picker-value::-webkit-inner-spin-button,
+.time-picker-value::-webkit-outer-spin-button {
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.time-picker-colon {
+  flex-shrink: 0;
+  color: var(--booking-text);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.time-picker-zone {
+  flex-shrink: 0;
+  color: var(--booking-muted);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.time-picker-group .form-hint {
+  display: block;
+  margin-top: 5px;
+  color: var(--booking-muted);
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+/* ==============================
+   JUMLAH PENUMPANG
+============================== */
+
+.passenger-section {
+  margin-top: 4px;
+}
+
+.passenger-label {
+  margin-bottom: 10px;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: fit-content;
+  min-height: 42px;
+}
+
+.counter button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border: 1px solid var(--booking-border);
+  border-radius: 10px;
+  background: var(--booking-surface);
+  color: var(--booking-primary);
+  font-size: 22px;
+  line-height: 1;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.counter button:hover:not(:disabled) {
+  background: var(--booking-bg);
+}
+
+.counter button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.counter input {
+  width: 55px;
+  height: 38px;
+  padding: 5px;
+  border: 1px solid var(--booking-border);
+  border-radius: 9px;
+  outline: none;
+  background: var(--booking-surface);
+  color: var(--booking-text);
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.counter input:focus {
+  border-color: var(--booking-primary);
+}
+
+.counter input::-webkit-inner-spin-button,
+.counter input::-webkit-outer-spin-button {
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.passenger-note {
+  margin: 5px 0 0;
+  color: var(--booking-muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* ==============================
+   TOMBOL CARI BUS
+============================== */
+
+.search-button {
+  display: block;
+  width: 100%;
+  min-height: 51px;
+  margin-top: 23px;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 12px;
+  background: var(--booking-primary);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  transition: filter 0.18s, transform 0.18s;
+}
+
+.search-button:hover {
+  filter: brightness(0.94);
+}
+
+.search-button:active {
+  transform: scale(0.99);
+}
+
+.search-button:focus-visible,
+.swap-button:focus-visible,
+.clear-location:focus-visible,
+.counter button:focus-visible {
+  outline: 2px solid var(--booking-primary);
+  outline-offset: 3px;
+}
+
+/* ==============================
+   DARK MODE
+   Mengikuti atribut data-theme="dark"
+============================== */
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+html[data-theme="dark"] body {
+  --booking-bg: var(--background, #141914);
+  --booking-surface: var(--surface, #202720);
+  --booking-text: var(--text, #edf3ed);
+  --booking-muted: var(--text-secondary, #a1ada1);
+  --booking-border: var(--border, #394239);
+  --booking-primary: var(--primary, #79a982);
+  --booking-danger: #ff8b8b;
+
+  background: var(--booking-bg);
+  color: var(--booking-text);
+}
+
+html[data-theme="dark"] .booking-page {
+  background: var(--booking-bg);
+  color: var(--booking-text);
+}
+
+html[data-theme="dark"] .booking-header,
+html[data-theme="dark"] .booking-content {
+  color: var(--booking-text);
+}
+
+html[data-theme="dark"] .location-input,
+html[data-theme="dark"] .location-options,
+html[data-theme="dark"] .input-box input[type="date"],
+html[data-theme="dark"] .time-picker,
+html[data-theme="dark"] .counter button,
+html[data-theme="dark"] .counter input,
+html[data-theme="dark"] .booking-back-button {
+  background: var(--booking-surface);
+  color: var(--booking-text);
+  border-color: var(--booking-border);
+}
+
+html[data-theme="dark"] .search-location input[type="text"],
+html[data-theme="dark"] .time-picker-value {
+  background: transparent;
+  color: var(--booking-text);
+}
+
+html[data-theme="dark"] .time-picker-value:focus {
+  background: var(--booking-bg);
+}
+
+html[data-theme="dark"] .location-option {
+  color: var(--booking-text);
+}
+
+html[data-theme="dark"] .location-option:hover,
+html[data-theme="dark"] .location-option:focus-visible,
+html[data-theme="dark"] .time-picker-arrow:hover,
+html[data-theme="dark"] .counter button:hover:not(:disabled) {
+  background: var(--booking-bg);
+}
+
+html[data-theme="dark"] .time-picker-arrow,
+html[data-theme="dark"] .time-picker-zone,
+html[data-theme="dark"] .time-picker-colon,
+html[data-theme="dark"] .form-hint,
+html[data-theme="dark"] .passenger-note,
+html[data-theme="dark"] .location-option-campus {
+  color: var(--booking-muted);
+}
+
+html[data-theme="dark"] .swap-button {
+  background: var(--booking-surface);
+  color: var(--booking-primary);
+  border-color: var(--booking-border);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+}
+
+html[data-theme="dark"] .booking-back-button:hover {
+  background: var(--booking-primary);
+  color: #121715;
+}
+
+html[data-theme="dark"] input::placeholder {
+  color: var(--booking-muted);
+  opacity: 1;
+}
+
+/* ==============================
+   RESPONSIVE: TABLET DAN HP
+============================== */
+
+@media (max-width: 420px) {
+  .booking-page {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .booking-header {
+    padding-top: 17px;
+  }
+
+  .booking-content {
+    margin-top: 8px;
+  }
+
+  .page-heading h1 {
+    font-size: 24px;
+  }
+
+  .date-time-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    gap: 10px;
+  }
+
+  .input-box input[type="date"] {
+    padding-right: 5px;
+    padding-left: 7px;
+    font-size: 12px;
+  }
+
+  .time-picker {
+    gap: 2px;
+    padding-right: 4px;
+    padding-left: 4px;
+  }
+
+  .time-picker-column {
+    grid-template-columns: 14px minmax(21px, 1fr) 14px;
+    gap: 1px;
+  }
+
+  .time-picker-arrow {
+    width: 14px;
+    font-size: 8px;
+  }
+
+  .time-picker-value {
+    font-size: 13px;
+  }
+
+  .time-picker-zone {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 350px) {
+  .date-time-grid {
+    gap: 7px;
+  }
+
+  .time-picker {
+    padding-right: 3px;
+    padding-left: 3px;
+  }
+
+  .time-picker-column {
+    grid-template-columns: 12px minmax(19px, 1fr) 12px;
+  }
+
+  .time-picker-arrow {
+    width: 12px;
+    font-size: 7px;
+  }
+
+  .time-picker-value {
+    font-size: 12px;
+  }
+
+  .time-picker-zone {
+    font-size: 7px;
+  }
+}
+
+/* Kurangi animasi jika diminta oleh pengaturan perangkat */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pemesanan Tiket | Unesa Vel</title>
+
+
+    <script>
+        const savedTheme = localStorage.getItem('theme');
+
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+    </script>
+
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/booking.css">
+
+</head>
+
+<body>
+    <main class="booking-page">
+
+        <header class="booking-header">
+            <a href="../index.html" class="brand" aria-label="Unesa Vel - Beranda">
+                <span class="brand-logo">UV</span>
+                <span class="brand-name">UnesaVel</span>
+            </a>
+            <div class="booking-back-wrapper">
+            <a href="explore.html" class="booking-back-button">
+                <span aria-hidden="true">←</span>
+                Kembali ke Explore
+            </a>
+        </div>
+        </header>
+
+        <section class="booking-content">
+            <div class="page-heading">
+                <h1>Pesan Tiket</h1>
+                <p>Perjalanan antarkampus UNESA jadi lebih mudah.</p>
+            </div>
+
+            <form id="bookingForm" novalidate>
+                <!-- Lokasi penjemputan dan tujuan -->
+                <section class="route-section" aria-label="Pilih rute">
+                    <div class="route-box">
+                        <div class="location-input search-location">
+                            <span class="location-dot pickup-dot" aria-hidden="true"></span>
+
+                            <input type="text" id="pickupSearch" placeholder="Pilih titik penjemputan"
+                                autocomplete="off" role="combobox" aria-expanded="false" aria-controls="pickupOptions"
+                                aria-autocomplete="list">
+
+                            <input type="hidden" id="pickup" name="pickup">
+
+                            <button type="button" class="clear-location" id="clearPickup"
+                                aria-label="Hapus titik penjemputan" title="Hapus pilihan" hidden>×</button>
+
+                            <div class="location-options" id="pickupOptions" role="listbox"></div>
+                        </div>
+
+                        <div class="location-input search-location">
+                            <span class="location-dot destination-dot" aria-hidden="true"></span>
+
+                            <input type="text" id="destinationSearch" placeholder="Pilih titik tujuan"
+                                autocomplete="off" role="combobox" aria-expanded="false"
+                                aria-controls="destinationOptions" aria-autocomplete="list">
+
+                            <input type="hidden" id="destination" name="destination">
+
+                            <button type="button" class="clear-location" id="clearDestination"
+                                aria-label="Hapus titik tujuan" title="Hapus pilihan" hidden>×</button>
+
+                            <div class="location-options" id="destinationOptions" role="listbox"></div>
+                        </div>
+
+                        <button type="button" id="swapRoute" class="swap-button"
+                            aria-label="Tukar titik penjemputan dan tujuan" title="Tukar lokasi">⇅</button>
+                    </div>
+
+                    <p id="routeError" class="form-error" role="alert"></p>
+                </section>
+
+                <!-- Tanggal dan jam keberangkatan -->
+                <section class="form-section date-time-section">
+                    <div class="date-time-grid">
+
+                        <div class="input-box">
+                            <label for="travelDate">Waktu keberangkatan</label>
+                            <input type="date" id="travelDate" name="travelDate" required>
+                        </div>
+
+                        <div class="form-group time-picker-group">
+                            <label class="form-label" for="hourValue">
+                                Jam keberangkatan
+                            </label>
+
+                            <div class="time-picker" id="timePicker">
+
+                                <!-- Input jam -->
+                                <div class="time-picker-column">
+                                    <span class="time-picker-label">JAM</span>
+
+                                    <button type="button" class="time-picker-arrow" id="hourUp"
+                                        aria-label="Tambah jam">▲</button>
+
+                                    <input type="text" class="time-picker-value" id="hourValue" value="08" maxlength="2"
+                                        inputmode="numeric" pattern="[0-9]{1,2}" autocomplete="off"
+                                        aria-label="Jam keberangkatan">
+
+                                    <button type="button" class="time-picker-arrow" id="hourDown"
+                                        aria-label="Kurangi jam">▼</button>
+                                </div>
+
+                                <span class="time-picker-colon">:</span>
+
+                                <!-- Input menit -->
+                                <div class="time-picker-column">
+                                    <span class="time-picker-label">MENIT</span>
+
+                                    <button type="button" class="time-picker-arrow" id="minuteUp"
+                                        aria-label="Tambah menit">▲</button>
+
+                                    <input type="text" class="time-picker-value" id="minuteValue" value="30"
+                                        maxlength="2" inputmode="numeric" pattern="[0-9]{1,2}" autocomplete="off"
+                                        aria-label="Menit keberangkatan">
+
+                                    <button type="button" class="time-picker-arrow" id="minuteDown"
+                                        aria-label="Kurangi menit">▼</button>
+                                </div>
+
+                                <span class="time-picker-zone">WIB</span>
+                            </div>
+
+                            <!-- Waktu yang disimpan untuk pemesanan -->
+                            <input type="hidden" id="travelTime" name="travelTime" value="08:30">
+
+                            <small class="form-hint">
+                                Ketik langsung atau gunakan tombol panah.
+                                Jam 06–21 dan menit 01–60.
+                            </small>
+                        </div>
+                    </div>
+
+                    <p id="dateTimeError" class="form-error" role="alert"></p>
+                </section>
+
+                <!-- Jumlah penumpang -->
+                <section class="form-section passenger-section">
+                    <label class="passenger-label" for="passengerCount">
+                        Jumlah penumpang
+                    </label>
+
+                    <div class="counter">
+                        <button type="button" id="decreasePassenger" aria-label="Kurangi penumpang">−</button>
+
+                        <input type="number" id="passengerCount" name="passengerCount" value="1" min="1" max="4"
+                            step="1" required aria-label="Jumlah penumpang">
+
+                        <button type="button" id="increasePassenger" aria-label="Tambah penumpang">+</button>
+                    </div>
+
+                    <p class="passenger-note">
+                        Maksimal 4 penumpang per pemesanan.
+                    </p>
+
+                    <p id="passengerError" class="form-error" role="alert"></p>
+                </section>
+
+                <button type="submit" class="search-button">
+                    Cari Bus
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <script src="../assets/js/booking.js"></script>
+</body>
+
+</html>

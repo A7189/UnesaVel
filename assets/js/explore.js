@@ -70,3 +70,49 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  // ID tujuan yang sesuai dengan array lokasi di booking.js.
+  const exploreDestinations = {
+    "Gerbang Utama UNESA": "gerbang-utama-unesa",
+    "Rumpun Informatika": "rumpun-informatika",
+    "Gedung Rektorat": "gedung-rektorat",
+    "Perpustakaan UNESA": "perpustakaan-unesa",
+    "Rumpun Kedokteran": "rumpun-kedokteran",
+    "Danau UNESA": "danau-unesa"
+  };
+
+  const locationCards = document.querySelectorAll(".location-card");
+
+  locationCards.forEach((card) => {
+    const title = card.querySelector("h3");
+    const image = card.querySelector("img");
+
+    if (!title) return;
+
+    const locationName = title.textContent.trim();
+    const destinationId = exploreDestinations[locationName];
+
+    // Lewati kartu yang tidak ada dalam daftar tujuan.
+    if (!destinationId) return;
+
+    function openBooking(event) {
+      // Jangan mengganggu tautan Lihat Peta atau tombol di kartu.
+      if (event.target.closest(".map-link, button, a")) return;
+
+      window.location.href =
+        `booking.html?destination=${encodeURIComponent(destinationId)}`;
+    }
+
+    // Gambar bisa diklik.
+    if (image) {
+      image.style.cursor = "pointer";
+      image.addEventListener("click", openBooking);
+    }
+
+    // Judul lokasi bisa diklik.
+    title.style.cursor = "pointer";
+    title.addEventListener("click", openBooking);
+    title.title = "Klik untuk memesan tiket ke lokasi ini";
+  });
+});
