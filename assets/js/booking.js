@@ -11,10 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: "perpustakaan-unesa", name: "Perpustakaan UNESA", campus: "Kampus 1 - Ketintang" },
         { id: "rumpun-kedokteran", name: "Rumpun Kedokteran", campus: "Kampus 2 - Lidah Wetan" },
         { id: "danau-unesa", name: "Danau UNESA", campus: "Kampus 2 - Lidah Wetan" },
+        { id: "fh", name: "Fakultas Hukum", campus: "Kampus 1 - Ketintang" },
         { id: "ft", name: "Fakultas Teknik", campus: "Kampus 1 - Ketintang" },
+        { id: "fmipa", name: "Fakultas Matematika dan Ilmu Pengetahuan Alam", campus: "Kampus 1 - Ketintang" },
+        { id: "fv", name: "Fakultas Vokasi", campus: "Kampus 1 - Ketintang" },
         { id: "feb", name: "Fakultas Ekonomika dan Bisnis", campus: "Kampus 1 - Ketintang" },
-        { id: "fisipol", name: "Fakultas Ilmu Sosial dan Ilmu Politik", campus: "Kampus 1 - Ketintang" },
-        { id: "fbs", name: "Fakultas Bahasa dan Seni", campus: "Kampus 1 - Ketintang" },
+        { id: "fisipol", name: "Fakultas Ilmu Sosial dan Politik", campus: "Kampus 1 - Ketintang" },
+        { id: "fk", name: "Fakultas Kedokteran", campus: "Kampus 2 - Lidah Wetan" },
+        { id: "fbs", name: "Fakultas Bahasa dan Seni", campus: "Kampus 2 - Lidah  Wetan" },
         { id: "fip", name: "Fakultas Ilmu Pendidikan", campus: "Kampus 2 - Lidah Wetan" },
         { id: "fikk", name: "Fakultas Ilmu Keolahragaan dan Kesehatan", campus: "Kampus 2 - Lidah Wetan" },
         { id: "psikologi", name: "Fakultas Psikologi", campus: "Kampus 2 - Lidah Wetan" }
@@ -134,13 +138,13 @@ document.addEventListener("DOMContentLoaded", () => {
     function isValidHour(value) {
         return /^\d{1,2}$/.test(value) &&
             Number(value) >= 6 &&
-            Number(value) <= 21;
+            Number(value) <= 19;
     }
 
     function isValidMinute(value) {
         return /^\d{1,2}$/.test(value) &&
             Number(value) >= 1 &&
-            Number(value) <= 60;
+            Number(value) <= 59;
     }
 
     // Baca nilai dari INPUT, bukan textContent.
@@ -183,10 +187,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         selectedHour += step;
 
-        if (selectedHour > 21) {
+        if (selectedHour > 19) {
             selectedHour = 6;
         } else if (selectedHour < 6) {
-            selectedHour = 21;
+            selectedHour = 19;
         }
 
         updateTravelTime();
@@ -202,10 +206,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         selectedMinute += step;
 
-        if (selectedMinute > 60) {
-            selectedMinute = 1;
-        } else if (selectedMinute < 1) {
-            selectedMinute = 60;
+        if (selectedMinute > 59) {
+            selectedMinute = 0;
+        } else if (selectedMinute < 0) {
+            selectedMinute = 59;
         }
 
         updateTravelTime();
@@ -695,33 +699,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Data pemesanan untuk halaman pemilihan bus.
         const bookingData = {
-            pickup: pickupFaculty.id,
-            pickupName: pickupFaculty.name,
+            pickup: pickupFaculty.name,
+            pickupId: pickupFaculty.id,
             pickupCampus: pickupFaculty.campus,
 
-            destination: destinationFaculty.id,
-            destinationName: destinationFaculty.name,
+            destination: destinationFaculty.name,
+            destinationId: destinationFaculty.id,
             destinationCampus: destinationFaculty.campus,
 
-            travelDate: travelDate.value,
-            travelTime: selectedTime,
-            passengers: passengers,
-
-            createdAt: new Date().toISOString()
+            date: travelDate.value,
+            time: selectedTime,
+            passengers: passengers
         };
 
-        try {
-            localStorage.setItem(
-                "unesaVelBooking",
-                JSON.stringify(bookingData)
-            );
+        localStorage.setItem(
+            "unesavelBooking",
+            JSON.stringify(bookingData)
+        );
 
-            window.location.href = "bus-selection.html";
-        } catch (error) {
-            console.error("Gagal menyimpan data pemesanan:", error);
-
-            routeError.textContent =
-                "Data pemesanan gagal disimpan. Periksa pengaturan browser lalu coba lagi.";
-        }
+        window.location.href = "bus-selection.html";
     });
 });

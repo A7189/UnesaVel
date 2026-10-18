@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Bus | UnesaVel</title>
+
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/bus-selection.css">
+
+    <script>
+        // Mengikuti tema yang tersimpan dari halaman sebelumnya
+        if (localStorage.getItem("theme") === "dark") {
+            document.documentElement.setAttribute("data-theme", "dark");
+        }
+    </script>
+
+    <script src="../assets/js/bus-selection.js" defer></script>
+</head>
+
+<body>
+    <main class="selection-page">
+
+        <!-- HEADER -->
+        <header class="selection-header">
+            <a href="booking.html" class="back-button" aria-label="Kembali">
+                <span class="back-arrow">←</span>
+            </a>
+
+            <div class="header-route">
+                <span id="header-pickup">Ketintang</span>
+                <span class="header-route-arrow">→</span>
+                <span id="header-destination">Lidah Wetan</span>
+            </div>
+
+            <div class="header-spacer"></div>
+        </header>
+
+        <!-- INFORMASI PERJALANAN -->
+        <section class="trip-summary">
+            <div class="trip-summary-icon">🚌</div>
+
+            <div class="trip-summary-text">
+                <h1>Pilih Bus</h1>
+                <p id="trip-description">
+                    Temukan bus yang sesuai dengan perjalananmu.
+                </p>
+            </div>
+        </section>
+
+        <!-- PILIH TANGGAL -->
+        <section class="date-section">
+            <div class="section-heading">
+                <div>
+                    <h2>Tanggal keberangkatan</h2>
+                    <p>Pilih tanggal perjalananmu</p>
+                </div>
+            </div>
+
+            <div class="date-scroller" id="date-scroller">
+                <!-- Diisi otomatis oleh JavaScript -->
+            </div>
+        </section>
+
+        <!-- FILTER INFORMASI -->
+        <section class="filter-summary">
+            <div class="filter-item">
+                <span class="filter-label">Penjemputan</span>
+                <strong id="summary-pickup">Ketintang</strong>
+            </div>
+
+            <div class="filter-divider"></div>
+
+            <div class="filter-item">
+                <span class="filter-label">Tujuan</span>
+                <strong id="summary-destination">Lidah Wetan</strong>
+            </div>
+
+            <div class="filter-divider"></div>
+
+            <div class="filter-item">
+                <span class="filter-label">Penumpang</span>
+                <strong id="summary-passengers">1 orang</strong>
+            </div>
+        </section>
+
+        <!-- HASIL PENCARIAN -->
+        <section class="bus-results">
+            <div class="results-heading">
+                <div>
+                    <h2>Bus tersedia</h2>
+                    <p id="results-description">
+                        Pilih bus sesuai jadwal keberangkatan.
+                    </p>
+                </div>
+
+                <span class="results-count" id="results-count">0 bus</span>
+            </div>
+
+            <div class="bus-list" id="bus-list">
+                <!-- Kartu bus dibuat oleh JavaScript -->
+            </div>
+
+            <div class="empty-state" id="empty-state" hidden>
+                <div class="empty-icon">🚌</div>
+                <h3>Bus tidak ditemukan</h3>
+                <p>
+                    Belum ada bus yang sesuai dengan rute dan jadwal pilihanmu.
+                    Coba pilih tanggal atau waktu lainnya.
+                </p>
+            </div>
+        </section>
+
+        <!-- CATATAN -->
+        <footer class="selection-footer">
+            <span class="footer-info-icon">ⓘ</span>
+            <p>
+                Jadwal, ketersediaan kursi, dan harga pada halaman ini
+                merupakan data simulasi untuk demonstrasi proyek.
+            </p>
+        </footer>
+    </main>
+
+    <!-- MODAL DETAIL BUS -->
+    <div class="modal-overlay" id="bus-modal" hidden>
+        <section
+            class="bus-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+        >
+            <button
+                class="modal-close"
+                id="modal-close"
+                type="button"
+                aria-label="Tutup detail"
+            >×</button>
+
+            <div class="modal-bus-icon">🚌</div>
+
+            <p class="modal-eyebrow">INFORMASI KENDARAAN</p>
+            <h2 id="modal-title">BUS 01</h2>
+            <p class="modal-plate" id="modal-plate">L 1357 TI</p>
+
+            <div class="modal-status" id="modal-status">
+                Tersedia
+            </div>
+
+            <div class="modal-detail-list">
+                <div class="modal-detail-row">
+                    <span>Tanggal</span>
+                    <strong id="modal-date">-</strong>
+                </div>
+
+                <div class="modal-detail-row">
+                    <span>Titik penjemputan</span>
+                    <strong id="modal-pickup">-</strong>
+                </div>
+
+                <div class="modal-detail-row">
+                    <span>Titik tujuan</span>
+                    <strong id="modal-destination">-</strong>
+                </div>
+
+                <div class="modal-detail-row">
+                    <span>Estimasi perjalanan</span>
+                    <strong id="modal-duration">30 menit</strong>
+                </div>
+
+                <div class="modal-detail-row">
+                    <span>Kursi terisi</span>
+                    <strong id="modal-seats">9/20</strong>
+                </div>
+            </div>
+
+            <div class="modal-price">
+                <div>
+                    <span>Harga per orang</span>
+                    <strong id="modal-price">Rp5.000</strong>
+                </div>
+
+                <button id="modal-select-button" type="button">
+                    Pilih bus ini
+                </button>
+            </div>
+
+            <p class="modal-notice" id="modal-notice" hidden></p>
+        </section>
+    </div>
+</body>
+</html>

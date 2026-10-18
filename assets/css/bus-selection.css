@@ -1,0 +1,944 @@
+/* ========================================
+   BUS SELECTION - UNESAVEL
+======================================== */
+
+:root {
+    --bs-primary: var(--primary, #2563eb);
+    --bs-text: var(--text-primary, #172033);
+    --bs-muted: var(--text-secondary, #718096);
+    --bs-bg: var(--background, #f5f7fb);
+    --bs-card: var(--surface, #ffffff);
+    --bs-border: var(--border, #e5eaf2);
+    --bs-green: #16a34a;
+    --bs-red: #dc2626;
+    --bs-shadow: 0 8px 28px rgba(26, 45, 80, 0.06);
+}
+
+html[data-theme="dark"] {
+    --bs-primary: var(--primary, #60a5fa);
+    --bs-text: var(--text-primary, #f1f5f9);
+    --bs-muted: var(--text-secondary, #a0aec0);
+    --bs-bg: var(--background, #111827);
+    --bs-card: var(--surface, #1f2937);
+    --bs-border: var(--border, #374151);
+    --bs-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+body {
+    margin: 0;
+    background: var(--bs-bg);
+    color: var(--bs-text);
+    font-family: "Segoe UI", Arial, sans-serif;
+    line-height: 1.5;
+}
+
+button,
+a {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.selection-page {
+    width: min(100% - 40px, 900px);
+    margin: 0 auto;
+    padding: 24px 0 40px;
+}
+
+/* HEADER */
+
+.selection-header {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.back-button {
+    display: flex;
+    width: 42px;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--bs-border);
+    border-radius: 14px;
+    background: var(--bs-card);
+    transition: background 0.2s, transform 0.2s;
+}
+
+.back-button:hover {
+    background: var(--bs-bg);
+    transform: translateX(-2px);
+}
+
+.back-arrow {
+    font-size: 25px;
+    line-height: 1;
+}
+
+.header-route {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    font-size: 15px;
+    font-weight: 750;
+    text-align: center;
+}
+
+.header-route span:not(.header-route-arrow) {
+    overflow-wrap: anywhere;
+}
+
+.header-route-arrow {
+    color: var(--bs-primary);
+    font-size: 21px;
+    flex-shrink: 0;
+}
+
+.header-spacer {
+    width: 44px;
+}
+
+/* JUDUL HALAMAN */
+
+.trip-summary {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.trip-summary-icon {
+    display: grid;
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--bs-primary) 12%, transparent);
+    font-size: 28px;
+}
+
+.trip-summary-text h1 {
+    margin: 0 0 4px;
+    font-size: clamp(25px, 4vw, 32px);
+    font-weight: 850;
+    letter-spacing: -0.8px;
+}
+
+.trip-summary-text p {
+    margin: 0;
+    color: var(--bs-muted);
+    font-size: 14px;
+}
+
+/* JUDUL BAGIAN */
+
+.section-heading,
+.results-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.section-heading h2,
+.results-heading h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.section-heading p,
+.results-heading p {
+    margin: 4px 0 0;
+    color: var(--bs-muted);
+    font-size: 13px;
+}
+
+.date-section {
+    margin-bottom: 24px;
+}
+
+/* PEMILIH TANGGAL */
+
+.date-scroller {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    padding: 2px 1px 10px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--bs-border) transparent;
+}
+
+.date-option {
+    display: flex;
+    min-width: 76px;
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 13px 12px;
+    border: 1px solid var(--bs-border);
+    border-radius: 16px;
+    background: var(--bs-card);
+    color: var(--bs-text);
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.date-option:hover {
+    border-color: var(--bs-primary);
+}
+
+.date-option.active {
+    border-color: var(--bs-primary);
+    background: var(--bs-primary);
+    color: #ffffff;
+}
+
+.date-day {
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0.85;
+}
+
+.date-number {
+    font-size: 22px;
+    font-weight: 850;
+    line-height: 1.3;
+}
+
+.date-month {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* RINGKASAN RUTE */
+
+.filter-summary {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 32px;
+    padding: 19px 22px;
+    border: 1px solid var(--bs-border);
+    border-radius: 18px;
+    background: var(--bs-card);
+}
+
+.filter-item {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.filter-label {
+    color: var(--bs-muted);
+    font-size: 12px;
+}
+
+.filter-item strong {
+    overflow-wrap: anywhere;
+    font-size: 14px;
+    font-weight: 750;
+}
+
+.filter-divider {
+    width: 1px;
+    height: 36px;
+    flex-shrink: 0;
+    background: var(--bs-border);
+}
+
+/* DAFTAR BUS */
+
+.bus-results {
+    margin-bottom: 30px;
+}
+
+.results-heading {
+    margin-bottom: 17px;
+}
+
+.results-count {
+    flex-shrink: 0;
+    padding: 6px 11px;
+    border-radius: 20px;
+    background: color-mix(in srgb, var(--bs-primary) 12%, transparent);
+    color: var(--bs-primary);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.bus-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* KARTU BUS */
+
+.bus-card {
+    overflow: hidden;
+    border: 1px solid var(--bs-border);
+    border-radius: 20px;
+    background: var(--bs-card);
+    box-shadow: var(--bs-shadow);
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.bus-card:hover {
+    border-color: color-mix(in srgb, var(--bs-primary) 45%, var(--bs-border));
+}
+
+.bus-card-main {
+    padding: 22px;
+}
+
+.bus-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--bs-border);
+}
+
+.bus-identity {
+    min-width: 0;
+}
+
+.bus-card-title {
+    margin: 0;
+    font-size: clamp(25px, 4vw, 30px);
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -0.8px;
+    overflow-wrap: anywhere;
+}
+
+.bus-plate {
+    display: inline-block;
+    margin-top: 7px;
+    padding: 4px 9px;
+    border: 1px solid var(--bs-border);
+    border-radius: 7px;
+    color: var(--bs-muted);
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: 0.5px;
+}
+
+.bus-status-wrap {
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 7px;
+    text-align: right;
+}
+
+.bus-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: color-mix(in srgb, var(--bs-green) 12%, transparent);
+    color: var(--bs-green);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.bus-status::before {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    content: "";
+}
+
+.bus-status.unavailable {
+    background: color-mix(in srgb, var(--bs-red) 12%, transparent);
+    color: var(--bs-red);
+}
+
+.seat-count {
+    color: var(--bs-muted);
+    font-size: 12px;
+    font-weight: 650;
+}
+
+/* AREA RUTE BUS */
+
+.bus-card-middle {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 20px;
+    padding: 22px 0 20px;
+}
+
+.bus-route {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 24px;
+    padding: 5px 0;
+}
+
+.route-item {
+    display: flex;
+    min-height: 42px;
+    align-items: stretch;
+    gap: 14px;
+}
+
+.route-marker {
+    position: relative;
+    display: flex;
+    width: 20px;
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: center;
+}
+
+.route-icon {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    place-items: center;
+    border: 2px solid var(--bs-card);
+    border-radius: 50%;
+    background: var(--bs-card);
+    font-size: 18px;
+    line-height: 1;
+}
+
+.pickup-icon {
+    color: var(--bs-primary);
+}
+
+.destination-icon {
+    color: var(--bs-green);
+}
+
+.route-line {
+    position: absolute;
+    top: 21px;
+    bottom: -32px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 2px dashed var(--bs-border);
+}
+
+.route-details {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.route-time-location {
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.route-details small {
+    color: var(--bs-muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* HARGA */
+
+.bus-price {
+    display: flex;
+    min-width: 100px;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    text-align: right;
+}
+
+.bus-price-label {
+    color: var(--bs-muted);
+    font-size: 12px;
+}
+
+.bus-price-value {
+    color: var(--bs-primary);
+    font-size: clamp(18px, 3vw, 22px);
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.bus-price-unit {
+    color: var(--bs-muted);
+    font-size: 11px;
+}
+
+/* BAGIAN BAWAH KARTU */
+
+.bus-card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding-top: 17px;
+    border-top: 1px solid var(--bs-border);
+}
+
+.bus-duration {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--bs-muted);
+    font-size: 12px;
+}
+
+.duration-icon {
+    font-size: 15px;
+}
+
+.detail-button {
+    display: inline-flex;
+    min-width: 125px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 17px;
+    border: 0;
+    border-radius: 11px;
+    background: var(--bs-primary);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.detail-button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.detail-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    transform: none;
+}
+
+/* BUS KOSONG */
+
+.empty-state {
+    padding: 44px 24px;
+    border: 1px dashed var(--bs-border);
+    border-radius: 20px;
+    background: var(--bs-card);
+    text-align: center;
+}
+
+.empty-icon {
+    margin-bottom: 12px;
+    font-size: 42px;
+}
+
+.empty-state h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+.empty-state p {
+    max-width: 380px;
+    margin: 0 auto;
+    color: var(--bs-muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* CATATAN BAWAH */
+
+.selection-footer {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 15px 17px;
+    border-radius: 13px;
+    background: color-mix(in srgb, var(--bs-primary) 7%, var(--bs-bg));
+    color: var(--bs-muted);
+}
+
+.footer-info-icon {
+    flex-shrink: 0;
+    color: var(--bs-primary);
+    font-weight: 800;
+}
+
+.selection-footer p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* MODAL DETAIL BUS */
+
+.modal-overlay {
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+}
+
+.bus-modal {
+    position: relative;
+    width: min(100%, 460px);
+    max-height: calc(100dvh - 40px);
+    overflow-y: auto;
+    padding: 28px;
+    border: 1px solid var(--bs-border);
+    border-radius: 23px;
+    background: var(--bs-card);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.2);
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: grid;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border: 1px solid var(--bs-border);
+    border-radius: 50%;
+    background: var(--bs-bg);
+    color: var(--bs-text);
+    font-size: 25px;
+}
+
+.modal-bus-icon {
+    display: grid;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 18px;
+    place-items: center;
+    border-radius: 17px;
+    background: color-mix(in srgb, var(--bs-primary) 12%, transparent);
+    font-size: 27px;
+}
+
+.modal-eyebrow {
+    margin: 0 0 5px;
+    color: var(--bs-muted);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.bus-modal h2 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 900;
+}
+
+.modal-plate {
+    margin: 5px 0 12px;
+    color: var(--bs-muted);
+    font-size: 14px;
+    font-weight: 750;
+}
+
+.modal-status {
+    display: inline-block;
+    margin-bottom: 18px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: color-mix(in srgb, var(--bs-green) 12%, transparent);
+    color: var(--bs-green);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.modal-status.unavailable {
+    background: color-mix(in srgb, var(--bs-red) 12%, transparent);
+    color: var(--bs-red);
+}
+
+.modal-detail-list {
+    border-top: 1px solid var(--bs-border);
+}
+
+.modal-detail-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--bs-border);
+    font-size: 13px;
+}
+
+.modal-detail-row span {
+    color: var(--bs-muted);
+}
+
+.modal-detail-row strong {
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.modal-price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.modal-price > div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.modal-price span {
+    color: var(--bs-muted);
+    font-size: 12px;
+}
+
+.modal-price strong {
+    color: var(--bs-primary);
+    font-size: 21px;
+    font-weight: 900;
+}
+
+.modal-price button {
+    padding: 12px 15px;
+    border: 0;
+    border-radius: 11px;
+    background: var(--bs-primary);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.modal-price button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.modal-notice {
+    margin: 15px 0 0;
+    color: var(--bs-muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 600px) {
+    .selection-page {
+        width: min(100% - 28px, 900px);
+        padding-top: 17px;
+    }
+
+    .selection-header {
+        grid-template-columns: 38px minmax(0, 1fr) 38px;
+        gap: 8px;
+        margin-bottom: 24px;
+    }
+
+    .back-button {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+    }
+
+    .header-spacer {
+        width: 38px;
+    }
+
+    .header-route {
+        gap: 6px;
+        font-size: 12px;
+    }
+
+    .header-route-arrow {
+        font-size: 17px;
+    }
+
+    .trip-summary {
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+
+    .trip-summary-icon {
+        width: 49px;
+        height: 49px;
+        border-radius: 15px;
+        font-size: 24px;
+    }
+
+    .trip-summary-text h1 {
+        font-size: 26px;
+    }
+
+    .trip-summary-text p {
+        font-size: 12px;
+    }
+
+    .filter-summary {
+        gap: 11px;
+        padding: 15px 12px;
+        margin-bottom: 27px;
+    }
+
+    .filter-label {
+        font-size: 10px;
+    }
+
+    .filter-item strong {
+        font-size: 12px;
+    }
+
+    .filter-divider {
+        height: 31px;
+    }
+
+    .bus-card-main {
+        padding: 17px 15px;
+    }
+
+    .bus-card-top {
+        gap: 10px;
+        padding-bottom: 17px;
+    }
+
+    .bus-card-title {
+        font-size: 25px;
+    }
+
+    .bus-plate {
+        font-size: 10px;
+    }
+
+    .bus-status {
+        padding: 5px 8px;
+        font-size: 10px;
+    }
+
+    .seat-count {
+        font-size: 10px;
+    }
+
+    .bus-card-middle {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+        padding: 19px 0;
+    }
+
+    .bus-route {
+        gap: 23px;
+    }
+
+    .route-item {
+        gap: 10px;
+    }
+
+    .route-time-location {
+        font-size: 14px;
+    }
+
+    .route-details small {
+        font-size: 11px;
+    }
+
+    .bus-price {
+        min-width: 82px;
+    }
+
+    .bus-price-value {
+        font-size: 17px;
+    }
+
+    .bus-price-label,
+    .bus-price-unit {
+        font-size: 10px;
+    }
+
+    .bus-card-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 13px;
+    }
+
+    .detail-button {
+        width: 100%;
+    }
+
+    .bus-modal {
+        padding: 23px 19px;
+    }
+}
+
+@media (max-width: 360px) {
+    .filter-summary {
+        gap: 8px;
+        padding-inline: 9px;
+    }
+
+    .filter-item strong {
+        font-size: 11px;
+    }
+
+    .bus-card-title {
+        font-size: 22px;
+    }
+
+    .bus-card-middle {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .bus-price {
+        align-items: flex-start;
+        padding-left: 30px;
+        text-align: left;
+    }
+
+    .modal-price {
+        align-items: stretch;
+        flex-direction: column;
+    }
+}
