@@ -1,0 +1,963 @@
+
+/* =========================================
+   UNESAVEL — HALAMAN KONFIRMASI PEMBAYARAN
+   Tema hijau sage, responsif, light & dark mode
+   ========================================= */
+
+/* ---------- DASAR ---------- */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    padding-bottom: 120px;
+    background: var(--bg-main, #f8fafc);
+    color: var(--text-main, #1f2937);
+    font-family: inherit;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* ---------- HEADER ---------- */
+
+.confirmation-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 5%;
+    border-bottom: 1px solid var(--border-color, #e5e7eb);
+    background: var(--bg-surface, #ffffff);
+}
+
+.back-link {
+    color: var(--text-main, #1f2937);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: var(--primary, #16a34a);
+}
+
+.brand {
+    color: var(--text-main, #111827);
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+    text-decoration: none;
+}
+
+.brand span {
+    color: var(--primary, #16a34a);
+}
+
+.step-label {
+    color: var(--text-muted, #6b7280);
+    font-size: 12px;
+}
+
+/* ---------- CONTAINER DAN JUDUL ---------- */
+
+.confirmation-container {
+    width: min(760px, 92%);
+    margin: 32px auto 60px;
+}
+
+.page-heading {
+    margin-bottom: 24px;
+}
+
+.eyebrow {
+    margin: 0 0 7px;
+    color: var(--primary, #16a34a);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.page-heading h1 {
+    margin: 0 0 8px;
+    font-size: clamp(26px, 4vw, 34px);
+    line-height: 1.25;
+}
+
+.page-heading > p:last-child {
+    color: var(--text-muted, #6b7280);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.muted {
+    color: var(--text-muted, #6b7280);
+    font-size: 13px;
+}
+
+/* ---------- PANEL UMUM ---------- */
+
+.panel {
+    margin-bottom: 18px;
+    padding: 22px;
+    border: 1px solid var(--border-color, #e5e7eb);
+    border-radius: 16px;
+    background: var(--bg-surface, #ffffff);
+    color: var(--text-main, #111827);
+    box-shadow: var(--shadow-soft, 0 4px 18px rgb(0 0 0 / 3%));
+}
+
+.panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.panel-heading h2,
+.price-panel h2 {
+    margin: 0 0 5px;
+    font-size: 19px;
+}
+
+#bus-plate {
+    margin: 0;
+}
+
+.status-pill {
+    padding: 7px 10px;
+    border-radius: 20px;
+    background: #f3f4f6;
+    color: #4b5563;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* ---------- DETAIL RUTE ---------- */
+
+.route-details {
+    padding: 18px;
+    border: 1px solid var(--border-color, #e5e7eb);
+    border-radius: 12px;
+    background: var(--bg-main, #f8fafc);
+}
+
+.route-point {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.route-point p {
+    margin: 0 0 5px;
+}
+
+.route-point h3 {
+    margin: 0 0 6px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.route-point strong {
+    color: var(--text-main, #1f2937);
+    font-size: 14px;
+}
+
+.route-dot {
+    flex: 0 0 11px;
+    width: 11px;
+    height: 11px;
+    margin-top: 4px;
+    border: 3px solid var(--primary, #16a34a);
+    border-radius: 50%;
+    background: var(--bg-surface, #ffffff);
+}
+
+.destination-dot {
+    border-color: var(--secondary, #15803d);
+}
+
+.route-line {
+    height: 24px;
+    margin-left: 5px;
+    border-left: 2px dashed var(--border-color, #cbd5e1);
+}
+
+.trip-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.trip-meta div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.trip-meta span {
+    color: var(--text-muted, #6b7280);
+    font-size: 12px;
+}
+
+.trip-meta strong {
+    overflow-wrap: anywhere;
+    font-size: 14px;
+}
+
+/* ---------- VOUCHER ---------- */
+
+.promo-section {
+    margin: 18px 0 22px;
+    padding: 16px;
+    border: 1px solid var(--border-color, #e5e7eb);
+    border-radius: 14px;
+    background: var(--bg-surface, #ffffff);
+    color: var(--text-main, #1f2937);
+}
+
+.promo-section > label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--text-main, #1f2937);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.promo-icon {
+    display: grid;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    border-radius: 10px;
+    background: color-mix(
+        in srgb,
+        var(--primary, #16a34a) 10%,
+        var(--bg-surface, #ffffff)
+    );
+    color: var(--primary, #16a34a);
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.promo-form {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    width: 100%;
+}
+
+.promo-form input {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    padding: 12px 13px;
+    border: 1px solid var(--border-color, #d1d5db);
+    border-radius: 9px;
+    outline: none;
+    background: var(--bg-main, #f8fafc);
+    color: var(--text-main, #1f2937);
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.promo-form input::placeholder {
+    color: var(--text-muted, #94a3b8);
+}
+
+.promo-form input:focus {
+    border-color: var(--primary, #16a34a);
+    box-shadow: 0 0 0 3px color-mix(
+        in srgb,
+        var(--primary, #16a34a) 15%,
+        transparent
+    );
+}
+
+.secondary-button {
+    flex-shrink: 0;
+    padding: 0 17px;
+    border: 1px solid var(--primary, #16a34a);
+    border-radius: 9px;
+    background: var(--primary, #16a34a);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.secondary-button:hover {
+    background: var(--secondary, #15803d);
+    border-color: var(--secondary, #15803d);
+}
+
+.secondary-button:active {
+    transform: scale(0.97);
+}
+
+.secondary-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.form-message {
+    margin: 9px 0 0;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.form-message:empty {
+    display: none;
+}
+
+.form-message.success {
+    color: var(--secondary, #15803d);
+}
+
+.form-message.error {
+    color: #dc2626;
+}
+
+.text-button,
+#remove-promo {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--primary, #16a34a);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.text-button:hover,
+#remove-promo:hover {
+    text-decoration: underline;
+}
+
+#remove-promo[hidden] {
+    display: none !important;
+}
+
+/* ---------- PEMILIHAN METODE PEMBAYARAN ---------- */
+
+.payment-picker {
+    position: relative;
+    width: 100%;
+}
+
+.payment-picker-label {
+    margin-bottom: 10px;
+    color: var(--text-muted, #6b7280);
+    font-size: 13px;
+}
+
+.payment-current {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 14px;
+    border: 1px solid var(--primary, #16a34a);
+    border-radius: 14px;
+    background: var(--bg-main, #f8fafc);
+    color: var(--text-main, #1f2937);
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.payment-current:hover {
+    border-color: var(--secondary, #15803d);
+}
+
+.payment-current .payment-description {
+    flex: 1;
+}
+
+.payment-current > i {
+    color: var(--text-muted, #6b7280);
+    transition: transform 0.2s;
+}
+
+.payment-options {
+    max-height: 250px;
+    margin-top: 8px;
+    padding: 8px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border: 1px solid var(--border-color, #e5e7eb);
+    border-radius: 14px;
+    background: var(--bg-surface, #ffffff);
+}
+
+.payment-options[hidden] {
+    display: none !important;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 14px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background: var(--bg-surface, #ffffff);
+    color: var(--text-main, #1f2937);
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.payment-option + .payment-option {
+    margin-top: 4px;
+}
+
+.payment-option:hover {
+    background: var(--bg-main, #f8fafc);
+}
+
+.payment-option:has(input:checked) {
+    border-color: var(--primary, #16a34a);
+    background: var(--bg-main, #f8fafc);
+}
+
+.payment-option input {
+    flex: 0 0 17px;
+    width: 17px;
+    height: 17px;
+    accent-color: var(--primary, #16a34a);
+}
+
+.payment-description {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.payment-description strong {
+    font-size: 14px;
+}
+
+.payment-description small {
+    color: var(--text-muted, #6b7280);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.selected-indicator {
+    color: var(--primary, #16a34a);
+    font-weight: 800;
+}
+
+.qris-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    min-width: 48px;
+    padding: 7px 9px;
+    border-radius: 6px;
+    background: #263128;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.payment-note,
+.secure-note {
+    margin: 13px 0 0;
+    color: var(--text-muted, #6b7280);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* ---------- RINGKASAN HARGA ---------- */
+
+.price-panel h2 {
+    margin-bottom: 22px;
+}
+
+.price-line {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 15px 0;
+    font-size: 14px;
+}
+
+.price-line span {
+    color: var(--text-muted, #6b7280);
+    font-size: 12px;
+}
+
+.price-line strong {
+    text-align: right;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.discount-line strong {
+    color: var(--secondary, #15803d);
+}
+
+.total-divider {
+    margin: 20px 0;
+    border-top: 1px dashed var(--border-color, #d1d5db);
+}
+
+.final-price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.final-price > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.old-price {
+    color: var(--text-muted, #6b7280);
+    font-size: 13px;
+    text-decoration: line-through;
+}
+
+#final-price {
+    color: var(--primary, #16a34a);
+    font-size: clamp(21px, 4vw, 27px);
+    font-weight: 800;
+    overflow-wrap: anywhere;
+    text-align: right;
+}
+
+.currency-label {
+    color: var(--text-muted, #6b7280);
+    font-size: 12px;
+}
+
+/* ---------- TOMBOL BAYAR ---------- */
+
+.pay-button {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid var(--primary, #16a34a);
+    border-radius: 10px;
+    background: var(--primary, #16a34a);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.pay-button:hover {
+    background: var(--secondary, #15803d);
+    border-color: var(--secondary, #15803d);
+}
+
+.pay-button:active:not(:disabled) {
+    transform: scale(0.99);
+}
+
+.pay-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.secure-note {
+    text-align: center;
+}
+
+/* ---------- NOTIFIKASI ERROR ---------- */
+
+.notice.error {
+    margin-bottom: 18px;
+    padding: 15px;
+    border: 1px solid #fecaca;
+    border-radius: 10px;
+    background: #fef2f2;
+    color: #b91c1c;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ---------- MODAL PEMBAYARAN ---------- */
+
+.payment-modal[hidden] {
+    display: none !important;
+}
+
+.payment-modal {
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 18px;
+    overflow-y: auto;
+    background: rgb(15 23 42 / 65%);
+}
+
+.payment-modal-card {
+    position: relative;
+    width: min(390px, 100%);
+    padding: 28px;
+    border: 1px solid var(--border-color, #e5e7eb);
+    border-radius: 18px;
+    background: var(--bg-surface, #ffffff);
+    color: var(--text-main, #111827);
+    text-align: center;
+    box-shadow: 0 20px 60px rgb(0 0 0 / 15%);
+}
+
+.payment-modal-card h2 {
+    margin: 8px 0 15px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--text-main, #111827);
+    font-size: 26px;
+    cursor: pointer;
+}
+
+/* QR simulasi — bukan QR pembayaran sungguhan */
+
+.fake-qr {
+    display: grid;
+    width: 175px;
+    height: 175px;
+    margin: 20px auto;
+    place-items: center;
+    border: 8px solid #ffffff;
+    outline: 1px solid var(--border-color, #d1d5db);
+    background:
+        repeating-conic-gradient(#111111 0 25%, #ffffff 0 50%)
+        0 0 / 16px 16px;
+}
+
+.fake-qr-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 55px;
+    border: 4px solid #111111;
+    background: #ffffff;
+    color: #111111;
+}
+
+.fake-qr-inner span {
+    font-size: 23px;
+    font-weight: 900;
+}
+
+.fake-qr-inner strong {
+    font-size: 10px;
+}
+
+/* =========================================
+   RESPONSIVE — TABLET DAN HP
+   ========================================= */
+
+@media (max-width: 520px) {
+    body {
+        padding-bottom: 90px;
+    }
+
+    .confirmation-header {
+        gap: 8px;
+        padding: 15px 4%;
+    }
+
+    .brand {
+        font-size: 18px;
+    }
+
+    .back-link {
+        font-size: 12px;
+    }
+
+    .step-label {
+        max-width: 80px;
+        font-size: 11px;
+        text-align: right;
+    }
+
+    .confirmation-container {
+        width: 92%;
+        margin-top: 24px;
+    }
+
+    .panel {
+        padding: 17px;
+        border-radius: 14px;
+    }
+
+    .panel-heading {
+        align-items: flex-start;
+    }
+
+    .trip-meta {
+        gap: 16px 10px;
+    }
+
+    .status-pill {
+        white-space: normal;
+        text-align: center;
+    }
+
+    .promo-section {
+        padding: 13px;
+    }
+
+    .promo-form {
+        gap: 6px;
+    }
+
+    .promo-form input {
+        padding: 11px 9px;
+        font-size: 13px;
+    }
+
+    .secondary-button {
+        padding: 0 12px;
+        font-size: 12px;
+    }
+
+    .payment-current {
+        gap: 9px;
+        padding: 12px;
+    }
+
+    .payment-option {
+        gap: 9px;
+        padding: 12px;
+    }
+
+    .payment-description small {
+        font-size: 11px;
+    }
+
+    .payment-note,
+    .secure-note {
+        font-size: 11px;
+    }
+
+    .price-line {
+        gap: 10px;
+    }
+
+    .payment-modal-card {
+        padding: 25px 18px;
+    }
+}
+
+@media (max-width: 360px) {
+    .confirmation-header {
+        flex-wrap: wrap;
+    }
+
+    .promo-form {
+        flex-wrap: wrap;
+    }
+
+    .promo-form input {
+        flex-basis: 100%;
+    }
+
+    .secondary-button {
+        min-height: 40px;
+        padding: 0 15px;
+    }
+
+    .final-price {
+        align-items: flex-start;
+    }
+
+    #final-price {
+        font-size: 21px;
+    }
+}
+
+/* =========================================
+   DARK MODE
+   Mengikuti html[data-theme="dark"]
+   ========================================= */
+
+html[data-theme="dark"] body {
+    background: var(--bg-main, #0f172a);
+    color: var(--text-main, #f1f5f9);
+}
+
+html[data-theme="dark"] .confirmation-header,
+html[data-theme="dark"] .panel,
+html[data-theme="dark"] .promo-section,
+html[data-theme="dark"] .payment-modal-card {
+    background: var(--bg-surface, #1e293b);
+    color: var(--text-main, #f1f5f9);
+    border-color: var(--border-color, #334155);
+}
+
+html[data-theme="dark"] .route-details,
+html[data-theme="dark"] .promo-form input,
+html[data-theme="dark"] .payment-current {
+    background: var(--bg-main, #0f172a);
+    color: var(--text-main, #f1f5f9);
+    border-color: var(--border-color, #334155);
+}
+
+html[data-theme="dark"] .payment-options {
+    background: var(--bg-surface, #1e293b);
+    border-color: var(--border-color, #334155);
+}
+
+html[data-theme="dark"] .payment-option {
+    background: var(--bg-surface, #1e293b);
+    color: var(--text-main, #f1f5f9);
+    border-color: transparent;
+}
+
+html[data-theme="dark"] .payment-option:hover,
+html[data-theme="dark"] .payment-option:has(input:checked) {
+    background: var(--bg-main, #0f172a);
+    border-color: var(--primary, #16a34a);
+}
+
+html[data-theme="dark"] .promo-form input::placeholder {
+    color: var(--text-muted, #94a3b8);
+}
+
+html[data-theme="dark"] .back-link,
+html[data-theme="dark"] .brand,
+html[data-theme="dark"] .modal-close {
+    color: var(--text-main, #f1f5f9);
+}
+
+html[data-theme="dark"] .brand span,
+html[data-theme="dark"] .eyebrow,
+html[data-theme="dark"] #final-price {
+    color: var(--primary, #4ade80);
+}
+
+html[data-theme="dark"] .route-dot {
+    background: var(--bg-surface, #1e293b);
+    border-color: var(--primary, #4ade80);
+}
+
+html[data-theme="dark"] .destination-dot {
+    border-color: var(--secondary, #22c55e);
+}
+
+html[data-theme="dark"] .status-pill {
+    background: #332e24;
+    color: #e8d3a5;
+}
+
+html[data-theme="dark"] .notice.error {
+    border-color: #7f1d1d;
+    background: #3a2222;
+    color: #f5baba;
+}
+
+html[data-theme="dark"] .form-message.error {
+    color: #f87171;
+}
+
+html[data-theme="dark"] .fake-qr {
+    outline-color: var(--border-color, #475569);
+}
+
+/* =========================================
+   TOMBOL GUNAKAN VOUCHER
+   ========================================= */
+
+#promo-button,
+.promo-form button[type="submit"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    min-width: 90px;
+    padding: 0 18px;
+    border: 1px solid var(--primary, #16a34a);
+    border-radius: 9px;
+    background: var(--primary, #16a34a);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+#promo-button:hover,
+.promo-form button[type="submit"]:hover {
+    background: var(--secondary, #15803d);
+    border-color: var(--secondary, #15803d);
+}
+
+#promo-button:active,
+.promo-form button[type="submit"]:active {
+    transform: scale(0.97);
+}
+
+#promo-button:disabled,
+.promo-form button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Mode gelap */
+html[data-theme="dark"] #promo-button,
+html[data-theme="dark"] .promo-form button[type="submit"] {
+    background: var(--primary, #16a34a);
+    border-color: var(--primary, #16a34a);
+    color: #ffffff;
+}
+
+/* Responsif HP */
+@media (max-width: 480px) {
+    #promo-button,
+    .promo-form button[type="submit"] {
+        min-width: 76px;
+        padding: 0 12px;
+        font-size: 12px;
+    }
+}

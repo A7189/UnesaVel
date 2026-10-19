@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfirmasi Pesanan | UNESA Vel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/confirmation.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+
+    <script>
+        const savedTheme = localStorage.getItem("theme");
+
+        if (savedTheme === "dark") {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.removeAttribute("data-theme");
+        }
+    </script>
+
+    <script src="../assets/js/confirmation.js" defer></script>
+
+</head>
+
+<body>
+
+    <header class="confirmation-header">
+        <a href="bus-selection.html" class="back-link">← Kembali</a>
+        <a href="#" class="brand">UNESA<span>VEL</span></a>
+        <span class="step-label">Konfirmasi Pesanan</span>
+    </header>
+
+    <main class="confirmation-container">
+        <section class="page-heading">
+            <p class="eyebrow">LANGKAH TERAKHIR</p>
+            <h1>Konfirmasi Pesanan</h1>
+            <p>Periksa kembali perjalanan dan rincian pembayaranmu.</p>
+        </section>
+
+        <div id="page-error" class="notice error" hidden>
+            Data pemesanan tidak ditemukan.
+            Silakan kembali dan pilih bus serta kursi terlebih dahulu.
+        </div>
+
+        <div id="confirmation-content">
+            <section class="panel trip-panel">
+                <div class="panel-heading">
+                    <div>
+                        <p class="eyebrow">RINCIAN PERJALANAN</p>
+                        <h2 id="bus-name">BUS 01</h2>
+                        <p id="bus-plate" class="muted">L 1357 TI</p>
+                    </div>
+                    <span class="status-pill">Menunggu pembayaran</span>
+                </div>
+
+                <div class="route-details">
+                    <div class="route-point">
+                        <span class="route-dot"></span>
+                        <div>
+                            <p class="muted">Titik penjemputan</p>
+                            <h3 id="pickup">-</h3>
+                            <strong id="departure-time">--:--</strong>
+                        </div>
+                    </div>
+
+                    <div class="route-line"></div>
+
+                    <div class="route-point">
+                        <span class="route-dot destination-dot"></span>
+                        <div>
+                            <p class="muted">Titik tujuan</p>
+                            <h3 id="destination">-</h3>
+                            <strong id="arrival-time">--:--</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="trip-meta">
+                    <div>
+                        <span>Tanggal perjalanan</span>
+                        <strong id="trip-date">-</strong>
+                    </div>
+                    <div>
+                        <span>Jumlah penumpang</span>
+                        <strong id="passengers">-</strong>
+                    </div>
+                    <div class="seat-meta">
+                        <span>Nomor kursi</span>
+                        <strong id="seat-numbers">-</strong>
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <p class="eyebrow">PEMBAYARAN DIGITAL</p>
+                        <h2>Metode Pembayaran</h2>
+                    </div>
+                </div>
+
+                
+<div class="promo-section">
+    <label for="promo-code">Punya kode voucher?</label>
+
+    <form id="promo-form" class="promo-form">
+        <input
+            type="text"
+            id="promo-code"
+            placeholder="Masukkan kode voucher"
+            autocomplete="off"
+        >
+        <button type="submit" id="promo-button">
+            Gunakan
+        </button>
+    </form>
+
+    <p id="promo-message" class="form-message" aria-live="polite"></p>
+
+    <button type="button" id="remove-promo" hidden>
+        Hapus voucher
+    </button>
+</div>
+
+
+                    <div class="payment-picker">
+                        <p class="payment-picker-label">Metode pembayaran yang dipilih</p>
+
+                        <button type="button" id="payment-method-toggle" class="payment-current" aria-expanded="false"
+                            aria-controls="payment-options-list">
+                            <span class="payment-logo logo-qris" id="current-payment-logo">QRIS</span>
+                            <span class="payment-description">
+                                <strong id="current-payment-name">QRIS</strong>
+                                <small id="current-payment-description">Pembayaran melalui kode QR</small>
+                            </span>
+                            <i class="fa-solid fa-chevron-down" id="payment-chevron"></i>
+                        </button>
+
+                        <div class="payment-options" id="payment-options-list" hidden>
+                            <label class="payment-option">
+                                <input type="radio" name="payment-method" value="QRIS" checked>
+                                <span class="payment-logo logo-qris">QRIS</span>
+                                <span class="payment-description">
+                                    <strong>QRIS</strong>
+                                    <small>Pembayaran melalui kode QR</small>
+                                </span>
+                            </label>
+
+                            <label class="payment-option">
+                                <input type="radio" name="payment-method" value="DANA">
+                                <span class="payment-logo logo-dana">DANA</span>
+                                <span class="payment-description">
+                                    <strong>DANA</strong>
+                                    <small>E-wallet</small>
+                                </span>
+                            </label>
+
+                            <label class="payment-option">
+                                <input type="radio" name="payment-method" value="OVO">
+                                <span class="payment-logo logo-ovo">OVO</span>
+                                <span class="payment-description">
+                                    <strong>OVO</strong>
+                                    <small>E-wallet</small>
+                                </span>
+                            </label>
+
+                            <label class="payment-option">
+                                <input type="radio" name="payment-method" value="BCA">
+                                <span class="payment-logo logo-bca">BCA</span>
+                                <span class="payment-description">
+                                    <strong>BCA</strong>
+                                    <small>Simulasi transfer bank</small>
+                                </span>
+                            </label>
+
+                            <label class="payment-option">
+                                <input type="radio" name="payment-method" value="BRI">
+                                <span class="payment-logo logo-bri">BRI</span>
+                                <span class="payment-description">
+                                    <strong>BRI</strong>
+                                    <small>Simulasi transfer bank</small>
+                                </span>
+                            </label>
+
+                            <label class="payment-option">
+                                <input type="radio" name="payment-method" value="BNI">
+                                <span class="payment-logo logo-bni">BNI</span>
+                                <span class="payment-description">
+                                    <strong>BNI</strong>
+                                    <small>Simulasi transfer bank</small>
+                                </span>
+                            </label>
+
+                            <label class="payment-option">
+                                <input type="radio" name="payment-method" value="Mandiri">
+                                <span class="payment-logo logo-mandiri">BM</span>
+                                <span class="payment-description">
+                                    <strong>Mandiri</strong>
+                                    <small>Simulasi transfer bank</small>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <p class="payment-note">
+                        Semua metode pembayaran pada situs demo ini hanya simulasi.
+                        Tidak ada saldo atau uang sungguhan yang dipotong.
+                    </p>
+            </section>
+
+
+            <section class="panel price-panel">
+                <p class="eyebrow">RINCIAN BIAYA</p>
+                <h2>Total Pembayaran</h2>
+
+                <div class="price-line">
+                    <span>Harga per penumpang</span>
+                    <strong id="price-per-person">Rp0</strong>
+                </div>
+
+                <div class="price-line">
+                    <span>Jumlah penumpang</span>
+                    <strong id="passenger-count">0 orang</strong>
+                </div>
+
+                <div class="price-line">
+                    <span>Harga tiket</span>
+                    <strong id="original-price">Rp0</strong>
+                </div>
+
+                <div class="price-line discount-line" id="discount-row" hidden>
+                    <span>Diskon voucher</span>
+                    <strong id="discount-amount">−Rp0</strong>
+                </div>
+
+                <div class="total-divider"></div>
+
+                <div class="final-price">
+                    <div>
+                        <span id="price-before-discount" class="old-price" hidden>
+                            Rp0
+                        </span>
+                        <strong id="final-price">Rp0</strong>
+                    </div>
+                    <span class="currency-label">IDR</span>
+                </div>
+
+                <button type="button" id="pay-button" class="pay-button">
+                    Bayar Sekarang
+                </button>
+
+                <p class="secure-note">
+                    Simulasi pembayaran · Tidak ada transaksi uang sungguhan
+                </p>
+            </section>
+        </div>
+    </main>
+
+
+    <div class="payment-modal" id="payment-modal" hidden>
+        <section class="payment-modal-card" role="dialog" aria-modal="true" aria-labelledby="payment-modal-title">
+
+            <button type="button" id="close-payment-modal" class="modal-close" aria-label="Tutup">×</button>
+
+            <p class="eyebrow">PEMBAYARAN UNESA VEL</p>
+            <h2 id="payment-modal-title">Pembayaran Demo</h2>
+
+            <div id="modal-payment-visual" class="payment-demo-visual">
+                <div class="fake-qr" aria-label="Ilustrasi QR demo">
+                    <div class="fake-qr-inner">
+                        <span>QR</span>
+                        <strong>DEMO</strong>
+                    </div>
+                </div>
+            </div>
+
+            <h3 id="modal-method-name">QRIS</h3>
+            <p class="muted" id="modal-instruction">
+                Ini hanya ilustrasi QR. Tidak dapat digunakan untuk pembayaran sungguhan.
+            </p>
+
+            <div class="demo-reference" id="modal-reference" hidden>
+                <span id="modal-reference-label">Kode demo</span>
+                <strong id="modal-reference-value">DEMO</strong>
+            </div>
+
+            <p class="modal-total-label">Total pembayaran</p>
+            <h2 id="modal-total">Rp0</h2>
+
+            <button type="button" id="simulate-payment" class="pay-button">
+                Simulasikan Pembayaran Berhasil
+            </button>
+
+            <p class="secure-note">
+                Simulasi saja · Tidak ada transaksi uang sungguhan
+            </p>
+        </section>
+    </div>
+
+
+    <div id="bottom-nav-container"></div>
+
+    <script src="../assets/js/navbar.js"></script>
+</body>
+
+</html>

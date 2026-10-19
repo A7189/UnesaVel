@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pilih Bus | UnesaVel</title>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/variables.css">
     <link rel="stylesheet" href="../assets/css/bus-selection.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
 
     <script>
         // Mengikuti tema yang tersimpan dari halaman sebelumnya
@@ -122,70 +123,88 @@
     </main>
 
     <!-- MODAL DETAIL BUS -->
-    <div class="modal-overlay" id="bus-modal" hidden>
-        <section
-            class="bus-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="modal-title"
+    
+<!-- MODAL PILIH KURSI -->
+<div class="modal-overlay" id="bus-modal" hidden>
+    <section
+        class="bus-modal seat-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+    >
+        <button
+            class="modal-close"
+            id="modal-close"
+            type="button"
+            aria-label="Tutup pemilihan kursi"
+        >×</button>
+
+        <p class="modal-eyebrow">UNESAVEL</p>
+        <h2 id="modal-title">Pilih Kursi</h2>
+        <p id="seat-bus-info">BUS 01 · L 1357 TI</p>
+
+        <div class="seat-trip-info">
+            <span id="modal-pickup">Ketintang</span>
+            <span>→</span>
+            <span id="modal-destination">Lidah Wetan</span>
+        </div>
+
+        <div class="seat-legend">
+            <span><i class="seat-legend-box available"></i> Tersedia</span>
+            <span><i class="seat-legend-box selected"></i> Dipilih</span>
+            <span><i class="seat-legend-box occupied"></i> Terisi</span>
+        </div>
+
+        <div class="bus-seat-map">
+            <div class="bus-front">
+                <span>DEPAN BUS</span>
+                <span class="steering-wheel">◉</span>
+            </div>
+
+            <div
+                class="seat-grid"
+                id="seat-grid"
+                aria-label="Denah kursi bus"
+            >
+                <!-- Kursi dibuat secara dinamis oleh JavaScript -->
+            </div>
+
+            <div class="bus-back">
+                <span>⚑</span>
+                <span>BELAKANG BUS</span>
+            </div>
+        </div>
+
+        <div class="seat-selection-summary">
+            <div>
+                <span>Kursi pilihan</span>
+                <strong id="selected-seat-numbers">Belum dipilih</strong>
+            </div>
+            <div>
+                <span>Total harga</span>
+                <strong id="selected-seat-price">Rp0</strong>
+            </div>
+        </div>
+
+        <p
+            class="seat-notice"
+            id="seat-notice"
+            role="status"
+            aria-live="polite"
+            hidden
+        ></p>
+
+        <button
+            class="seat-confirm-button"
+            id="modal-select-button"
+            type="button"
         >
-            <button
-                class="modal-close"
-                id="modal-close"
-                type="button"
-                aria-label="Tutup detail"
-            >×</button>
+            Konfirmasi Kursi
+        </button>
+    </section>
+</div>
+<div id="bottom-nav-container"></div>
 
-            <div class="modal-bus-icon">🚌</div>
-
-            <p class="modal-eyebrow">INFORMASI KENDARAAN</p>
-            <h2 id="modal-title">BUS 01</h2>
-            <p class="modal-plate" id="modal-plate">L 1357 TI</p>
-
-            <div class="modal-status" id="modal-status">
-                Tersedia
-            </div>
-
-            <div class="modal-detail-list">
-                <div class="modal-detail-row">
-                    <span>Tanggal</span>
-                    <strong id="modal-date">-</strong>
-                </div>
-
-                <div class="modal-detail-row">
-                    <span>Titik penjemputan</span>
-                    <strong id="modal-pickup">-</strong>
-                </div>
-
-                <div class="modal-detail-row">
-                    <span>Titik tujuan</span>
-                    <strong id="modal-destination">-</strong>
-                </div>
-
-                <div class="modal-detail-row">
-                    <span>Estimasi perjalanan</span>
-                    <strong id="modal-duration">30 menit</strong>
-                </div>
-
-                <div class="modal-detail-row">
-                    <span>Kursi terisi</span>
-                    <strong id="modal-seats">9/20</strong>
-                </div>
-            </div>
-
-            <div class="modal-price">
-                <div>
-                    <span>Harga per orang</span>
-                    <strong id="modal-price">Rp5.000</strong>
-                </div>
-
-                <button id="modal-select-button" type="button">
-                    Pilih bus ini
-                </button>
-            </div>
-
-            <p class="modal-notice" id="modal-notice" hidden></p>
-        </section>
-    </div>
+<script src="../assets/js/navbar.js"></script>
 </body>
 </html>

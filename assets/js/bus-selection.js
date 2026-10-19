@@ -1,3 +1,23 @@
+
+/* RESET DEMO SAAT HALAMAN DIBUKA / DI-REFRESH */
+(function resetDemoBooking() {
+    const demoKeys = [
+        "unesavelSelectedTrip"
+    ];
+
+    demoKeys.forEach(key => {
+        localStorage.removeItem(key);
+    });
+
+    // Hapus kursi yang pernah dipilih dalam simulasi
+    Object.keys(localStorage).forEach(key => {
+        if (key.startsWith("unesavelSeats_")) {
+            localStorage.removeItem(key);
+        }
+    });
+})();
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const $ = (selector) => document.querySelector(selector);
 
@@ -731,14 +751,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         duration.append(durationIcon, durationText);
 
+
         const detailButton = document.createElement("button");
         detailButton.className = "detail-button";
         detailButton.type = "button";
-        detailButton.textContent = "Detail bus →";
+        detailButton.textContent = "Pilih Kursi →";
+        detailButton.disabled = !available;
 
         detailButton.addEventListener("click", () => {
-            openBusDetail(bus);
+            openSeatSelection(bus);
         });
+
 
         bottom.append(duration, detailButton);
         main.append(top, middle, bottom);
@@ -795,130 +818,386 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ========================================
-    // 14. DETAIL BUS
-    // ========================================
+    
+/* ========================================
+   14. PEMILIHAN KURSI DALAM MODAL
+======================================== */
 
-    let selectedBus = null;
+let selectedBus = null;
+let selectedSeats = [];
 
-    function openBusDetail(bus) {
-        selectedBus = bus;
+const seatGrid = $("#seat-grid");
+const selectedSeatNumbers = $("#selected-seat-numbers");
+const selectedSeatPrice = $("#selected-seat-price");
+const seatNotice = $("#seat-notice");
 
-        const available = isAvailable(bus);
+const seatModalTitle = $("#modal-title");
+const seatBusInfo = $("#seat-bus-info");
+const seatConfirmButton = $("#modal-select-button");
 
-        $("#modal-title").textContent = bus.name;
-        $("#modal-plate").textContent = bus.plate;
+// Penyimpanan kursi pilihan berdasarkan bus dan tanggal.
+// Ini merupakan simulasi lokal, bukan database bersama.
+function getSeatStorageKey(bus) {
+    return `unesavelSeats_${bus.id}_${selectedDate}`;
+}
 
-        const modalStatus = $("#modal-status");
-
-        modalStatus.textContent = available
-            ? "Tersedia"
-            : "Kursi tidak mencukupi";
-
-        modalStatus.classList.toggle(
-            "unavailable",
-            !available
+function getBookedSeatNumbers(bus) {
+    try {
+        const saved = JSON.parse(
+            localStorage.getItem(getSeatStorageKey(bus)) || "[]"
         );
 
-        $("#modal-date").textContent =
-            formatFullDate(selectedDate);
+        return Array.isArray(saved) ? saved : [];
+    } catch {
+        return [];
+    }
+}
 
-        $("#modal-pickup").textContent =
-            `${displayTime(bus.departure)} - ${pickup}`;
+// Membuat 20 kursi dengan susunan 2-1 dan 4 kursi belakang.
 
-        $("#modal-destination").textContent =
-            `${displayTime(bus.arrival)} - ${destination}`;
+function createSeatLayout() {
+    return [
+        { type: "front" },
 
-        $("#modal-duration").textContent =
-            `${bus.duration} menit`;
+        { type: "row", left: [1, 2], right: 3 },
+        { type: "row", left: [4, 5], right: 6 },
 
-        $("#modal-seats").textContent =
-            `${bus.occupied}/${bus.capacity} kursi terisi`;
+        // Pintu samping, dengan kursi nomor 7 di sebelah kanannya
+        { type: "side-door", right: 7 },
 
-        $("#modal-price").textContent =
-            formatRupiah(bus.price);
+        { type: "row", left: [8, 9], right: 10 },
+        { type: "row", left: [11, 12], right: 13 },
+        { type: "row", left: [14, 15], right: 16 },
 
-        modalSelectButton.disabled = !available;
+        // Empat kursi belakang berdempetan
+        { type: "rear", seats: [17, 18, 19, 20] }
+    ];
+}
 
-        modalSelectButton.textContent = available
-            ? "Pilih bus ini"
-            : "Kursi tidak mencukupi";
+function getSeatNumber(number) {
+    return String(number).padStart(2, "0");
+}
 
-        $("#modal-notice").hidden = true;
+function renderSeatMap() {
+    if (!seatGrid || !selectedBus) return;
 
-        modal.hidden = false;
-        document.body.style.overflow = "hidden";
-        modalClose.focus();
+    seatGrid.innerHTML = "";
+
+    const occupiedSeats = getBookedSeatNumbers(selectedBus);
+    const layout = createSeatLayout();
+
+    // Kursi bawaan yang dianggap sudah terisi.
+    // Jumlahnya mengikuti properti occupied pada masing-masing bus.
+    const initialOccupied = new Set();
+    let candidate = 1;
+
+    while (initialOccupied.size < selectedBus.occupied) {
+        const seatNumber =
+            ((candidate * 7 + selectedBus.id * 3) % 20) + 1;
+
+        initialOccupied.add(seatNumber);
+        candidate++;
     }
 
-    function closeBusDetail() {
-        modal.hidden = true;
-        document.body.style.overflow = "";
-        selectedBus = null;
+    function createSeatButton(number) {
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.className = "seat-button";
+        button.textContent = getSeatNumber(number);
+        button.dataset.seat = String(number);
+
+        const isOccupied =
+            initialOccupied.has(number) ||
+            occupiedSeats.includes(number);
+
+        if (isOccupied) {
+            button.classList.add("occupied");
+            button.disabled = true;
+            button.setAttribute(
+                "aria-label",
+                `Kursi ${getSeatNumber(number)}, terisi`
+            );
+        } else {
+            if (selectedSeats.includes(number)) {
+                button.classList.add("selected");
+                button.setAttribute("aria-pressed", "true");
+            } else {
+                button.setAttribute("aria-pressed", "false");
+            }
+
+            button.setAttribute(
+                "aria-label",
+                `Pilih kursi ${getSeatNumber(number)}`
+            );
+
+            button.addEventListener("click", () => {
+                toggleSeat(number);
+            });
+        }
+
+        return button;
     }
 
-    modalClose.addEventListener("click", closeBusDetail);
+    layout.forEach(item => {
+        // Bagian depan bus: pintu depan dan kursi sopir
+        if (item.type === "front") {
+            const front = document.createElement("div");
+            front.className = "seat-front-row";
 
-    modal.addEventListener("click", event => {
-        if (event.target === modal) {
-            closeBusDetail();
-        }
-    });
+            const frontDoor = document.createElement("div");
+            frontDoor.className = "seat-door front-door";
+            frontDoor.innerHTML = `
+                <span class="door-symbol">↔</span>
+                <span>PINTU DEPAN</span>
+            `;
 
-    document.addEventListener("keydown", event => {
-        if (event.key === "Escape" && !modal.hidden) {
-            closeBusDetail();
-        }
-    });
+            const aisle = document.createElement("div");
+            aisle.className = "seat-aisle";
 
-    // ========================================
-    // 15. MENYIMPAN BUS YANG DIPILIH
-    // ========================================
+            const driver = document.createElement("div");
+            driver.className = "driver-seat";
+            driver.innerHTML = `
+                <span class="driver-symbol">◉</span>
+                <span>SOPIR</span>
+            `;
 
-    modalSelectButton.addEventListener("click", () => {
-        if (!selectedBus || !isAvailable(selectedBus)) {
+            front.append(frontDoor, aisle, driver);
+            seatGrid.appendChild(front);
             return;
         }
 
-        const selectedTrip = {
-            ...savedBooking,
+        // Empat kursi yang saling berdempetan di belakang
+        if (item.type === "rear") {
+            const rear = document.createElement("div");
+            rear.className = "seat-rear-row";
 
-            pickup,
-            destination,
+            item.seats.forEach(number => {
+                rear.appendChild(createSeatButton(number));
+            });
 
-            pickupId: savedBooking.pickupId,
-            destinationId: savedBooking.destinationId,
+            seatGrid.appendChild(rear);
+            return;
+        }
 
-            date: selectedDate,
-            passengers,
+        // Baris khusus pintu samping dan kursi nomor 7
+        if (item.type === "side-door") {
+            const row = document.createElement("div");
+            row.className = "seat-layout-row side-door-row";
 
-            busId: selectedBus.id,
-            busName: selectedBus.name,
-            busPlate: selectedBus.plate,
+            const door = document.createElement("div");
+            door.className = "seat-door side-door";
+            door.innerHTML = `
+                <span class="door-symbol">↔</span>
+                <span>PINTU SAMPING</span>
+            `;
 
-            departureTime: selectedBus.departure,
-            arrivalTime: selectedBus.arrival,
+            const aisle = document.createElement("div");
+            aisle.className = "seat-aisle";
 
-            pricePerPerson: selectedBus.price,
-            totalPrice: selectedBus.price * passengers
-        };
+            row.append(
+                door,
+                aisle,
+                createSeatButton(item.right)
+            );
 
-        localStorage.setItem(
-            "unesavelSelectedTrip",
-            JSON.stringify(selectedTrip)
-        );
+            seatGrid.appendChild(row);
+            return;
+        }
 
-        const notice = $("#modal-notice");
+        // Baris reguler: dua kursi kiri, lorong, satu kursi kanan
+        if (item.type === "row") {
+            const row = document.createElement("div");
+            row.className = "seat-layout-row";
 
-        notice.hidden = false;
-        notice.textContent =
-            "Bus berhasil dipilih untuk simulasi. " +
-            "Pilihan tersimpan di browser. " +
-            "Pembayaran belum diproses.";
+            const leftPair = document.createElement("div");
+            leftPair.className = "seat-left-pair";
 
-        modalSelectButton.textContent = "Bus dipilih ✓";
-        modalSelectButton.disabled = true;
+            item.left.forEach(number => {
+                leftPair.appendChild(createSeatButton(number));
+            });
+
+            const aisle = document.createElement("div");
+            aisle.className = "seat-aisle";
+
+            row.append(
+                leftPair,
+                aisle,
+                createSeatButton(item.right)
+            );
+
+            seatGrid.appendChild(row);
+        }
     });
+
+    updateSeatSummary();
+}
+function toggleSeat(number) {
+    if (!selectedBus) return;
+
+    const occupiedSeats = getBookedSeatNumbers(selectedBus);
+
+    if (occupiedSeats.includes(number)) return;
+
+    const alreadySelected = selectedSeats.includes(number);
+
+    if (alreadySelected) {
+        selectedSeats = selectedSeats.filter(
+            seat => seat !== number
+        );
+    } else {
+        if (selectedSeats.length >= passengers) {
+            showSeatNotice(
+                `Kamu hanya dapat memilih ${passengers} kursi ` +
+                "sesuai jumlah penumpang."
+            );
+            return;
+        }
+
+        selectedSeats.push(number);
+    }
+
+    selectedSeats.sort((a, b) => a - b);
+
+    renderSeatMap();
+
+    if (seatNotice) {
+        seatNotice.hidden = true;
+    }
+}
+
+function updateSeatSummary() {
+    if (!selectedBus) return;
+
+    if (selectedSeatNumbers) {
+        selectedSeatNumbers.textContent = selectedSeats.length
+            ? selectedSeats.map(getSeatNumber).join(", ")
+            : "Belum dipilih";
+    }
+
+    if (selectedSeatPrice) {
+        selectedSeatPrice.textContent = formatRupiah(
+            selectedSeats.length * selectedBus.price
+        );
+    }
+
+    if (seatConfirmButton) {
+        seatConfirmButton.disabled =
+            selectedSeats.length !== passengers;
+
+        seatConfirmButton.textContent =
+            selectedSeats.length === passengers
+                ? "Konfirmasi Kursi"
+                : `Pilih ${passengers - selectedSeats.length} kursi lagi`;
+    }
+}
+
+function showSeatNotice(message) {
+    if (!seatNotice) return;
+
+    seatNotice.textContent = message;
+    seatNotice.hidden = false;
+}
+
+function openSeatSelection(bus) {
+    selectedBus = bus;
+    selectedSeats = [];
+
+    seatModalTitle.textContent = "Pilih Kursi";
+    seatBusInfo.textContent = `${bus.name} · ${bus.plate}`;
+
+    $("#modal-pickup").textContent = pickup;
+    $("#modal-destination").textContent = destination;
+
+    if (seatNotice) {
+        seatNotice.hidden = true;
+        seatNotice.textContent = "";
+    }
+
+    renderSeatMap();
+
+    modal.hidden = false;
+    document.body.style.overflow = "hidden";
+    modalClose.focus();
+}
+
+function closeSeatSelection() {
+    modal.hidden = true;
+    document.body.style.overflow = "";
+
+    selectedBus = null;
+    selectedSeats = [];
+}
+
+modalClose.addEventListener("click", closeSeatSelection);
+
+modal.addEventListener("click", event => {
+    if (event.target === modal) {
+        closeSeatSelection();
+    }
+});
+
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !modal.hidden) {
+        closeSeatSelection();
+    }
+});
+
+/* ========================================
+   15. KONFIRMASI KURSI
+======================================== */
+
+
+seatConfirmButton.addEventListener("click", () => {
+    if (!selectedBus) return;
+
+    if (selectedSeats.length !== passengers) {
+        showSeatNotice(
+            `Pilih tepat ${passengers} kursi sebelum melanjutkan.`
+        );
+        return;
+    }
+
+    const occupiedSeats = getBookedSeatNumbers(selectedBus);
+
+    if (selectedSeats.some(seat => occupiedSeats.includes(seat))) {
+        showSeatNotice(
+            "Ada kursi yang sudah terisi. Silakan pilih kursi lain."
+        );
+        selectedSeats = [];
+        renderSeatMap();
+        return;
+    }
+
+    const selectedTrip = {
+        ...savedBooking,
+        pickup,
+        destination,
+        date: selectedDate,
+        passengers,
+        busId: selectedBus.id,
+        busName: selectedBus.name,
+        busPlate: selectedBus.plate,
+        departureTime: selectedBus.departure,
+        arrivalTime: selectedBus.arrival,
+        seatNumbers: selectedSeats.map(getSeatNumber),
+        pricePerPerson: selectedBus.price,
+        totalPrice: selectedSeats.length * selectedBus.price
+    };
+
+    // Simpan data untuk halaman konfirmasi
+    localStorage.setItem(
+        "unesavelSelectedTrip",
+        JSON.stringify(selectedTrip)
+    );
+
+    // Ubah label tombol
+    seatConfirmButton.textContent = "Memproses...";
+    seatConfirmButton.disabled = true;
+
+    // Pindah ke halaman konfirmasi
+    window.location.href = "confirmation.html";
+});
 
     // ========================================
     // 16. JALANKAN HALAMAN
