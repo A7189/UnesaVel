@@ -161,3 +161,160 @@ input:checked + .slider:before {
     transform: scale(0.97);
     background: rgba(239, 68, 68, 0.2);
 }
+/* ==========================================
+   POP-UP MODAL BAHASA PREMIUM (CUSTOM UI)
+   ========================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px); /* Blur mewah ala iOS */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background: var(--bg-surface);
+    width: 88%;
+    max-width: 340px;
+    border-radius: 24px;
+    padding: 20px 20px 24px;
+    transform: translateY(24px) scale(0.95);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.16);
+    border: 1px solid rgba(75, 106, 80, 0.08);
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0) scale(1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.modal-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0;
+}
+
+.close-modal {
+    background: rgba(75, 106, 80, 0.06);
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.close-modal:active {
+    background: rgba(75, 106, 80, 0.15);
+    transform: scale(0.9);
+}
+
+/* Custom Language List */
+.lang-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.lang-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: rgba(75, 106, 80, 0.02);
+    border: 1px solid rgba(75, 106, 80, 0.04);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.lang-option-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* Bulatan Flag Sederhana */
+.lang-flag {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.lang-name {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.lang-name span {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+/* Icon Checkmark Aktif */
+.lang-check {
+    color: var(--primary);
+    font-size: 14px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.2s ease;
+}
+
+/* Hover & Active States */
+.lang-option:hover {
+    background: rgba(75, 106, 80, 0.05);
+    border-color: rgba(75, 106, 80, 0.1);
+}
+
+.lang-option.active {
+    background: rgba(75, 106, 80, 0.08);
+    border-color: var(--primary);
+}
+
+.lang-option.active .lang-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Gembok Sembunyiin GTranslate Asli */
+#google_translate_element {
+    display: none !important;
+}
+iframe.goog-te-banner-frame, 
+.goog-te-banner-frame,
+#goog-gt-tt, 
+.goog-te-balloon-frame {
+    display: none !important;
+}
+body {
+    top: 0px !important;
+}
