@@ -1,28 +1,54 @@
-/* ========================================
+
+/* ==========================================
    BUS SELECTION - UNESAVEL
-======================================== */
+   Mengikuti assets/css/variables.css
+========================================== */
 
+/* Variabel tema: gunakan palet asli UNESAVEL */
 :root {
-    --bs-primary: var(--primary, #2563eb);
-    --bs-text: var(--text-primary, #172033);
-    --bs-muted: var(--text-secondary, #718096);
-    --bs-bg: var(--background, #f5f7fb);
-    --bs-card: var(--surface, #ffffff);
-    --bs-border: var(--border, #e5eaf2);
-    --bs-green: #16a34a;
+    --bs-primary: var(--primary, #4b6a50);
+    --bs-secondary: var(--secondary, #678a6d);
+    --bs-text: var(--text-main, #2c3e30);
+    --bs-muted: var(--text-muted, #7c8e80);
+    --bs-bg: var(--bg-main, #ffffff);
+    --bs-card: var(--bg-surface, #ffffff);
+    --bs-border: var(--border-color, #ccd4c9);
+    --bs-on-primary: #ffffff;
+    --bs-green: #3f8050;
     --bs-red: #dc2626;
-    --bs-shadow: 0 8px 28px rgba(26, 45, 80, 0.06);
+    --bs-shadow: var(--shadow-soft, 0 4px 20px rgba(75, 106, 80, 0.05));
+    --bs-seat-occupied-bg: #d1d5db;
+    --bs-seat-occupied-text: #374151;
+    --bs-seat-occupied-border: #9ca3af;
+    --bs-door-bg: #ecfdf5;
+    --bs-door-text: #0f766e;
+    --bs-door-border: #0d9488;
 }
 
+/* Dark mode mengikuti variables.css */
 html[data-theme="dark"] {
-    --bs-primary: var(--primary, #60a5fa);
-    --bs-text: var(--text-primary, #f1f5f9);
-    --bs-muted: var(--text-secondary, #a0aec0);
-    --bs-bg: var(--background, #111827);
-    --bs-card: var(--surface, #1f2937);
-    --bs-border: var(--border, #374151);
-    --bs-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+    --bs-primary: var(--primary, #85a88c);
+    --bs-secondary: var(--secondary, #59785e);
+    --bs-text: var(--text-main, #e6ebe7);
+    --bs-muted: var(--text-muted, #a0afa4);
+    --bs-bg: var(--bg-main, #121613);
+    --bs-card: var(--bg-surface, #1e2620);
+    --bs-border: var(--border-color, #2c3e30);
+    --bs-on-primary: #121613;
+    --bs-green: #85c995;
+    --bs-red: #f87171;
+    --bs-shadow: var(--shadow-soft, 0 4px 20px rgba(0, 0, 0, 0.3));
+    --bs-seat-occupied-bg: #39433c;
+    --bs-seat-occupied-text: #c4cec6;
+    --bs-seat-occupied-border: #58665b;
+    --bs-door-bg: #24372a;
+    --bs-door-text: #b8d9bf;
+    --bs-door-border: #59785e;
 }
+
+/* ==========================================
+   DASAR
+========================================== */
 
 * {
     box-sizing: border-box;
@@ -34,11 +60,12 @@ html[data-theme="dark"] {
 
 body {
     margin: 0;
+    padding-bottom: 120px;
     background: var(--bs-bg);
     color: var(--bs-text);
     font-family: "Segoe UI", Arial, sans-serif;
     line-height: 1.5;
-    padding-bottom: 120px;
+    transition: background-color 0.2s, color 0.2s;
 }
 
 button,
@@ -55,13 +82,21 @@ a {
     text-decoration: none;
 }
 
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--bs-primary);
+    outline-offset: 3px;
+}
+
 .selection-page {
     width: min(100% - 40px, 900px);
     margin: 0 auto;
     padding: 24px 0 40px;
 }
 
-/* HEADER */
+/* ==========================================
+   HEADER
+========================================== */
 
 .selection-header {
     display: grid;
@@ -80,11 +115,12 @@ a {
     border: 1px solid var(--bs-border);
     border-radius: 14px;
     background: var(--bs-card);
+    color: var(--bs-text);
     transition: background 0.2s, transform 0.2s;
 }
 
 .back-button:hover {
-    background: var(--bs-bg);
+    background: color-mix(in srgb, var(--bs-primary) 10%, var(--bs-card));
     transform: translateX(-2px);
 }
 
@@ -95,10 +131,10 @@ a {
 
 .header-route {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
     min-width: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     font-size: 15px;
     font-weight: 750;
     text-align: center;
@@ -109,16 +145,18 @@ a {
 }
 
 .header-route-arrow {
+    flex-shrink: 0;
     color: var(--bs-primary);
     font-size: 21px;
-    flex-shrink: 0;
 }
 
 .header-spacer {
     width: 44px;
 }
 
-/* JUDUL HALAMAN */
+/* ==========================================
+   JUDUL HALAMAN
+========================================== */
 
 .trip-summary {
     display: flex;
@@ -134,7 +172,7 @@ a {
     flex-shrink: 0;
     place-items: center;
     border-radius: 18px;
-    background: color-mix(in srgb, var(--bs-primary) 12%, transparent);
+    background: color-mix(in srgb, var(--bs-primary) 14%, var(--bs-card));
     font-size: 28px;
 }
 
@@ -151,7 +189,9 @@ a {
     font-size: 14px;
 }
 
-/* JUDUL BAGIAN */
+/* ==========================================
+   JUDUL BAGIAN
+========================================== */
 
 .section-heading,
 .results-heading {
@@ -179,7 +219,9 @@ a {
     margin-bottom: 24px;
 }
 
-/* PEMILIH TANGGAL */
+/* ==========================================
+   PEMILIH TANGGAL
+========================================== */
 
 .date-scroller {
     display: flex;
@@ -214,13 +256,13 @@ a {
 .date-option.active {
     border-color: var(--bs-primary);
     background: var(--bs-primary);
-    color: #ffffff;
+    color: var(--bs-on-primary);
 }
 
 .date-day {
     font-size: 12px;
     font-weight: 600;
-    opacity: 0.85;
+    opacity: 0.9;
 }
 
 .date-number {
@@ -234,7 +276,9 @@ a {
     font-weight: 600;
 }
 
-/* RINGKASAN RUTE */
+/* ==========================================
+   RINGKASAN RUTE
+========================================== */
 
 .filter-summary {
     display: flex;
@@ -273,7 +317,9 @@ a {
     background: var(--bs-border);
 }
 
-/* DAFTAR BUS */
+/* ==========================================
+   DAFTAR BUS
+========================================== */
 
 .bus-results {
     margin-bottom: 30px;
@@ -287,7 +333,7 @@ a {
     flex-shrink: 0;
     padding: 6px 11px;
     border-radius: 20px;
-    background: color-mix(in srgb, var(--bs-primary) 12%, transparent);
+    background: color-mix(in srgb, var(--bs-primary) 14%, var(--bs-card));
     color: var(--bs-primary);
     font-size: 12px;
     font-weight: 800;
@@ -299,7 +345,9 @@ a {
     gap: 18px;
 }
 
-/* KARTU BUS */
+/* ==========================================
+   KARTU BUS
+========================================== */
 
 .bus-card {
     overflow: hidden;
@@ -307,11 +355,11 @@ a {
     border-radius: 20px;
     background: var(--bs-card);
     box-shadow: var(--bs-shadow);
-    transition: border-color 0.2s, transform 0.2s;
+    transition: border-color 0.2s, transform 0.2s, background 0.2s;
 }
 
 .bus-card:hover {
-    border-color: color-mix(in srgb, var(--bs-primary) 45%, var(--bs-border));
+    border-color: color-mix(in srgb, var(--bs-primary) 55%, var(--bs-border));
 }
 
 .bus-card-main {
@@ -367,7 +415,7 @@ a {
     gap: 6px;
     padding: 6px 10px;
     border-radius: 20px;
-    background: color-mix(in srgb, var(--bs-green) 12%, transparent);
+    background: color-mix(in srgb, var(--bs-green) 15%, var(--bs-card));
     color: var(--bs-green);
     font-size: 12px;
     font-weight: 800;
@@ -382,7 +430,7 @@ a {
 }
 
 .bus-status.unavailable {
-    background: color-mix(in srgb, var(--bs-red) 12%, transparent);
+    background: color-mix(in srgb, var(--bs-red) 13%, var(--bs-card));
     color: var(--bs-red);
 }
 
@@ -392,7 +440,9 @@ a {
     font-weight: 650;
 }
 
-/* AREA RUTE BUS */
+/* ==========================================
+   RUTE BUS
+========================================== */
 
 .bus-card-middle {
     display: grid;
@@ -478,7 +528,9 @@ a {
     line-height: 1.5;
 }
 
-/* HARGA */
+/* ==========================================
+   HARGA
+========================================== */
 
 .bus-price {
     display: flex;
@@ -506,7 +558,9 @@ a {
     font-size: 11px;
 }
 
-/* BAGIAN BAWAH KARTU */
+/* ==========================================
+   BAGIAN BAWAH KARTU
+========================================== */
 
 .bus-card-bottom {
     display: flex;
@@ -539,7 +593,7 @@ a {
     border: 0;
     border-radius: 11px;
     background: var(--bs-primary);
-    color: #ffffff;
+    color: var(--bs-on-primary);
     font-size: 13px;
     font-weight: 800;
     transition: opacity 0.2s, transform 0.2s;
@@ -556,7 +610,9 @@ a {
     transform: none;
 }
 
-/* BUS KOSONG */
+/* ==========================================
+   BUS KOSONG
+========================================== */
 
 .empty-state {
     padding: 44px 24px;
@@ -584,15 +640,18 @@ a {
     line-height: 1.7;
 }
 
-/* CATATAN BAWAH */
+/* ==========================================
+   CATATAN BAWAH
+========================================== */
 
 .selection-footer {
     display: flex;
     align-items: flex-start;
     gap: 10px;
     padding: 15px 17px;
+    border: 1px solid color-mix(in srgb, var(--bs-primary) 15%, var(--bs-border));
     border-radius: 13px;
-    background: color-mix(in srgb, var(--bs-primary) 7%, var(--bs-bg));
+    background: color-mix(in srgb, var(--bs-primary) 8%, var(--bs-bg));
     color: var(--bs-muted);
 }
 
@@ -608,12 +667,9 @@ a {
     line-height: 1.7;
 }
 
-/* MODAL DETAIL BUS */
-
-
-/* ========================================
+/* ==========================================
    MODAL PILIH KURSI
-======================================== */
+========================================== */
 
 .modal-overlay {
     position: fixed;
@@ -624,7 +680,7 @@ a {
     justify-content: center;
     padding: 16px;
     overflow-y: auto;
-    background: rgba(15, 23, 42, 0.65);
+    background: rgba(10, 18, 12, 0.68);
     backdrop-filter: blur(5px);
 }
 
@@ -638,7 +694,8 @@ a {
     border-radius: 23px;
     background: var(--bs-card);
     color: var(--bs-text);
-    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
+    scrollbar-color: var(--bs-border) var(--bs-card);
 }
 
 .modal-close {
@@ -654,11 +711,16 @@ a {
     background: var(--bs-bg);
     color: var(--bs-text);
     font-size: 25px;
+    transition: background 0.2s;
+}
+
+.modal-close:hover {
+    background: color-mix(in srgb, var(--bs-primary) 12%, var(--bs-card));
 }
 
 .modal-eyebrow {
     margin: 0 0 5px;
-    color: var(--bs-muted);
+    color: var(--bs-primary);
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 1px;
@@ -694,12 +756,14 @@ a {
 }
 
 .seat-trip-info span:nth-child(2) {
+    flex-shrink: 0;
     color: var(--bs-primary);
     font-size: 18px;
-    flex-shrink: 0;
 }
 
-/* LEGENDA */
+/* ==========================================
+   LEGENDA KURSI
+========================================== */
 
 .seat-legend {
     display: flex;
@@ -729,20 +793,26 @@ a {
 }
 
 .seat-legend-box.selected {
+    border-color: var(--bs-primary);
     background: var(--bs-primary);
 }
 
 .seat-legend-box.occupied {
-    border-color: #9ca3af;
-    background: #9ca3af;
+    border-color: var(--bs-seat-occupied-border);
+    background: var(--bs-seat-occupied-bg);
 }
 
-/* DENAH BUS */
+/* ==========================================
+   DENAH BUS
+========================================== */
 
 .bus-seat-map {
-    padding: 17px 12px 13px;
+    width: 100%;
+    max-width: 340px;
+    margin: 20px auto;
+    padding: 12px;
     border: 1px solid var(--bs-border);
-    border-radius: 18px;
+    border-radius: 16px;
     background: var(--bs-bg);
 }
 
@@ -767,89 +837,150 @@ a {
     place-items: center;
     border: 2px solid var(--bs-border);
     border-radius: 50%;
+    color: var(--bs-text);
     font-size: 22px;
 }
 
-.seat-grid {
+.seat-grid,
+#seat-grid {
     display: flex;
+    width: 100%;
     flex-direction: column;
     gap: 9px;
 }
 
+/* Layout kursi untuk struktur lama */
 .seat-row {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) 22px
-                           minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr)) 22px minmax(0, 1fr);
     align-items: center;
     gap: 8px;
 }
 
-.seat-aisle {
+/* Layout kursi sesuai denah UNESAVEL */
+.seat-front-row,
+.seat-layout-row {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(42px, 1.2fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 5px;
     width: 100%;
 }
 
+.seat-left-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2px;
+    min-width: 0;
+}
+
+.seat-aisle {
+    width: 100%;
+    min-width: 0;
+    min-height: 34px;
+}
+
+/* Semua kursi menggunakan warna tema */
 .seat-button {
     display: flex;
+    width: 100%;
     min-width: 0;
-    min-height: 43px;
+    min-height: 34px;
     align-items: center;
     justify-content: center;
     gap: 4px;
+    padding: 0;
     border: 1px solid var(--bs-primary);
-    border-radius: 9px;
+    border-radius: 6px;
     background: var(--bs-card);
     color: var(--bs-primary);
     font-size: 12px;
     font-weight: 800;
-    transition: background 0.15s, color 0.15s,
-                transform 0.15s;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, transform 0.15s;
 }
 
 .seat-button:not(:disabled):hover {
-    background: color-mix(
-        in srgb,
-        var(--bs-primary) 12%,
-        var(--bs-card)
-    );
+    background: color-mix(in srgb, var(--bs-primary) 14%, var(--bs-card));
     transform: translateY(-1px);
 }
 
+/* Kursi yang dipilih */
 .seat-button.selected {
     border-color: var(--bs-primary);
     background: var(--bs-primary);
-    color: #ffffff;
+    color: var(--bs-on-primary);
 }
 
+/* Kursi yang sudah terisi */
 .seat-button.occupied {
+    border-color: var(--bs-seat-occupied-border);
+    background: var(--bs-seat-occupied-bg);
+    color: var(--bs-seat-occupied-text);
     cursor: not-allowed;
-    border-color: #9ca3af;
-    background: #9ca3af;
-    color: #ffffff;
-    opacity: 0.8;
+    opacity: 1;
 }
 
-.seat-button:focus-visible,
-.modal-close:focus-visible,
-.seat-confirm-button:focus-visible {
-    outline: 3px solid #93c5fd;
-    outline-offset: 3px;
+/* Kursi yang dinonaktifkan */
+.seat-button:disabled {
+    cursor: not-allowed;
 }
 
-.bus-back {
+/* Area pintu dan kursi pengemudi */
+.seat-door,
+.driver-seat {
     display: flex;
+    min-width: 0;
+    min-height: 44px;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 9px;
-    margin-top: 17px;
-    padding-top: 13px;
-    border-top: 2px dashed var(--bs-border);
-    color: var(--bs-muted);
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 1px;
+    gap: 2px;
+    padding: 3px;
+    border-radius: 6px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1.2;
 }
 
-/* RINGKASAN PILIHAN */
+.seat-door {
+    border: 1px dashed var(--bs-door-border);
+    background: var(--bs-door-bg);
+    color: var(--bs-door-text);
+}
+
+.driver-seat {
+    border: 1px solid var(--bs-border);
+    background: color-mix(in srgb, var(--bs-primary) 8%, var(--bs-card));
+    color: var(--bs-text);
+}
+
+.door-symbol,
+.driver-symbol {
+    font-size: 16px;
+    line-height: 1;
+}
+
+.side-door-row {
+    min-height: 44px;
+}
+
+/* Empat kursi belakang */
+.seat-rear-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2px;
+    width: 100%;
+    margin-top: 5px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--bs-border);
+}
+
+/* ==========================================
+   RINGKASAN PILIHAN KURSI
+========================================== */
 
 .seat-selection-summary {
     display: grid;
@@ -890,19 +1021,21 @@ a {
     font-size: 18px;
 }
 
+/* Pesan informasi pemilihan kursi */
 .seat-notice {
     margin: 12px 0 0;
     padding: 10px 12px;
+    border: 1px solid var(--bs-border);
     border-radius: 10px;
-    background: color-mix(
-        in srgb,
-        var(--bs-primary) 10%,
-        var(--bs-card)
-    );
+    background: color-mix(in srgb, var(--bs-primary) 10%, var(--bs-card));
     color: var(--bs-text);
     font-size: 12px;
     line-height: 1.6;
 }
+
+/* ==========================================
+   TOMBOL KONFIRMASI KURSI
+========================================== */
 
 .seat-confirm-button {
     width: 100%;
@@ -911,24 +1044,129 @@ a {
     border: none;
     border-radius: 12px;
     background: var(--bs-primary);
-    color: #ffffff;
+    color: var(--bs-on-primary);
     font-size: 13px;
     font-weight: 850;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, transform 0.2s;
 }
 
 .seat-confirm-button:hover {
     opacity: 0.9;
+    transform: translateY(-1px);
 }
 
 .seat-confirm-button:disabled {
     cursor: not-allowed;
     opacity: 0.5;
+    transform: none;
 }
 
-/* RESPONSIVE MODAL */
+/* Fokus keyboard */
+.seat-button:focus-visible,
+.modal-close:focus-visible,
+.seat-confirm-button:focus-visible {
+    outline: 3px solid var(--bs-primary);
+    outline-offset: 3px;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
 
 @media (max-width: 600px) {
+    .selection-page {
+        width: min(100% - 28px, 900px);
+        padding-top: 18px;
+    }
+
+    .selection-header {
+        gap: 8px;
+        margin-bottom: 24px;
+    }
+
+    .header-route {
+        gap: 6px;
+        font-size: 12px;
+    }
+
+    .trip-summary {
+        gap: 12px;
+        margin-bottom: 25px;
+    }
+
+    .trip-summary-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 15px;
+        font-size: 24px;
+    }
+
+    .trip-summary-text p {
+        font-size: 12px;
+    }
+
+    .filter-summary {
+        gap: 10px;
+        padding: 15px 12px;
+    }
+
+    .filter-item strong {
+        font-size: 12px;
+    }
+
+    .filter-label {
+        font-size: 10px;
+    }
+
+    .filter-divider {
+        height: 32px;
+    }
+
+    .bus-card-main {
+        padding: 17px;
+    }
+
+    .bus-card-top {
+        gap: 8px;
+        padding-bottom: 16px;
+    }
+
+    .bus-status {
+        padding: 5px 8px;
+        font-size: 10px;
+    }
+
+    .seat-count {
+        font-size: 10px;
+    }
+
+    .bus-card-middle {
+        gap: 10px;
+        padding: 18px 0;
+    }
+
+    .route-item {
+        gap: 10px;
+    }
+
+    .route-time-location {
+        font-size: 14px;
+    }
+
+    .bus-price {
+        min-width: 82px;
+    }
+
+    .bus-card-bottom {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .detail-button {
+        min-width: 115px;
+        padding: 10px 12px;
+    }
+
     .modal-overlay {
         align-items: center;
         padding: 10px;
@@ -950,179 +1188,66 @@ a {
     }
 
     .bus-seat-map {
-        padding: 14px 9px 12px;
+        padding: 12px 9px;
     }
 
     .seat-row {
-        grid-template-columns: repeat(2, minmax(0, 1fr)) 16px
-                               minmax(0, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr)) 16px minmax(0, 1fr);
         gap: 6px;
-    }
-
-    .seat-button {
-        min-height: 40px;
-        border-radius: 8px;
-        font-size: 11px;
-    }
-}
-
-/* =====================================
-   DENAH KURSI UNESAVEL
-   ===================================== */
-
-.bus-seat-map {
-    width: 100%;
-    max-width: 340px;
-    margin: 20px auto;
-    padding: 12px;
-    border: 1px solid var(--border-color, #d7dfeb);
-    border-radius: 16px;
-    background: var(--card-bg, #ffffff);
-    box-sizing: border-box;
-}
-
-#seat-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 9px;
-    width: 100%;
-}
-
-/* Susunan dasar: kiri | lorong | kanan */
-.seat-front-row,
-.seat-layout-row {
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(42px, 1.2fr) minmax(0, 1fr);
-    align-items: center;
-    gap: 5px;
-    width: 100%;
-}
-
-/* Dua kursi kiri benar-benar berdempetan */
-.seat-left-pair {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2px;
-    min-width: 0;
-}
-
-/* Bentuk setiap kursi */
-.seat-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    min-width: 0;
-    height: 34px;
-    padding: 0;
-    border: 1px solid #1769e0;
-    border-radius: 5px;
-    background: #eaf3ff;
-    color: #174ea6;
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    box-sizing: border-box;
-    transition: background 0.15s, color 0.15s;
-}
-
-/* Kursi pilihan pengguna */
-.seat-button.selected {
-    background: #1769e0;
-    border-color: #1769e0;
-    color: #ffffff;
-}
-
-/* Kursi terisi */
-.seat-button.occupied {
-    background: #d1d5db;
-    border-color: #9ca3af;
-    color: #6b7280;
-    cursor: not-allowed;
-    opacity: 1;
-}
-
-/* Lorong tengah: sengaja dibiarkan kosong */
-.seat-aisle {
-    min-width: 0;
-    min-height: 34px;
-}
-
-/* Area pintu dan kursi sopir */
-.seat-door,
-.driver-seat {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    min-width: 0;
-    min-height: 44px;
-    padding: 3px;
-    border-radius: 6px;
-    box-sizing: border-box;
-    text-align: center;
-    font-size: 9px;
-    font-weight: 700;
-    line-height: 1.2;
-}
-
-.seat-door {
-    border: 1px dashed #0d9488;
-    background: #ecfdf5;
-    color: #0f766e;
-}
-
-.driver-seat {
-    border: 1px solid var(--border-color, #d1d5db);
-    background: var(--surface-secondary, #f3f4f6);
-    color: var(--text-color, #374151);
-}
-
-.door-symbol,
-.driver-symbol {
-    font-size: 16px;
-    line-height: 1;
-}
-
-/* Pintu samping dan kursi nomor 7 */
-.side-door-row {
-    min-height: 44px;
-}
-
-/* Empat kursi belakang, saling berdempetan */
-.seat-rear-row {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 2px;
-    width: 100%;
-    margin-top: 5px;
-    padding-top: 10px;
-    border-top: 1px dashed var(--border-color, #d1d5db);
-}
-
-/* Sesuaikan di layar ponsel */
-@media (max-width: 400px) {
-    .bus-seat-map {
-        padding: 8px;
     }
 
     .seat-front-row,
     .seat-layout-row {
-        grid-template-columns:
-            minmax(0, 2fr)
-            minmax(30px, 1fr)
-            minmax(0, 1fr);
+        grid-template-columns: minmax(0, 2fr) minmax(30px, 1fr) minmax(0, 1fr);
         gap: 4px;
     }
 
     .seat-button {
-        height: 31px;
+        min-height: 31px;
+        border-radius: 5px;
         font-size: 11px;
     }
 
     .seat-door,
     .driver-seat {
         font-size: 8px;
+    }
+}
+
+@media (max-width: 360px) {
+    .selection-page {
+        width: calc(100% - 20px);
+    }
+
+    .filter-summary {
+        gap: 7px;
+        padding: 12px 8px;
+    }
+
+    .filter-item strong {
+        font-size: 11px;
+    }
+
+    .bus-card-main {
+        padding: 13px;
+    }
+
+    .bus-card-middle {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .bus-price {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .seat-front-row,
+    .seat-layout-row {
+        grid-template-columns: minmax(0, 2fr) minmax(24px, 0.8fr) minmax(0, 1fr);
+        gap: 3px;
+    }
+
+    .seat-selection-summary {
+        padding: 12px 10px;
     }
 }
