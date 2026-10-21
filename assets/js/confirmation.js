@@ -19,8 +19,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const content = $("#confirmation-content");
     const pageError = $("#page-error");
 
-    if (!trip || !Array.isArray(trip.seatNumbers) ||
-        trip.seatNumbers.length === 0) {
+    if (
+        !trip ||
+        !Array.isArray(trip.seatNumbers) ||
+        trip.seatNumbers.length === 0
+    ) {
         if (pageError) pageError.hidden = false;
         if (content) content.hidden = true;
         return;
@@ -43,7 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
         Number(trip.pricePerPerson) || 0
     );
 
-    // Jangan memakai totalPrice = 0 jika harga per penumpang tersedia.
     const savedTotal = Number(trip.totalPrice) || 0;
 
     const originalPrice = savedTotal > 0
@@ -53,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let activeVoucher = null;
     let discount = 0;
     let paymentCompleted = false;
+    let isProcessingPayment = false;
 
     const rupiah = amount =>
         new Intl.NumberFormat("id-ID", {
@@ -124,9 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const promoButton = $("#promo-button");
 
     const discountRow = $("#discount-row");
-    const discountAmount = $("#discount-amount");
     const oldPrice = $("#price-before-discount");
-    const finalPrice = $("#final-price");
     const payButton = $("#pay-button");
 
     function setPromoMessage(message, type = "") {
@@ -137,17 +138,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function updatePrice() {
-        const finalAmount = Math.max(0, originalPrice - discount);
+        const finalAmount = Math.max(
+            0,
+            originalPrice - discount
+        );
 
         showValue("#original-price", rupiah(originalPrice));
         showValue("#discount-amount", `−${rupiah(discount)}`);
         showValue("#final-price", rupiah(finalAmount));
 
-        if (discountRow) discountRow.hidden = discount <= 0;
-        if (oldPrice) oldPrice.hidden = discount <= 0;
+        if (discountRow) {
+            discountRow.hidden = discount <= 0;
+        }
 
-        if (oldPrice && discount > 0) {
-            oldPrice.textContent = rupiah(originalPrice);
+        if (oldPrice) {
+            oldPrice.hidden = discount <= 0;
+
+            if (discount > 0) {
+                oldPrice.textContent = rupiah(originalPrice);
+            }
         }
 
         if (payButton) {
@@ -156,7 +165,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 : "Bayar Sekarang";
 
             payButton.disabled =
-                paymentCompleted || originalPrice <= 0;
+                paymentCompleted ||
+                isProcessingPayment ||
+                originalPrice <= 0;
         }
     }
 
@@ -164,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
         promoForm.addEventListener("submit", event => {
             event.preventDefault();
 
-            if (paymentCompleted) return;
+            if (paymentCompleted || isProcessingPayment) return;
 
             const code = promoInput.value.trim().toUpperCase();
 
@@ -184,7 +195,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 promoInput.disabled = true;
 
                 if (promoButton) promoButton.disabled = true;
-                if (removePromoButton) removePromoButton.hidden = false;
+
+                if (removePromoButton) {
+                    removePromoButton.hidden = false;
+                }
 
                 setPromoMessage(
                     "Voucher UNESA10 berhasil digunakan. Diskon 10%.",
@@ -206,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (removePromoButton) {
         removePromoButton.addEventListener("click", () => {
-            if (paymentCompleted) return;
+            if (paymentCompleted || isProcessingPayment) return;
 
             activeVoucher = null;
             discount = 0;
@@ -219,6 +233,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (promoButton) promoButton.disabled = false;
 
             removePromoButton.hidden = true;
+
             setPromoMessage("Voucher berhasil dihapus.");
 
             updatePrice();
@@ -226,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================
-    // 5. DROPDOWN METODE PEMBAYARAN
+    // 5. METODE PEMBAYARAN
     // ==========================================
 
     const methodToggle = $("#payment-method-toggle");
@@ -280,6 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateMethodDisplay(value) {
         const item = methodDisplay[value];
+
         if (!item) return;
 
         const logo = $("#current-payment-logo");
@@ -293,11 +309,27 @@ document.addEventListener("DOMContentLoaded", () => {
         showValue("#current-payment-description", item.description);
     }
 
+    function closeMethodList() {
+        if (methodList) methodList.hidden = true;
+
+        if (methodToggle) {
+            methodToggle.setAttribute("aria-expanded", "false");
+        }
+
+        if (methodChevron) {
+            methodChevron.classList.remove("fa-chevron-up");
+            methodChevron.classList.add("fa-chevron-down");
+        }
+    }
+
     if (methodToggle && methodList) {
         methodToggle.addEventListener("click", () => {
+            if (paymentCompleted || isProcessingPayment) return;
+
             const willOpen = methodList.hidden;
 
             methodList.hidden = !willOpen;
+
             methodToggle.setAttribute(
                 "aria-expanded",
                 String(willOpen)
@@ -305,16 +337,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (methodChevron) {
                 methodChevron.classList.toggle(
-                    "fa-chevron-up", willOpen
+                    "fa-chevron-up",
+                    willOpen
                 );
+
                 methodChevron.classList.toggle(
-                    "fa-chevron-down", !willOpen
+                    "fa-chevron-down",
+                    !willOpen
                 );
             }
         });
     }
 
-    // Hanya radio dalam dropdown yang digunakan.
     const paymentRadios = methodList
         ? methodList.querySelectorAll(
             'input[name="payment-method"]'
@@ -324,21 +358,10 @@ document.addEventListener("DOMContentLoaded", () => {
     paymentRadios.forEach(input => {
         input.addEventListener("change", () => {
             updateMethodDisplay(input.value);
-
-            if (methodList) methodList.hidden = true;
-
-            if (methodToggle) {
-                methodToggle.setAttribute("aria-expanded", "false");
-            }
-
-            if (methodChevron) {
-                methodChevron.classList.remove("fa-chevron-up");
-                methodChevron.classList.add("fa-chevron-down");
-            }
+            closeMethodList();
         });
     });
 
-    // Atur metode default berdasarkan radio yang terpilih.
     const initiallySelected = methodList
         ? methodList.querySelector(
             'input[name="payment-method"]:checked'
@@ -350,7 +373,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================
-    // 6. MODAL PEMBAYARAN DEMO
+    // 6. MODAL PEMBAYARAN SIMULASI
     // ==========================================
 
     const paymentModal = $("#payment-modal");
@@ -409,7 +432,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (payButton) {
         payButton.addEventListener("click", () => {
-            if (paymentCompleted) return;
+            if (paymentCompleted || isProcessingPayment) return;
 
             if (originalPrice <= 0) {
                 alert(
@@ -432,8 +455,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const selectedMethod = method.value;
             const details = paymentInstructions[selectedMethod];
+
             const finalAmount = Math.max(
-                0, originalPrice - discount
+                0,
+                originalPrice - discount
             );
 
             showValue("#modal-total", rupiah(finalAmount));
@@ -475,7 +500,9 @@ document.addEventListener("DOMContentLoaded", () => {
             showValue("#modal-reference-label", details.referenceLabel);
             showValue("#modal-reference-value", details.reference);
 
-            if (paymentModal) paymentModal.hidden = false;
+            if (paymentModal) {
+                paymentModal.hidden = false;
+            }
         });
     }
 
@@ -483,25 +510,77 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (closeModalButton && paymentModal) {
         closeModalButton.addEventListener("click", () => {
+            if (isProcessingPayment) return;
             paymentModal.hidden = true;
         });
 
         paymentModal.addEventListener("click", event => {
-            if (event.target === paymentModal) {
+            if (
+                event.target === paymentModal &&
+                !isProcessingPayment
+            ) {
                 paymentModal.hidden = true;
             }
         });
     }
 
     // ==========================================
-    // 7. KONFIRMASI PEMBAYARAN SIMULASI
+    // 7. SIMPAN PEMBAYARAN DAN BUAT TIKET
     // ==========================================
 
     const simulateButton = $("#simulate-payment");
 
+    function createTicketId(existingTickets) {
+        let ticketId;
+
+        do {
+            ticketId =
+                "UV-" +
+                Date.now().toString(36).toUpperCase() +
+                "-" +
+                Math.random().toString(36).slice(2, 6).toUpperCase();
+        } while (
+            existingTickets.some(
+                ticket => ticket.ticketId === ticketId
+            )
+        );
+
+        return ticketId;
+    }
+
+    function readTickets() {
+        const raw = localStorage.getItem("unesavelTickets");
+
+        if (!raw) return [];
+
+        const parsed = JSON.parse(raw);
+
+        if (!Array.isArray(parsed)) {
+            throw new Error("Format daftar tiket tidak valid.");
+        }
+
+        return parsed;
+    }
+
+    function setPaymentControlsDisabled(disabled) {
+        if (simulateButton) simulateButton.disabled = disabled;
+        if (payButton) payButton.disabled = disabled || originalPrice <= 0;
+
+        paymentRadios.forEach(radio => {
+            radio.disabled = disabled;
+        });
+
+        if (promoInput) promoInput.disabled = disabled || !!activeVoucher;
+        if (promoButton) promoButton.disabled = disabled || !!activeVoucher;
+
+        if (removePromoButton) {
+            removePromoButton.disabled = disabled;
+        }
+    }
+
     if (simulateButton) {
         simulateButton.addEventListener("click", () => {
-            if (paymentCompleted) return;
+            if (paymentCompleted || isProcessingPayment) return;
 
             const method = methodList
                 ? methodList.querySelector(
@@ -509,77 +588,122 @@ document.addEventListener("DOMContentLoaded", () => {
                 )
                 : null;
 
-            if (!method) {
+            if (!method || !paymentInstructions[method.value]) {
                 alert("Silakan pilih metode pembayaran.");
                 return;
             }
 
-            paymentCompleted = true;
+            if (originalPrice <= 0) {
+                alert("Total pembayaran tidak valid.");
+                return;
+            }
 
-            const finalAmount = Math.max(
-                0, originalPrice - discount
-            );
-
-            // Buat ID dan waktu pembayaran agar tidak error.
-            const ticketId =
-                "UV-" + Date.now().toString(36).toUpperCase();
-
-            const paidAt = new Date().toISOString();
-
-            const paymentData = {
-                ...trip,
-                ticketId,
-                voucher: activeVoucher,
-                originalPrice,
-                discount,
-                totalPaid: finalAmount,
-                paymentMethod: method.value,
-                paymentStatus: "Berhasil (Simulasi)",
-                ticketStatus: "Aktif",
-                paidAt
-            };
+            isProcessingPayment = true;
+            setPaymentControlsDisabled(true);
 
             try {
+                // Baca data tiket sebelumnya tanpa menghapusnya.
+                const tickets = readTickets();
+
+                const finalAmount = Math.max(
+                    0,
+                    originalPrice - discount
+                );
+
+                const ticketId = createTicketId(tickets);
+                const paidAt = new Date().toISOString();
+
+                const paymentData = {
+                    ...trip,
+
+                    ticketId,
+                    voucher: activeVoucher,
+                    originalPrice,
+                    discount,
+                    totalPaid: finalAmount,
+
+                    paymentMethod: method.value,
+                    paymentStatus: "Berhasil (Simulasi)",
+                    ticketStatus: "Aktif",
+                    paidAt
+                };
+
+                // Simpan seluruh tiket, termasuk tiket sebelumnya.
+                tickets.unshift(paymentData);
+
+                localStorage.setItem(
+                    "unesavelTickets",
+                    JSON.stringify(tickets)
+                );
+
+                // Pertahankan key pembayaran lama.
                 localStorage.setItem(
                     "unesavelPayment",
                     JSON.stringify(paymentData)
                 );
+
+                // Tandai tiket yang akan dibuka di halaman detail.
+                localStorage.setItem(
+                    "unesavelSelectedTicketId",
+                    ticketId
+                );
+
+                // Baru tandai pembayaran berhasil setelah penyimpanan.
+                paymentCompleted = true;
+
+                if (paymentModal) {
+                    paymentModal.hidden = true;
+                }
+
+                if (promoInput) promoInput.disabled = true;
+                if (promoButton) promoButton.disabled = true;
+
+                if (removePromoButton) {
+                    removePromoButton.disabled = true;
+                }
+
+                const status = $(".status-pill");
+
+                if (status) {
+                    status.textContent = "Pembayaran berhasil";
+                    status.style.background = "#dcfce7";
+                    status.style.color = "#166534";
+                }
+
+                updatePrice();
+
+                alert(
+                    "Simulasi pembayaran berhasil!\n\n" +
+                    `ID tiket: ${ticketId}\n` +
+                    `Bus: ${trip.busName || "Bus UNESA Vel"}\n` +
+                    `Kursi: ${trip.seatNumbers.join(", ")}\n` +
+                    `Metode: ${method.value}\n` +
+                    `Total: ${rupiah(finalAmount)}\n\n` +
+                    "Tiket telah disimpan. Tidak ada uang sungguhan yang dipotong."
+                );
+
+                // confirmation.html dan ticket-detail.html berada
+                // dalam folder pages yang sama.
+                window.location.href = "ticket-detail.html";
+
             } catch (error) {
-                paymentCompleted = false;
-                alert("Data pembayaran gagal disimpan di browser.");
-                return;
+                console.error("Gagal menyimpan tiket:", error);
+
+                isProcessingPayment = false;
+                setPaymentControlsDisabled(false);
+                updatePrice();
+
+                alert(
+                    "Pembayaran simulasi belum dapat disimpan.\n" +
+                    "Silakan coba lagi.\n\n" +
+                    "Detail: " + error.message
+                );
             }
-
-            const status = $(".status-pill");
-
-            if (status) {
-                status.textContent = "Pembayaran berhasil";
-                status.style.background = "#dcfce7";
-                status.style.color = "#166534";
-            }
-
-            if (paymentModal) paymentModal.hidden = true;
-
-            if (promoInput) promoInput.disabled = true;
-            if (promoButton) promoButton.disabled = true;
-            if (removePromoButton) removePromoButton.disabled = true;
-
-            updatePrice();
-
-            alert(
-                "Simulasi pembayaran berhasil!\n\n" +
-                `ID tiket: ${ticketId}\n` +
-                `Bus: ${trip.busName || "Bus UNESA Vel"}\n` +
-                `Kursi: ${trip.seatNumbers.join(", ")}\n` +
-                `Metode: ${method.value}\n` +
-                `Total: ${rupiah(finalAmount)}\n\n` +
-                "Tidak ada uang sungguhan yang dipotong."
-            );
         });
     }
 
     // ==========================================
-    // 8. TAMPILKAN HARGA AWAL
+    // 8. HARGA AWAL
     // ==========================================
 
     updatePrice();

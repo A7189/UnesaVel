@@ -1,153 +1,408 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Riwayat Perjalanan - UnesaVel</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
+    <title>Riwayat Tiket | UNESA Vel</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <link rel="stylesheet" href="../assets/css/variables.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="../assets/css/navbar.css">
     <link rel="stylesheet" href="../assets/css/history.css">
 
-    <!-- Obat Anti Kedip Putih -->
-    <script>
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
-    </script>
 </head>
-<body class="history-page">
-    <div class="app-shell">
-        
-        <header class="page-header">z
-            <div>
-                <h2>Riwayat Perjalanan</h2>
-                <p style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">Tiket dan aktivitas terbarumu</p>
-            </div>
+
+<body>
+    <!-- Navigasi mengikuti komponen proyek yang sudah ada -->
+    <div id="navbar-container"></div>
+
+    <main class="history-container">
+        <header class="history-heading">
+            <h1>Riwayat Tiket</h1>
+            <p>Lihat perjalanan dan tiket UNESA Vel yang sudah kamu pesan.</p>
         </header>
 
-        <section class="history-timeline">
-            <div class="timeline-date current-date">
-                <span class="timeline-dot active-dot"></span>
-                Hari Ini
+        <section class="history-summary" aria-label="Ringkasan riwayat">
+            <div class="summary-card">
+                <div class="summary-icon">
+                    <i class="fa-solid fa-ticket"></i>
+                </div>
+                <div>
+                    <span class="summary-label">Total tiket berhasil</span>
+                    <div class="summary-value" id="total-tickets">0</div>
+                </div>
             </div>
 
-            <a href="ticket-detail.html" class="history-card active-ticket">
-                <div class="card-main">
-                    <div class="route-vertical">
-                        <div class="route-point departure">
-                            <h4>Rumpun Informatika</h4>
-                            <span>Berangkat • 13:00 WIB</span>
-                        </div>
-                        <div class="route-point destination">
-                            <h4>Gerbang Utama</h4>
-                            <span>Estimasi Tiba • 13:20 WIB</span>
-                        </div>
-                    </div>
-
-                    <div class="card-right-col">
-                        <div class="seat-badge">08</div>
-                        <span class="status-badge active-badge">Aktif</span>
-                    </div>
+            <div class="summary-card">
+                <div class="summary-icon">
+                    <i class="fa-solid fa-wallet"></i>
                 </div>
-
-                <div class="card-details">
-                    <div class="card-meta">
-                        <strong>Rp 5.000</strong>
-                        ID: UNS-99A1X
-                    </div>
-                    <div class="card-time" style="color: var(--primary); background: rgba(75, 106, 80, 0.1);">
-                        <i class="fa-solid fa-bus" style="margin-right: 4px;"></i> Sedang jalan
-                    </div>
+                <div>
+                    <span class="summary-label">Total pembayaran</span>
+                    <div class="summary-value" id="total-payment">Rp0</div>
                 </div>
-            </a>
-
-            <!-- Penanda Tanggal 1 -->
-            <div class="timeline-date">
-                <span class="timeline-dot"></span>
-                16 Okt 2026
             </div>
-
-            <!-- Kartu Tiket 1 (Bisa Diklik ke Detail) -->
-            <a href="ticket-detail.html" class="history-card">
-                <div class="card-main">
-                    <div class="route-vertical">
-                        <div class="route-point departure">
-                            <h4>Ketintang</h4>
-                            <span>Keberangkatan • 10:15 WIB</span>
-                        </div>
-                        <div class="route-point destination">
-                            <h4>Lidah Wetan</h4>
-                            <span>Tujuan • 10:45 WIB</span>
-                        </div>
-                    </div>
-
-                    <div class="card-right-col">
-                        <div class="seat-badge">04</div>
-                        <span class="status-badge">Selesai</span>
-                    </div>
-                </div>
-
-                <div class="card-details">
-                    <div class="card-meta">
-                        <strong>Rp 5.000</strong>
-                        ID: UNS-88X2Q
-                    </div>
-                    <div class="card-time">
-                        <i class="fa-regular fa-clock" style="margin-right: 4px;"></i> 30 mnt
-                    </div>
-                </div>
-            </a>
-
-            <!-- Penanda Tanggal 2 -->
-            <div class="timeline-date">
-                <span class="timeline-dot"></span>
-                15 Okt 2026
-            </div>
-
-            <!-- Kartu Tiket 2 -->
-            <a href="ticket-detail.html" class="history-card">
-                <div class="card-main">
-                    <div class="route-vertical">
-                        <div class="route-point departure">
-                            <h4>Lidah Wetan</h4>
-                            <span>Keberangkatan • 14:00 WIB</span>
-                        </div>
-                        <div class="route-point destination">
-                            <h4>Ketintang</h4>
-                            <span>Tujuan • 14:35 WIB</span>
-                        </div>
-                    </div>
-
-                    <div class="card-right-col">
-                        <div class="seat-badge">12</div>
-                        <span class="status-badge">Selesai</span>
-                    </div>
-                </div>
-
-                <div class="card-details">
-                    <div class="card-meta">
-                        <strong>Rp 5.000</strong>
-                        ID: UNS-92Z4P
-                    </div>
-                    <div class="card-time">
-                        <i class="fa-regular fa-clock" style="margin-right: 4px;"></i> 35 mnt
-                    </div>
-                </div>
-            </a>
-
         </section>
 
-    </div>
-    
-    <div id="bottom-nav-container"></div>
+        <div class="history-notice">
+            <i class="fa-solid fa-circle-info"></i>
+            Riwayat ini menampilkan transaksi simulasi yang berhasil disimpan di browser ini.
+        </div>
+
+        <section id="history-content" aria-label="Daftar riwayat tiket">
+            <div id="history-list"></div>
+        </section>
+
+        <section class="history-empty" id="history-empty" hidden>
+            <div class="history-empty-icon">
+                <i class="fa-solid fa-ticket"></i>
+            </div>
+
+            <h2>Belum Ada Riwayat Tiket</h2>
+            <p>
+                Tiket yang berhasil dibayar akan muncul di halaman ini.
+                Yuk, pesan perjalanan pertamamu menggunakan UNESA Vel!
+            </p>
+
+            <a href="explore.html">
+                <i class="fa-solid fa-bus"></i>
+                Cari Perjalanan
+            </a>
+        </section>
+    </main>
 
     <script src="../assets/js/navbar.js"></script>
     <script src="../assets/js/script.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const $ = selector => document.querySelector(selector);
+
+            const rupiah = amount =>
+                new Intl.NumberFormat("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                    maximumFractionDigits: 0
+                }).format(Number(amount) || 0);
+
+            function escapeHTML(value) {
+                return String(value ?? "").replace(/[&<>"']/g, char => ({
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#39;"
+                })[char]);
+            }
+
+            function formatDate(value) {
+                if (!value) return "Tanggal belum tersedia";
+
+                const parts = String(value).split("-");
+
+                if (parts.length === 3) {
+                    const date = new Date(
+                        Number(parts[0]),
+                        Number(parts[1]) - 1,
+                        Number(parts[2])
+                    );
+
+                    return date.toLocaleDateString("id-ID", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    });
+                }
+
+                const date = new Date(value);
+
+                if (Number.isNaN(date.getTime())) {
+                    return String(value);
+                }
+
+                return date.toLocaleDateString("id-ID", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                });
+            }
+
+            function formatTime(value) {
+                if (!value) return "--:--";
+
+                const match = String(value).match(/(\d{1,2}):(\d{2})/);
+
+                if (match) {
+                    return `${match[1].padStart(2, "0")}:${match[2]}`;
+                }
+
+                return String(value);
+            }
+
+            function readJSON(key, fallback) {
+                try {
+                    const value = JSON.parse(
+                        localStorage.getItem(key) || "null"
+                    );
+
+                    return value ?? fallback;
+                } catch (error) {
+                    console.error(`Gagal membaca ${key}:`, error);
+                    return fallback;
+                }
+            }
+
+            function getTickets() {
+                const storedTickets = readJSON("unesavelTickets", []);
+                const tickets = Array.isArray(storedTickets)
+                    ? [...storedTickets]
+                    : [];
+
+                // Kompatibilitas dengan transaksi dari versi lama.
+                const lastPayment = readJSON("unesavelPayment", null);
+
+                if (
+                    lastPayment &&
+                    lastPayment.ticketId &&
+                    !tickets.some(
+                        ticket => ticket.ticketId === lastPayment.ticketId
+                    )
+                ) {
+                    tickets.push(lastPayment);
+                }
+
+                // Hanya tampilkan transaksi yang berhasil.
+                const paidTickets = tickets.filter(ticket =>
+                    String(ticket.paymentStatus || "")
+                        .toLowerCase()
+                        .includes("berhasil")
+                );
+
+                // Buang duplikat berdasarkan ID tiket.
+                const uniqueTickets = [
+                    ...new Map(
+                        paidTickets.map(ticket => [
+                            ticket.ticketId,
+                            ticket
+                        ])
+                    ).values()
+                ];
+
+                return uniqueTickets.sort((a, b) => {
+                    const dateA = new Date(
+                        a.paidAt || a.date || 0
+                    ).getTime();
+
+                    const dateB = new Date(
+                        b.paidAt || b.date || 0
+                    ).getTime();
+
+                    return dateB - dateA;
+                });
+            }
+
+            function getDateKey(ticket) {
+                if (ticket.date) {
+                    return String(ticket.date).slice(0, 10);
+                }
+
+                if (ticket.paidAt) {
+                    return String(ticket.paidAt).slice(0, 10);
+                }
+
+                return "tanggal-tidak-tersedia";
+            }
+
+            function getPaidAmount(ticket) {
+                if (ticket.totalPaid !== undefined &&
+                    ticket.totalPaid !== null) {
+                    return Number(ticket.totalPaid) || 0;
+                }
+
+                if (ticket.totalPrice !== undefined &&
+                    ticket.totalPrice !== null) {
+                    return Number(ticket.totalPrice) || 0;
+                }
+
+                return Math.max(
+                    0,
+                    (Number(ticket.originalPrice) || 0) -
+                    (Number(ticket.discount) || 0)
+                );
+            }
+
+            function createTicketCard(ticket) {
+                const ticketId = escapeHTML(ticket.ticketId || "UV-TIKET");
+                const pickup = escapeHTML(ticket.pickup || "Lokasi penjemputan");
+                const destination = escapeHTML(ticket.destination || "Lokasi tujuan");
+                const busName = escapeHTML(ticket.busName || "Bus UNESA Vel");
+                const busPlate = escapeHTML(ticket.busPlate || "Belum tersedia");
+                const time = escapeHTML(formatTime(ticket.departureTime));
+                const arrival = escapeHTML(formatTime(ticket.arrivalTime));
+                const seats = Array.isArray(ticket.seatNumbers)
+                    ? ticket.seatNumbers.map(escapeHTML).join(", ")
+                    : "Belum tersedia";
+
+                const amount = getPaidAmount(ticket);
+                const status = String(ticket.ticketStatus || "Aktif");
+                const cancelled = /batal|cancel/i.test(status);
+
+                const card = document.createElement("a");
+                card.className = "history-ticket";
+                card.href = "ticket-detail.html";
+                card.setAttribute("aria-label", `Detail tiket ${ticketId}`);
+
+                card.innerHTML = `
+                    <div class="ticket-top">
+                        <span class="ticket-id">ID Tiket: ${ticketId}</span>
+
+                        <span class="ticket-status ${cancelled ? "cancelled" : ""}">
+                            <i class="fa-solid ${cancelled ? "fa-circle-xmark" : "fa-circle-check"}"></i>
+                            ${escapeHTML(status)}
+                        </span>
+                    </div>
+
+                    <div class="ticket-route">
+                        <div class="route-point">
+                            <span class="route-label">Titik penjemputan</span>
+                            <strong class="route-name">${pickup}</strong>
+                            <span class="route-time">
+                                <i class="fa-regular fa-clock"></i> ${time} WIB
+                            </span>
+                        </div>
+
+                        <div class="route-arrow">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+
+                        <div class="route-point">
+                            <span class="route-label">Titik tujuan</span>
+                            <strong class="route-name">${destination}</strong>
+                            <span class="route-time">
+                                <i class="fa-regular fa-clock"></i> ${arrival} WIB
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="ticket-meta">
+                        <span>
+                            <i class="fa-solid fa-bus"></i>
+                            ${busName}
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-id-card"></i>
+                            ${busPlate}
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-chair"></i>
+                            Kursi ${seats}
+                        </span>
+
+                        <span>
+                            <i class="fa-regular fa-calendar"></i>
+                            ${escapeHTML(formatDate(ticket.date))}
+                        </span>
+                    </div>
+
+                    <div class="ticket-bottom">
+                        <div>
+                            <span class="ticket-price-label">Total dibayar</span>
+                            <strong class="ticket-price">${rupiah(amount)}</strong>
+                        </div>
+
+                        <span class="ticket-detail-link">
+                            Lihat Detail <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+                    </div>
+                `;
+
+                card.addEventListener("click", () => {
+                    localStorage.setItem(
+                        "unesavelSelectedTicketId",
+                        ticket.ticketId
+                    );
+                });
+
+                return card;
+            }
+
+            function renderHistory() {
+                const tickets = getTickets();
+                const list = $("#history-list");
+                const empty = $("#history-empty");
+                const content = $("#history-content");
+
+                $("#total-tickets").textContent = tickets.length;
+
+                const totalPayment = tickets.reduce(
+                    (total, ticket) => total + getPaidAmount(ticket),
+                    0
+                );
+
+                $("#total-payment").textContent = rupiah(totalPayment);
+
+                list.innerHTML = "";
+
+                if (tickets.length === 0) {
+                    content.hidden = true;
+                    empty.hidden = false;
+                    return;
+                }
+
+                content.hidden = false;
+                empty.hidden = true;
+
+                const groups = new Map();
+
+                tickets.forEach(ticket => {
+                    const key = getDateKey(ticket);
+
+                    if (!groups.has(key)) {
+                        groups.set(key, []);
+                    }
+
+                    groups.get(key).push(ticket);
+                });
+
+                groups.forEach((groupTickets, dateKey) => {
+                    const section = document.createElement("section");
+                    section.className = "history-section";
+
+                    const heading = document.createElement("h2");
+                    heading.className = "history-date-heading";
+
+                    const dateLabel = dateKey === "tanggal-tidak-tersedia"
+                        ? "Tanggal tidak tersedia"
+                        : formatDate(dateKey);
+
+                    heading.innerHTML = `
+                        <i class="fa-regular fa-calendar"></i>
+                        ${escapeHTML(dateLabel)}
+                    `;
+
+                    const cards = document.createElement("div");
+                    cards.className = "history-list";
+
+                    groupTickets.forEach(ticket => {
+                        cards.appendChild(createTicketCard(ticket));
+                    });
+
+                    section.append(heading, cards);
+                    list.appendChild(section);
+                });
+            }
+
+            renderHistory();
+        });
+    </script>
+    <script src="../assets/js/translate.js"></script>
 </body>
 </html>

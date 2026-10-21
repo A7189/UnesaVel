@@ -23,7 +23,7 @@
     <div class="app-shell">
         <!-- Header Profile -->
         <section class="profile-header-section">
-            <img src="../assets/images/profile.jpeg" alt="Profile" class="profile-avatar-large">
+            <img src="../assets/images/user-icon.jpg" alt="Profile" class="profile-avatar-large">
             <h1 class="profile-name">Bang Pragaza</h1>
             <span class="profile-role">Teknik Informatika</span>
         </section>
@@ -48,13 +48,21 @@
                 </div>
                 <div class="settings-item-right"><i class="fa-solid fa-chevron-right"></i></div>
             </a>
+            <!-- MENU BAHASA (Pop-Up) -->
+            <a href="#" class="settings-item" id="lang-btn">
+                <div class="settings-item-left">
+                    <div class="settings-icon" style="color: #0ea5e9; background: rgba(14, 165, 233, 0.1);"><i class="fa-solid fa-globe"></i></div>
+                    Bahasa / Language
+                </div>
+                <div class="settings-item-right"><i class="fa-solid fa-chevron-right"></i></div>
+            </a>
         </div>
 
         <div class="section-header" style="margin-bottom: 12px; padding: 0 var(--page-gutter);">
             <h3 style="font-size: 16px;">Preferensi</h3>
         </div>
 
-        <!-- Group Preferensi (Termasuk Dark Mode) -->
+        <!-- Group Preferensi (Dark Mode) -->
         <div class="settings-group">
             <div class="settings-item">
                 <div class="settings-item-left">
@@ -62,7 +70,6 @@
                     Dark Mode
                 </div>
                 <div class="settings-item-right">
-                    <!-- Ini Switch UI nya -->
                     <label class="theme-switch">
                         <input type="checkbox" id="darkModeToggle">
                         <span class="slider"></span>
@@ -78,14 +85,98 @@
             </a>
         </div>
 
-        <!-- Tombol Logout Nembak ke Login -->
+        <!-- Logout -->
         <a href="login.html" class="btn-logout">
             <i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar Akun
         </a>
-
     </div>
+
+    <!-- ==========================================
+         MODAL POP-UP BAHASA (PREMIUM CUSTOM UI)
+         ========================================== -->
+    <div class="modal-overlay" id="lang-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Pilih Bahasa</h3>
+                <button class="close-modal" id="close-lang"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Pilih bahasa tampilan aplikasi.</p>
+            
+            <!-- List Pilihan Bahasa Premium Custom -->
+            <div class="lang-list">
+                <!-- Indonesia -->
+                <div class="lang-option active" data-lang="id" onclick="changeAppLanguage('id')">
+                    <div class="lang-option-left">
+                        <span class="lang-flag">🇮🇩</span>
+                        <div class="lang-name">
+                            Bahasa Indonesia
+                            <span>Indonesian</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-circle-check lang-check"></i>
+                </div>
+                <!-- Inggris -->
+                <div class="lang-option" data-lang="en" onclick="changeAppLanguage('en')">
+                    <div class="lang-option-left">
+                        <span class="lang-flag">🇬🇧</span>
+                        <div class="lang-name">
+                            English
+                            <span>English</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-circle-check lang-check"></i>
+                </div>
+                <!-- Jepang -->
+                <div class="lang-option" data-lang="ja" onclick="changeAppLanguage('ja')">
+                    <div class="lang-option-left">
+                        <span class="lang-flag">🇯🇵</span>
+                        <div class="lang-name">
+                            日本語
+                            <span>Japanese</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-circle-check lang-check"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <div id="google_translate_element"></div>
+
+    <script src="../assets/js/translate.js"></script>
     <div id="bottom-nav-container"></div>
     <script src="../assets/js/navbar.js"></script>
     <script src="../assets/js/script.js"></script>
+
+    <!-- JS BUKA TUTUP MODAL & SELEKTOR AKTIF -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const langBtn = document.getElementById('lang-btn');
+            const langModal = document.getElementById('lang-modal');
+            const closeLangBtn = document.getElementById('close-lang');
+
+            langBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                langModal.classList.add('active');
+            });
+
+            closeLangBtn.addEventListener('click', () => {
+                langModal.classList.remove('active');
+            });
+
+            langModal.addEventListener('click', (e) => {
+                if(e.target === langModal) {
+                    langModal.classList.remove('active');
+                }
+            });
+
+            // Tutup modal otomatis kalau sudah memilih bahasa
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                opt.addEventListener('click', () => {
+                    setTimeout(() => langModal.classList.remove('active'), 250);
+                });
+            });
+        });
+    </script>
 </body>
 </html>

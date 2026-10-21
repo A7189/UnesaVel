@@ -1,130 +1,570 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Tiket - Journey</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <title>Detail E-Ticket | UNESA Vel</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <link rel="stylesheet" href="../assets/css/variables.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
     <link rel="stylesheet" href="../assets/css/ticket-detail.css">
-    <script>
-        const savedTheme = localStorage.getItem('theme');
-        const isExplore = window.location.pathname.endsWith('explore.html');
-        if (savedTheme === 'dark' && !isExplore) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
-    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="../assets/js/navbar.js"></script>
+<script src="../assets/js/script.js"></script>
+<script src="../assets/js/ticket-detail.js"></script>
+
 </head>
-<body class="ticket-detail-page">
-    
-    <div class="ticket-bg-accent"></div>
 
-    <header class="transparent-header">
-        <div class="top-nav">
-            <button class="btn-icon" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i></button>
-            <h2 class="page-title">Boarding Pass</h2>
-            <div style="width: 40px;"></div>
-        </div>
-    </header>
+<body>
+    <div id="navbar-container"></div>
 
-    <div class="ticket-wrapper">
-        
-        <!-- Boarding Pass Card -->
-        <div class="boarding-pass">
-            <div class="bp-header">
-                <div class="qr-section">
-                    <p style="font-size: 12px; color: var(--text-muted); font-weight: 600; margin-bottom: 4px;">SCAN SAAT NAIK</p>
-                    <div class="qr-placeholder">
-                        <i class="fa-solid fa-qrcode"></i>
+    <main class="ticket-detail-container">
+        <header class="detail-heading">
+            <h1>Detail E-Ticket</h1>
+            <p>Simpan detail perjalananmu dan tunjukkan tiket ini saat diperlukan.</p>
+        </header>
+
+        <section id="ticket-empty" class="ticket-empty" hidden>
+            <i class="fa-solid fa-ticket"></i>
+            <h2>Tiket Tidak Ditemukan</h2>
+            <p>
+                Data tiket tidak tersedia atau pembayaran belum berhasil.
+                Silakan buka tiket dari halaman History.
+            </p>
+
+            <a class="action-button primary" href="history.html">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                Kembali ke History
+            </a>
+        </section>
+
+        <section id="ticket-content" hidden>
+            <article class="ticket-card">
+                <header class="ticket-card-header">
+                    <div class="ticket-brand">
+                        <div class="ticket-brand-icon">
+                            <i class="fa-solid fa-bus"></i>
+                        </div>
+
+                        <div>
+                            <h2>UNESA Vel</h2>
+                            <p>E-Ticket Shuttle Bus UNESA</p>
+                        </div>
                     </div>
-                    <span class="ticket-id">UNS-88X2Q</span>
-                </div>
+
+                    <span class="ticket-status-badge" id="ticket-status">
+                        Aktif
+                    </span>
+                </header>
+
+                <section class="ticket-route-section">
+                    
+<!-- QR CODE E-TICKET -->
+<section class="ticket-qr-section" aria-label="QR Code e-ticket">
+    <h3 class="ticket-qr-title">QR Code E-Ticket</h3>
+
+    <p class="ticket-qr-description">
+        Tunjukkan kode QR ini kepada petugas saat naik bus.
+    </p>
+
+    <div
+        id="ticket-qr"
+        class="ticket-qr-frame"
+        role="img"
+        aria-label="QR Code tiket"
+    ></div>
+
+    <strong id="ticket-qr-id" class="ticket-qr-id"></strong>
+
+    <p class="ticket-qr-note">
+        QR Code ini merupakan simulasi identifikasi tiket untuk demonstrasi
+        UNESA Vel dan belum terhubung dengan sistem validasi petugas.
+    </p>
+
+    <p id="ticket-qr-error" class="ticket-qr-error" hidden>
+        QR Code belum dapat dibuat. Periksa koneksi internet lalu muat ulang halaman.
+    </p>
+</section>
+
+                    <div class="ticket-id-label">KODE E-TICKET</div>
+                    <div class="ticket-id-value" id="ticket-id">-</div>
+
+                    <div class="ticket-route">
+                        <div class="ticket-route-point">
+                            <span class="ticket-route-label">Titik penjemputan</span>
+                            <strong class="ticket-route-name" id="ticket-pickup">-</strong>
+                            <span class="ticket-route-time" id="ticket-departure">--:--</span>
+                        </div>
+
+                        <div class="ticket-route-arrow">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+
+                        <div class="ticket-route-point">
+                            <span class="ticket-route-label">Titik tujuan</span>
+                            <strong class="ticket-route-name" id="ticket-destination">-</strong>
+                            <span class="ticket-route-time" id="ticket-arrival">--:--</span>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="ticket-separator"></div>
+
+                <section class="ticket-info-section">
+                    <h3 class="ticket-info-title">Informasi Perjalanan</h3>
+
+                    <div class="ticket-info-grid">
+                        <div class="ticket-info-item">
+                            <span class="ticket-info-label">
+                                <i class="fa-regular fa-calendar"></i>
+                                Tanggal keberangkatan
+                            </span>
+                            <div class="ticket-info-value" id="ticket-date">-</div>
+                        </div>
+
+                        <div class="ticket-info-item">
+                            <span class="ticket-info-label">
+                                <i class="fa-solid fa-users"></i>
+                                Jumlah penumpang
+                            </span>
+                            <div class="ticket-info-value" id="ticket-passengers">-</div>
+                        </div>
+
+                        <div class="ticket-info-item">
+                            <span class="ticket-info-label">
+                                <i class="fa-solid fa-bus"></i>
+                                Nama bus
+                            </span>
+                            <div class="ticket-info-value" id="ticket-bus">-</div>
+                        </div>
+
+                        <div class="ticket-info-item">
+                            <span class="ticket-info-label">
+                                <i class="fa-solid fa-id-card"></i>
+                                Nomor polisi
+                            </span>
+                            <div class="ticket-info-value" id="ticket-plate">-</div>
+                        </div>
+
+                        <div class="ticket-info-item">
+                            <span class="ticket-info-label">
+                                <i class="fa-solid fa-chair"></i>
+                                Nomor kursi
+                            </span>
+                            <div class="ticket-info-value" id="ticket-seats">-</div>
+                        </div>
+
+                        <div class="ticket-info-item">
+                            <span class="ticket-info-label">
+                                <i class="fa-solid fa-credit-card"></i>
+                                Metode pembayaran
+                            </span>
+                            <div class="ticket-info-value" id="ticket-method">-</div>
+                        </div>
+
+                        <div class="ticket-info-item">
+                            <span class="ticket-info-label">
+                                <i class="fa-solid fa-circle-check"></i>
+                                Status pembayaran
+                            </span>
+                            <div class="ticket-info-value" id="ticket-payment-status">-</div>
+                        </div>
+
+                        <div class="ticket-info-item">
+                            <span class="ticket-info-label">
+                                <i class="fa-regular fa-clock"></i>
+                                Waktu pembayaran
+                            </span>
+                            <div class="ticket-info-value" id="ticket-paid-at">-</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="payment-summary">
+                    <h3>Rincian Pembayaran</h3>
+
+                    <div class="payment-row" id="original-price-row">
+                        <span>Harga sebelum diskon</span>
+                        <strong id="ticket-original-price">Rp0</strong>
+                    </div>
+
+                    <div class="payment-row" id="discount-row">
+                        <span>Diskon voucher</span>
+                        <strong id="ticket-discount">Rp0</strong>
+                    </div>
+
+                    <div class="payment-total">
+                        <span>Total dibayar</span>
+                        <strong id="ticket-price">Rp0</strong>
+                    </div>
+
+                    <p class="simulation-note">
+                        <i class="fa-solid fa-circle-info"></i>
+                        Ini adalah bukti transaksi simulasi untuk proyek UNESA Vel.
+                        Tidak ada uang sungguhan yang dipotong.
+                    </p>
+                </section>
+
+                <section class="driver-rating">
+                    <h3>Beri Penilaian</h3>
+                    <p>Bagaimana pengalaman perjalananmu bersama UNESA Vel?</p>
+
+                    <div class="rating-stars" id="rating-stars" role="group" aria-label="Rating pengalaman perjalanan">
+                        <button type="button" class="rating-star" data-rating="1" aria-label="1 bintang"
+                            aria-pressed="false">
+                            <i class="fa-solid fa-star"></i>
+                        </button>
+
+                        <button type="button" class="rating-star" data-rating="2" aria-label="2 bintang"
+                            aria-pressed="false">
+                            <i class="fa-solid fa-star"></i>
+                        </button>
+
+                        <button type="button" class="rating-star" data-rating="3" aria-label="3 bintang"
+                            aria-pressed="false">
+                            <i class="fa-solid fa-star"></i>
+                        </button>
+
+                        <button type="button" class="rating-star" data-rating="4" aria-label="4 bintang"
+                            aria-pressed="false">
+                            <i class="fa-solid fa-star"></i>
+                        </button>
+
+                        <button type="button" class="rating-star" data-rating="5" aria-label="5 bintang"
+                            aria-pressed="false">
+                            <i class="fa-solid fa-star"></i>
+                        </button>
+                    </div>
+
+                    <div class="rating-message" id="rating-message">
+                        Pilih bintang untuk memberikan penilaian.
+                    </div>
+                </section>
+            </article>
+
+            <div class="ticket-actions">
+                <button type="button" class="action-button primary" id="save-ticket">
+                    <i class="fa-solid fa-download"></i>
+                    Simpan E-Ticket
+                </button>
+
+                <a href="history.html" class="action-button secondary">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    Kembali ke History
+                </a>
             </div>
+        </section>
+    </main>
 
-            <div class="bp-body">
-                <div class="bp-row">
-                    <div class="bp-col">
-                        <span class="bp-label">Berangkat</span>
-                        <span class="bp-value">Ketintang</span>
-                    </div>
-                    <div class="bp-col right">
-                        <span class="bp-label">Tujuan</span>
-                        <span class="bp-value">Lidah Wetan</span>
-                    </div>
-                </div>
+    <script src="../assets/js/navbar.js"></script>
+    <script src="../assets/js/script.js"></script>
 
-                <div class="bp-row">
-                    <div class="bp-col">
-                        <span class="bp-label">Tanggal</span>
-                        <span class="bp-value">16 Okt 2026</span>
-                    </div>
-                    <div class="bp-col right">
-                        <span class="bp-label">Jam Keberangkatan</span>
-                        <span class="bp-value">10:15 WIB</span>
-                    </div>
-                </div>
-
-                <div class="bp-row" style="padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.05);">
-                    <div class="bp-col">
-                        <span class="bp-label">Armada</span>
-                        <span class="bp-value">Bus 01 (L 1234 XY)</span>
-                    </div>
-                    <div class="bp-col right">
-                        <span class="bp-label">Nomor Kursi</span>
-                        <span class="bp-value" style="color: var(--primary); font-size: 20px;">04</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Driver Rating Card -->
-        <div class="driver-card">
-            <div class="driver-avatar">
-                <i class="fa-solid fa-user-tie"></i>
-            </div>
-            <div class="driver-info">
-                <h4>Pak Budi</h4>
-                <p>Beri nilai pelayanan driver</p>
-            </div>
-            <div class="rating-stars" id="star-rating">
-                <i class="fa-solid fa-star" data-val="1"></i>
-                <i class="fa-solid fa-star" data-val="2"></i>
-                <i class="fa-solid fa-star" data-val="3"></i>
-                <i class="fa-solid fa-star" data-val="4"></i>
-                <i class="fa-solid fa-star" data-val="5"></i>
-            </div>
-        </div>
-
-        <!-- Action Button -->
-        <div class="action-buttons">
-            <button class="btn-download" onclick="alert('Tiket berhasil diunduh ke galeri!')">
-                <i class="fa-solid fa-download"></i> Simpan E-Ticket
-            </button>
-        </div>
-
-    </div>
-
-    <!-- Script buat fungsi klik bintang rating -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const stars = document.querySelectorAll('.rating-stars i');
-            
-            stars.forEach(star => {
-                star.addEventListener('click', (e) => {
-                    const value = parseInt(e.target.getAttribute('data-val'));
-                    
-                    // Reset semua bintang
-                    stars.forEach(s => s.classList.remove('active'));
-                    
-                    // Nyalain bintang dari 1 sampai yang diklik
-                    for(let i = 0; i < value; i++) {
-                        stars[i].classList.add('active');
-                    }
+        document.addEventListener("DOMContentLoaded", () => {
+            const $ = selector => document.querySelector(selector);
+
+            const rupiah = amount =>
+                new Intl.NumberFormat("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                    maximumFractionDigits: 0
+                }).format(Number(amount) || 0);
+
+            function escapeHTML(value) {
+                return String(value ?? "").replace(/[&<>"']/g, char => ({
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#39;"
+                })[char]);
+            }
+
+            function readJSON(key, fallback) {
+                try {
+                    const value = JSON.parse(
+                        localStorage.getItem(key) || "null"
+                    );
+
+                    return value ?? fallback;
+                } catch (error) {
+                    console.error(`Gagal membaca ${key}:`, error);
+                    return fallback;
+                }
+            }
+
+            function formatDate(value) {
+                if (!value) return "-";
+
+                const parts = String(value).split("-");
+
+                if (parts.length === 3) {
+                    const date = new Date(
+                        Number(parts[0]),
+                        Number(parts[1]) - 1,
+                        Number(parts[2])
+                    );
+
+                    return date.toLocaleDateString("id-ID", {
+                        weekday: "long",
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    });
+                }
+
+                const date = new Date(value);
+
+                if (Number.isNaN(date.getTime())) {
+                    return String(value);
+                }
+
+                return date.toLocaleDateString("id-ID", {
+                    weekday: "long",
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
                 });
+            }
+
+            function formatDateTime(value) {
+                if (!value) return "-";
+
+                const date = new Date(value);
+
+                if (Number.isNaN(date.getTime())) {
+                    return String(value);
+                }
+
+                return date.toLocaleString("id-ID", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit"
+                });
+            }
+
+            function formatTime(value) {
+                if (!value) return "--:--";
+
+                const match = String(value).match(/(\d{1,2}):(\d{2})/);
+
+                if (!match) return String(value);
+
+                return `${match[1].padStart(2, "0")}:${match[2]}`;
+            }
+
+            function getTickets() {
+                const stored = readJSON("unesavelTickets", []);
+                const tickets = Array.isArray(stored) ? [...stored] : [];
+
+                // Dukungan data pembayaran versi sebelumnya.
+                const lastPayment = readJSON("unesavelPayment", null);
+
+                if (
+                    lastPayment &&
+                    lastPayment.ticketId &&
+                    !tickets.some(
+                        ticket => ticket.ticketId === lastPayment.ticketId
+                    )
+                ) {
+                    tickets.push(lastPayment);
+                }
+
+                return tickets;
+            }
+
+            function findSelectedTicket() {
+                const tickets = getTickets();
+
+                const selectedId = localStorage.getItem(
+                    "unesavelSelectedTicketId"
+                );
+
+                // Jika ID dipilih dari History, cari tiket berdasarkan ID.
+                if (selectedId) {
+                    return tickets.find(
+                        ticket => ticket.ticketId === selectedId
+                    ) || null;
+                }
+
+                // Jika dibuka langsung setelah pembayaran, gunakan transaksi
+                // terakhir sebagai fallback.
+                const lastPayment = readJSON("unesavelPayment", null);
+
+                if (
+                    lastPayment &&
+                    String(lastPayment.paymentStatus || "")
+                        .toLowerCase()
+                        .includes("berhasil")
+                ) {
+                    return lastPayment;
+                }
+
+                return null;
+            }
+
+            function showEmptyState() {
+                $("#ticket-empty").hidden = false;
+                $("#ticket-content").hidden = true;
+            }
+
+            function renderTicket(ticket) {
+                if (!ticket || !ticket.ticketId) {
+                    showEmptyState();
+                    return;
+                }
+
+                const paymentStatus = String(
+                    ticket.paymentStatus || ""
+                );
+
+                if (!paymentStatus.toLowerCase().includes("berhasil")) {
+                    showEmptyState();
+                    return;
+                }
+
+                $("#ticket-empty").hidden = true;
+                $("#ticket-content").hidden = false;
+
+                const setText = (selector, value) => {
+                    const element = $(selector);
+
+                    if (element) {
+                        element.textContent =
+                            value !== undefined &&
+                                value !== null &&
+                                value !== ""
+                                ? value
+                                : "-";
+                    }
+                };
+
+                setText("#ticket-id", ticket.ticketId);
+                setText("#ticket-pickup", ticket.pickup || "Lokasi penjemputan");
+                setText("#ticket-destination", ticket.destination || "Lokasi tujuan");
+                setText("#ticket-departure", formatTime(ticket.departureTime));
+                setText("#ticket-arrival", formatTime(ticket.arrivalTime));
+                setText("#ticket-date", formatDate(ticket.date));
+                setText(
+                    "#ticket-passengers",
+                    `${Number(ticket.passengers) || ticket.seatNumbers?.length || 1} orang`
+                );
+                setText("#ticket-bus", ticket.busName || "Bus UNESA Vel");
+                setText("#ticket-plate", ticket.busPlate || "Belum tersedia");
+                setText(
+                    "#ticket-seats",
+                    Array.isArray(ticket.seatNumbers)
+                        ? ticket.seatNumbers.join(", ")
+                        : "Belum tersedia"
+                );
+                setText("#ticket-method", ticket.paymentMethod || "-");
+                setText("#ticket-payment-status", paymentStatus);
+                setText("#ticket-paid-at", formatDateTime(ticket.paidAt));
+
+                const originalPrice = Number(ticket.originalPrice) ||
+                    Number(ticket.totalPrice) || 0;
+
+                const discount = Number(ticket.discount) || 0;
+
+                const totalPaid = ticket.totalPaid !== undefined &&
+                    ticket.totalPaid !== null
+                    ? Number(ticket.totalPaid) || 0
+                    : Math.max(0, originalPrice - discount);
+
+                setText("#ticket-original-price", rupiah(originalPrice));
+                setText("#ticket-discount", `−${rupiah(discount)}`);
+                setText("#ticket-price", rupiah(totalPaid));
+
+                $("#original-price-row").hidden = discount <= 0;
+                $("#discount-row").hidden = discount <= 0;
+
+                const statusElement = $("#ticket-status");
+                const status = String(ticket.ticketStatus || "Aktif");
+                statusElement.textContent = status;
+                statusElement.classList.toggle(
+                    "cancelled",
+                    /batal|cancel/i.test(status)
+                );
+
+                // Simpan ID yang sedang ditampilkan.
+                localStorage.setItem(
+                    "unesavelSelectedTicketId",
+                    ticket.ticketId
+                );
+
+                renderRating(ticket.ticketId);
+            }
+
+            // ==========================================
+            // RATING PER TIKET
+            // ==========================================
+
+            function renderRating(ticketId) {
+                const ratingKey = `unesavelRating_${ticketId}`;
+                const savedRating = Number(
+                    localStorage.getItem(ratingKey)
+                ) || 0;
+
+                const stars = document.querySelectorAll(".rating-star");
+
+                function updateStars(rating) {
+                    stars.forEach(star => {
+                        const value = Number(star.dataset.rating);
+                        const active = value <= rating;
+
+                        star.classList.toggle("active", active);
+                        star.setAttribute(
+                            "aria-pressed",
+                            String(value === rating)
+                        );
+                    });
+                }
+
+                updateStars(savedRating);
+
+                $("#rating-message").textContent = savedRating
+                    ? `Terima kasih! Kamu memberi ${savedRating} dari 5 bintang.`
+                    : "Pilih bintang untuk memberikan penilaian.";
+
+                stars.forEach(star => {
+                    star.onclick = () => {
+                        const rating = Number(star.dataset.rating);
+
+                        localStorage.setItem(ratingKey, String(rating));
+
+                        updateStars(rating);
+
+                        $("#rating-message").textContent =
+                            `Terima kasih! Kamu memberi ${rating} dari 5 bintang.`;
+                    };
+                });
+            }
+
+            // ==========================================
+            // SIMPAN / CETAK E-TICKET
+            // ==========================================
+
+            $("#save-ticket").addEventListener("click", () => {
+                window.print();
             });
+
+            // ==========================================
+            // MULAI
+            // ==========================================
+
+            renderTicket(findSelectedTicket());
         });
     </script>
+    <script src="../assets/js/translate.js"></script>
 </body>
+
 </html>

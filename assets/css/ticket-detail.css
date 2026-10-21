@@ -1,233 +1,893 @@
-.ticket-detail-page {
-    padding-bottom: 4vh;
+/* ==========================================
+   UNESAVEL - DETAIL E-TICKET
+   Terintegrasi dengan variables.css
+   Mendukung light mode dan dark mode
+========================================== */
+
+/* ---------- HALAMAN UTAMA ---------- */
+
+.ticket-detail-container {
+    width: min(100% - 40px, 1000px);
+    margin: 40px auto;
+    color: var(--text-main);
 }
 
-/* Header Transparan (numpang di atas tiket) */
-.transparent-header {
-    padding: clamp(24px, 4vh, 40px) var(--page-gutter) 0;
-    position: absolute;
-    width: 100%;
-    top: 0;
-    z-index: 10;
-    background: transparent;
+.detail-heading {
+    margin-bottom: 28px;
 }
 
-.transparent-header .top-nav {
-    margin-bottom: 0;
+.detail-heading h1 {
+    margin: 0 0 8px;
+    color: var(--text-main);
+    font-size: clamp(24px, 4vw, 32px);
+    font-weight: 800;
 }
 
-.transparent-header .page-title {
+.detail-heading p {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+/* ---------- KARTU TIKET ---------- */
+
+.ticket-card {
+    overflow: hidden;
+    background: var(--bg-surface);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+}
+
+/* Header tiket */
+
+.ticket-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 24px 28px;
+    background: var(--banner-grad-start);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ticket-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+
+.ticket-brand-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
     color: var(--static-white);
-    font-size: 18px;
-    font-weight: 600;
+    background: var(--primary);
+    border-radius: var(--radius-md);
+    font-size: 23px;
 }
 
-.transparent-header .btn-icon {
-    background: rgba(255, 255, 255, 0.2);
-    color: var(--static-white);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+.ticket-brand h2 {
+    margin: 0 0 5px;
+    color: var(--text-main);
+    font-size: 21px;
+    font-weight: 800;
 }
 
-/* Latar Belakang Tiket (Aksen Hijau) */
-.ticket-bg-accent {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 40vh;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    z-index: 1;
-    border-bottom-left-radius: 40px;
-    border-bottom-right-radius: 40px;
+.ticket-brand p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 13px;
 }
 
-.ticket-wrapper {
-    position: relative;
-    z-index: 5;
-    padding: clamp(100px, 15vh, 120px) var(--page-gutter) 0;
+/* Status tiket */
+
+.ticket-status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 8px 14px;
+    color: var(--primary);
+    background: var(--bg-surface);
+    border: 1px solid var(--primary);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+/* ---------- INFORMASI RUTE ---------- */
+
+.ticket-route-section {
+    padding: 28px;
+}
+
+.ticket-id-label {
+    margin-bottom: 6px;
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.ticket-id-value {
+    margin-bottom: 30px;
+    color: var(--primary);
+    font-size: 22px;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+
+.ticket-route {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 22px;
+}
+
+.ticket-route-point {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    align-items: flex-start;
+    min-width: 0;
 }
 
-/* Card Boarding Pass Utama */
-.boarding-pass {
-    background: var(--bg-surface);
-    border-radius: 24px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    position: relative;
-    overflow: hidden;
+.ticket-route-label {
+    margin-bottom: 10px;
+    color: var(--text-muted);
+    font-size: 12px;
 }
 
-.bp-header {
-    padding: 24px;
-    text-align: center;
-    border-bottom: 2px dashed rgba(75, 106, 80, 0.15);
-    position: relative;
+.ticket-route-name {
+    color: var(--text-main);
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
 }
 
-/* Bolongan Kiri Kanan Tiket */
-.bp-header::before,
-.bp-header::after {
-    content: '';
-    position: absolute;
-    bottom: -12px;
-    width: 24px;
-    height: 24px;
-    background-color: var(--bg-main);
+.ticket-route-time {
+    margin-top: 8px;
+    color: var(--primary);
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.ticket-route-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    color: var(--primary);
+    background: var(--banner-grad-start);
+    border: 1px solid var(--border-color);
     border-radius: 50%;
 }
-.bp-header::before { left: -12px; box-shadow: inset -4px 0 6px rgba(0,0,0,0.05); }
-.bp-header::after { right: -12px; box-shadow: inset 4px 0 6px rgba(0,0,0,0.05); }
 
-.qr-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
+/* ---------- PEMBATAS ---------- */
+
+.ticket-separator {
+    position: relative;
+    height: 1px;
+    margin: 0 28px;
+    background: var(--border-color);
 }
 
-.qr-placeholder {
-    width: 160px;
-    height: 160px;
-    background: white;
-    border: 1px solid rgba(0,0,0,0.1);
-    padding: 10px;
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* ---------- INFORMASI PERJALANAN ---------- */
+
+.ticket-info-section {
+    padding: 28px;
 }
 
-.qr-placeholder i {
-    font-size: 100px;
+.ticket-info-title,
+.payment-summary h3,
+.driver-rating h3 {
+    margin: 0 0 20px;
     color: var(--text-main);
+    font-size: 18px;
+    font-weight: 800;
 }
 
-.ticket-id {
-    font-family: monospace;
-    font-size: 16px;
+.ticket-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 28px;
+}
+
+.ticket-info-item {
+    min-width: 0;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ticket-info-label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.ticket-info-value {
+    display: block;
+    color: var(--text-main);
+    font-size: 14px;
     font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--text-main);
+    line-height: 1.6;
+    overflow-wrap: anywhere;
 }
 
-.bp-body {
+/* ---------- RINCIAN PEMBAYARAN ---------- */
+
+.payment-summary {
+    margin: 0 28px 28px;
     padding: 24px;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
 }
 
-.bp-row {
+.payment-summary h3 {
+    margin-bottom: 18px;
+}
+
+.payment-row {
     display: flex;
+    align-items: flex-start;
     justify-content: space-between;
-    margin-bottom: 20px;
+    gap: 16px;
+    padding: 12px 0;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-color);
+    font-size: 13px;
 }
 
-.bp-row:last-child {
-    margin-bottom: 0;
+.payment-row strong {
+    color: var(--text-main);
+    text-align: right;
+    overflow-wrap: anywhere;
 }
 
-.bp-col {
+.payment-total {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 20px;
+    color: var(--text-main);
+    font-size: 15px;
+    font-weight: 800;
 }
 
-.bp-col.right {
+.payment-total strong {
+    color: var(--primary);
+    font-size: 23px;
     text-align: right;
 }
 
-.bp-label {
-    font-size: 11px;
+.simulation-note {
+    margin: 18px 0 0;
+    padding: 12px 14px;
     color: var(--text-muted);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.bp-value {
-    font-size: 15px;
-    color: var(--text-main);
-    font-weight: 700;
-}
-
-/* Card Driver & Rating */
-.driver-card {
-    background: var(--bg-surface);
-    border-radius: 20px;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    box-shadow: 0 8px 24px rgba(75, 106, 80, 0.04);
-    border: 1px solid rgba(75, 106, 80, 0.08);
-}
-
-.driver-avatar {
-    width: 56px;
-    height: 56px;
-    background: rgba(75, 106, 80, 0.1);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--primary);
-    font-size: 24px;
-}
-
-.driver-info {
-    flex: 1;
-}
-
-.driver-info h4 {
-    font-size: 16px;
-    color: var(--text-main);
-    margin-bottom: 4px;
-}
-
-.driver-info p {
+    background: var(--banner-grad-start);
+    border-radius: var(--radius-sm);
     font-size: 12px;
+    line-height: 1.7;
+}
+
+/* ---------- PENILAIAN ---------- */
+
+.driver-rating {
+    padding: 28px;
+    border-top: 1px solid var(--border-color);
+}
+
+.driver-rating h3 {
+    margin-bottom: 8px;
+}
+
+.driver-rating > p {
+    margin: 0 0 18px;
     color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.7;
 }
 
 .rating-stars {
     display: flex;
-    gap: 4px;
-    color: #e5e7eb;
-    font-size: 18px;
-    cursor: pointer;
-}
-
-.rating-stars i.active {
-    color: #f59e0b;
-}
-
-/* Action Buttons */
-.action-buttons {
-    display: flex;
-    gap: 12px;
-    margin-top: 10px;
-}
-
-.btn-download {
-    flex: 1;
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 16px;
-    border-radius: 16px;
-    font-size: 15px;
-    font-weight: 600;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-wrap: wrap;
     gap: 8px;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(75, 106, 80, 0.2);
-    transition: transform 0.2s ease;
 }
 
-.btn-download:active {
-    transform: scale(0.96);
+.rating-star {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    color: var(--text-muted);
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 21px;
+    transition: color 0.2s ease, background 0.2s ease,
+                border-color 0.2s ease, transform 0.2s ease;
+}
+
+.rating-star:hover {
+    color: #e8a317;
+    border-color: #e8a317;
+    transform: translateY(-2px);
+}
+
+.rating-star.active,
+.rating-star.selected {
+    color: #e8a317;
+    background: var(--banner-grad-start);
+    border-color: #e8a317;
+}
+
+.rating-message {
+    margin-top: 12px;
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* ---------- TOMBOL AKSI ---------- */
+
+.ticket-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 24px;
+}
+
+.action-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 48px;
+    padding: 13px 22px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 800;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease,
+                border-color 0.2s ease, transform 0.2s ease;
+}
+
+.action-button:hover {
+    transform: translateY(-2px);
+}
+
+.action-button.primary {
+    color: var(--static-white);
+    background: #4b6a50;
+    border-color: #4b6a50;
+}
+
+.action-button.primary:hover {
+    background: #3d5842;
+    border-color: #3d5842;
+}
+
+.action-button.secondary {
+    color: var(--text-main);
+    background: var(--bg-surface);
+    border-color: var(--border-color);
+}
+
+.action-button.secondary:hover {
+    background: var(--banner-grad-start);
+    border-color: var(--primary);
+}
+
+/* ---------- TIKET KOSONG ---------- */
+
+.ticket-empty {
+    padding: 48px 24px;
+    color: var(--text-main);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+}
+
+.ticket-empty i {
+    margin-bottom: 18px;
+    color: var(--primary);
+    font-size: 44px;
+}
+
+.ticket-empty h2 {
+    margin: 0 0 10px;
+    color: var(--text-main);
+    font-size: 21px;
+}
+
+.ticket-empty p {
+    max-width: 500px;
+    margin: 0 auto 20px;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 640px) {
+    .ticket-detail-container {
+        width: calc(100% - 24px);
+        margin: 24px auto;
+    }
+
+    .detail-heading {
+        margin-bottom: 20px;
+    }
+
+    .ticket-card {
+        border-radius: var(--radius-md);
+    }
+
+    .ticket-card-header {
+        align-items: flex-start;
+        padding: 18px;
+    }
+
+    .ticket-brand {
+        gap: 10px;
+    }
+
+    .ticket-brand-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 19px;
+    }
+
+    .ticket-brand h2 {
+        font-size: 17px;
+    }
+
+    .ticket-brand p {
+        font-size: 11px;
+    }
+
+    .ticket-status-badge {
+        padding: 6px 9px;
+        font-size: 10px;
+    }
+
+    .ticket-route-section,
+    .ticket-info-section,
+    .driver-rating {
+        padding: 20px 18px;
+    }
+
+    .ticket-id-value {
+        font-size: 19px;
+    }
+
+    .ticket-route {
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        gap: 10px;
+    }
+
+    .ticket-route-name {
+        font-size: 13px;
+    }
+
+    .ticket-route-label {
+        font-size: 10px;
+    }
+
+    .ticket-route-time {
+        font-size: 17px;
+    }
+
+    .ticket-route-arrow {
+        width: 34px;
+        height: 34px;
+        font-size: 12px;
+    }
+
+    .ticket-separator {
+        margin: 0 18px;
+    }
+
+    .ticket-info-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+    }
+
+    .payment-summary {
+        margin: 0 18px 20px;
+        padding: 18px;
+    }
+
+    .payment-total strong {
+        font-size: 20px;
+    }
+
+    .ticket-actions {
+        flex-direction: column;
+    }
+
+    .action-button {
+        width: 100%;
+    }
+}
+
+/* ---------- PRINT / SIMPAN E-TICKET ---------- */
+
+@media print {
+    @page {
+        size: A4;
+        margin: 12mm;
+    }
+
+    body {
+        padding: 0 !important;
+        color: #2c3e30 !important;
+        background: #ffffff !important;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+
+    #navbar-container,
+    .detail-heading,
+    .ticket-actions,
+    .driver-rating {
+        display: none !important;
+    }
+
+    .ticket-detail-container {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+
+    .ticket-card {
+        overflow: visible;
+        color: #2c3e30 !important;
+        background: #ffffff !important;
+        border: 1px solid #ccd4c9;
+        box-shadow: none;
+    }
+
+    .ticket-card-header {
+        background: #e7efe4 !important;
+    }
+
+    .ticket-brand h2,
+    .ticket-route-name,
+    .ticket-info-value,
+    .payment-row strong,
+    .payment-total {
+        color: #2c3e30 !important;
+    }
+
+    .ticket-route-section,
+    .ticket-info-section,
+    .payment-summary {
+        break-inside: avoid;
+    }
+
+    .payment-summary {
+        background: #ffffff !important;
+    }
+
+    .ticket-empty {
+        display: none !important;
+    }
+}
+/* ==========================================
+   FIX KONFLIK STYLE GLOBAL
+   KHUSUS HALAMAN DETAIL E-TICKET
+========================================== */
+
+/* Reset layout body khusus halaman tiket */
+body {
+    display: block;
+    min-height: 100vh;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+}
+
+/* Pastikan halaman menggunakan lebar yang benar */
+.ticket-detail-container {
+    display: block;
+    width: min(100% - 40px, 1000px);
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0;
+}
+
+/* Batalkan padding dan margin section dari CSS global */
+.ticket-detail-container section {
+    width: auto;
+    max-width: none;
+    padding: 28px;
+    margin: 0;
+}
+
+/* Pertahankan jarak khusus kartu pembayaran */
+.ticket-detail-container .payment-summary {
+    margin: 0 28px 28px;
+    padding: 24px;
+}
+
+/* Bagian penilaian dipisahkan garis */
+.ticket-detail-container .driver-rating {
+    border-top: 1px solid var(--border-color);
+}
+
+/* Pembatas tidak mengikuti padding section global */
+.ticket-detail-container .ticket-separator {
+    width: auto;
+    padding: 0;
+    margin: 0 28px;
+}
+
+/* Header kartu tidak terkena padding global */
+.ticket-detail-container .ticket-card-header {
+    width: auto;
+    margin: 0;
+    padding: 24px 28px;
+}
+
+/* Layout bagian dalam kartu */
+.ticket-detail-container .ticket-route {
+    width: 100%;
+}
+
+.ticket-detail-container .ticket-info-grid {
+    width: 100%;
+}
+
+/* Jangan biarkan section tersembunyi tampil */
+.ticket-detail-container [hidden] {
+    display: none !important;
+}
+
+/* Responsif */
+@media (max-width: 640px) {
+    .ticket-detail-container {
+        width: calc(100% - 24px);
+        margin: 24px auto;
+    }
+
+    .ticket-detail-container section {
+        padding: 20px 18px;
+    }
+
+    .ticket-detail-container .payment-summary {
+        margin: 0 18px 20px;
+        padding: 18px;
+    }
+
+    .ticket-detail-container .ticket-card-header {
+        padding: 18px;
+    }
+
+    .ticket-detail-container .ticket-separator {
+        margin: 0 18px;
+    }
+
+    .ticket-detail-container .ticket-info-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* ==========================================
+   FIX KONFLIK .ticket-card DARI components.css
+========================================== */
+
+/* Kartu e-ticket harus tersusun vertikal */
+.ticket-detail-container .ticket-card {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    gap: 0;
+
+    background: var(--bg-surface);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+}
+
+/* Semua bagian kartu mengikuti lebar kartu */
+.ticket-detail-container .ticket-card > .ticket-card-header,
+.ticket-detail-container .ticket-card > .ticket-route-section,
+.ticket-detail-container .ticket-card > .ticket-info-section,
+.ticket-detail-container .ticket-card > .payment-summary,
+.ticket-detail-container .ticket-card > .driver-rating {
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+}
+
+/* Header tetap horizontal */
+.ticket-detail-container .ticket-card > .ticket-card-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Pembayaran berada di dalam kartu dengan margin yang sesuai */
+.ticket-detail-container .ticket-card > .payment-summary {
+    width: auto;
+    margin: 0 28px 28px;
+}
+
+/* Pastikan grid informasi tidak menyusut */
+.ticket-detail-container .ticket-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Jangan tampilkan kartu kosong jika atribut hidden aktif */
+.ticket-detail-container [hidden] {
+    display: none !important;
+}
+
+/* Tampilan ponsel */
+@media (max-width: 640px) {
+    .ticket-detail-container .ticket-card {
+        border-radius: var(--radius-md);
+    }
+
+    .ticket-detail-container .ticket-card > .payment-summary {
+        margin: 0 18px 20px;
+    }
+
+    .ticket-detail-container .ticket-info-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* ==========================================
+   QR CODE E-TICKET - UNESAVEL
+========================================== */
+
+.ticket-qr-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 28px;
+    margin: 0;
+    text-align: center;
+    border-top: 1px dashed var(--border-color);
+}
+
+.ticket-qr-title {
+    margin: 0;
+    color: var(--text-main);
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.ticket-qr-description {
+    max-width: 420px;
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.ticket-qr-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 224px;
+    min-height: 224px;
+    padding: 12px;
+    margin: 6px 0;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+}
+
+.ticket-qr-frame canvas,
+.ticket-qr-frame img {
+    display: block;
+    width: 200px !important;
+    height: 200px !important;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.ticket-qr-id {
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+
+.ticket-qr-note {
+    max-width: 420px;
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.ticket-qr-error {
+    color: #b45309;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+    .ticket-qr-section {
+        padding: 22px 18px;
+    }
+
+    .ticket-qr-frame {
+        width: 212px;
+        min-height: 212px;
+    }
+
+    .ticket-qr-frame canvas,
+    .ticket-qr-frame img {
+        width: 188px !important;
+        height: 188px !important;
+    }
+}
+
+/* QR ikut tercetak saat menyimpan e-ticket */
+@media print {
+    .ticket-qr-section {
+        display: flex !important;
+        break-inside: avoid;
+        padding: 20px;
+        background: #ffffff !important;
+        color: #2c3e30 !important;
+    }
+
+    .ticket-qr-title,
+    .ticket-qr-id {
+        color: #2c3e30 !important;
+    }
+
+    .ticket-qr-description,
+    .ticket-qr-note {
+        color: #526455 !important;
+    }
+
+    .ticket-qr-frame {
+        background: #ffffff !important;
+        border: 1px solid #ccd4c9 !important;
+        box-shadow: none !important;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+
+    .ticket-qr-frame canvas,
+    .ticket-qr-frame img {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
 }

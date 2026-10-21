@@ -1,267 +1,879 @@
-.history-page {
-    padding-bottom: 12vh;
-}
 
-.page-header {
-    padding: clamp(24px, 4vh, 40px) var(--page-gutter) 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
+/* ==========================================
+   HISTORY UNESAVEL
+   Riwayat Tiket
+   Light Mode & Dark Mode
+   Theme: Sage Green
+   ========================================== */
 
-.history-back {
-    flex: 0 0 auto;
-}
+/* ==========================================
+   1. HALAMAN UTAMA
+   ========================================== */
 
-.page-header h2 {
-    font-size: clamp(20px, 4vw, 24px);
-    font-weight: 700;
+.history-container {
+    width: 100%;
+    max-width: 1100px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 28px var(--page-gutter, 24px) 100px;
     color: var(--text-main);
-    font-family: 'Playfair Display', serif;
+    background: var(--bg-main);
+    box-sizing: border-box;
 }
 
-/* 1. Timeline Container (Margin Diperbaiki) */
-.history-timeline {
-    position: relative;
-    width: auto;
-    margin: 0 var(--page-gutter);
-    padding: 0 22px;
-    border-left: 2px dashed rgba(75, 106, 80, 0.2);
-}
-
-.timeline-date {
-    position: relative;
-    display: flex;
-    align-items: center;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text-muted);
-    margin-bottom: 12px;
-    margin-top: 24px;
-}
-
-.timeline-dot {
-    position: absolute;
-    left: -29px;
-    top: 50%;
-    width: 12px;
-    height: 12px;
-    border: 3px solid var(--bg-main);
-    border-radius: 50%;
-    background-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(75, 106, 80, 0.08);
-    transform: translateY(-50%);
-    z-index: 2;
-}
-
-.timeline-date:first-child {
-    margin-top: 0;
-}
-
-.current-date {
-    color: var(--primary);
-}
-
-/* 2. Kartu Tiket Berlubang (Perforated) */
-.history-card {
-    background: var(--bg-surface);
-    border-radius: 20px;
-    border: 1px solid rgba(75, 106, 80, 0.08);
-    margin-bottom: 24px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.02);
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
-}
-
-.history-card:active {
-    transform: scale(0.97);
-    background: rgba(75, 106, 80, 0.03);
-    box-shadow: none;
-}
-
-.history-card::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    background-color: var(--bg-main);
-    border-radius: 50%;
-    z-index: 5;
-}
-.history-card::before {
-    left: -11px;
-    box-shadow: inset -3px 0 5px rgba(0,0,0,0.03);
-}
-.history-card::after {
-    right: -11px;
-    box-shadow: inset 3px 0 5px rgba(0,0,0,0.03);
-}
-
-/* Bagian Atas Tiket */
-.card-main {
-    padding: 20px 24px;
-    border-bottom: 2px dashed rgba(75, 106, 80, 0.15); /* Perforasi tengah */
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* --- RUTE VERTIKAL LURUS DI DALAM TIKET --- */
-.route-vertical {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; 
-    position: relative;
-}
-
-/* Garis putus-putus rute vertikal dalam tiket */
-.route-vertical::before {
-    content: '';
-    position: absolute;
-    left: 4px; /* Senter tengah dengan titik */
-    top: 12px;
-    bottom: 12px;
-    width: 2px;
-    border-left: 2px dashed var(--primary);
-    opacity: 0.4;
-}
-
-.route-point {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding-left: 24px; /* Mendorong teks agar tidak menabrak titik */
-}
-
-/* Dot Bullet keberangkatan & tujuan */
-.route-point::before {
-    content: '';
-    position: absolute;
-    left: -2px; 
-    top: 4px;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--primary);
-    border: 2px solid var(--bg-surface);
-    z-index: 1;
-}
-
-.route-point.destination::before {
-    background: #ef4444;
-    top: 20px;
-    left: -2px;
-}
-
-.route-point h4 {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--text-main);
-    line-height: 1.2;
-}
-
-.route-point span {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-weight: 500;
-    margin-top: 4px;
-}
-
-/* Kolom kanan tiket (Metadata Atas) */
-.card-right-col {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: space-between;
-    height: 76px; 
-}
-
-.seat-badge {
-    background: rgba(75, 106, 80, 0.08);
-    border: 1px solid rgba(75, 106, 80, 0.12);
-    padding: 4px 10px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--primary);
-}
-
-.status-badge {
-    background: rgba(16, 185, 129, 0.1); 
-    color: #059669;
-    padding: 6px 12px;
-    border-radius: 100px;
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-[data-theme="dark"] .status-badge {
-    background: rgba(16, 185, 129, 0.15);
-    color: #34d399;
-}
-
-/* Bagian Bawah Tiket (Rincian) */
-.card-details {
-    padding: 16px 24px;
-    background: rgba(75, 106, 80, 0.015);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.card-meta {
-    font-size: 12px;
-    color: var(--text-muted);
-}
-
-.card-meta strong {
-    color: var(--text-main);
-    font-size: 16px;
-    display: block;
-    margin-bottom: 2px;
-}
-
-.card-time {
-    font-size: 13px;
-    color: var(--text-main);
-    font-weight: 600;
-    background: rgba(75, 106, 80, 0.05);
-    padding: 6px 12px;
-    border-radius: 8px;
+.history-container *,
+.history-container *::before,
+.history-container *::after {
+    box-sizing: border-box;
 }
 
 /* ==========================================
-   STYLE KHUSUS TIKET AKTIF (SEDANG BERJALAN)
+   2. HEADER HALAMAN
    ========================================== */
 
-/* Highlight border biar tiket aktif lebih menonjol */
-.history-card.active-ticket {
-    border: 1.5px solid var(--primary);
+.history-heading {
+    margin-bottom: 28px;
+}
+
+.history-heading h1 {
+    margin: 0 0 8px;
+    color: var(--text-main);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 4vw, 32px);
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.history-heading p {
+    max-width: 600px;
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* ==========================================
+   3. RINGKASAN RIWAYAT
+   ========================================== */
+
+.history-summary {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.summary-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+    padding: 22px;
+
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-shadow: var(--shadow-soft);
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.summary-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 50px;
+
+    width: 50px;
+    height: 50px;
+
+    color: var(--primary);
+    background: rgba(75, 106, 80, 0.10);
+    border-radius: 15px;
+
+    font-size: 21px;
+}
+
+.summary-card > div:last-child {
+    min-width: 0;
+}
+
+.summary-label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.summary-value {
+    color: var(--text-main);
+    font-size: clamp(21px, 3vw, 28px);
+    font-weight: 800;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+/* Dark mode ringkasan */
+
+[data-theme="dark"] .summary-icon {
+    color: var(--primary);
+    background: rgba(133, 168, 140, 0.15);
+}
+
+/* ==========================================
+   4. NOTIFIKASI INFORMASI
+   ========================================== */
+
+.history-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+
+    margin-bottom: 30px;
+    padding: 15px 17px;
+
+    color: var(--text-muted);
+    background: rgba(75, 106, 80, 0.06);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.history-notice i {
+    flex: 0 0 auto;
+    margin-top: 3px;
+    color: var(--primary);
+    font-size: 15px;
+}
+
+[data-theme="dark"] .history-notice {
+    background: rgba(133, 168, 140, 0.08);
+}
+
+/* ==========================================
+   5. KONTEN RIWAYAT
+   ========================================== */
+
+#history-content {
+    width: 100%;
+    min-width: 0;
+}
+
+#history-content[hidden],
+.history-empty[hidden] {
+    display: none !important;
+}
+
+#history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* Kelompok berdasarkan tanggal */
+
+.history-section {
+    width: 100%;
+    min-width: 0;
+}
+
+.history-date-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin: 0 0 15px;
+    color: var(--text-main);
+
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.history-date-heading i {
+    color: var(--primary);
+    font-size: 16px;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ==========================================
+   6. KARTU TIKET
+   ========================================== */
+
+.history-ticket {
+    position: relative;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+
+    color: var(--text-main);
+    text-decoration: none;
+
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-shadow: var(--shadow-soft);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.history-ticket:hover {
+    border-color: var(--primary);
     box-shadow: 0 8px 24px rgba(75, 106, 80, 0.12);
+    transform: translateY(-2px);
 }
 
-/* Animasi dicabut, diganti shadow statis tipis */
-.timeline-dot.active-dot {
-    box-shadow: 0 0 0 4px rgba(75, 106, 80, 0.25);
+.history-ticket:active {
+    transform: scale(0.99);
+    box-shadow: none;
 }
 
-/* Badge status warna solid */
-.status-badge.active-badge {
-    background: var(--primary); 
-    color: var(--bg-main);
-    box-shadow: 0 4px 10px rgba(75, 106, 80, 0.2);
+.history-ticket:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
 }
 
-[data-theme="dark"] .status-badge.active-badge {
-    color: #ffffff; 
+/* ==========================================
+   7. BAGIAN ATAS KARTU
+   ID TIKET & STATUS
+   ========================================== */
+
+.ticket-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    padding: 17px 22px;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.ticket-id {
+    min-width: 0;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.ticket-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex: 0 0 auto;
+
+    padding: 7px 12px;
+
+    color: #047857;
+    background: rgba(5, 150, 105, 0.12);
+    border: 1px solid transparent;
+    border-radius: 100px;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.35px;
+    line-height: 1.4;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.ticket-status i {
+    font-size: 12px;
+}
+
+/* Status tiket batal */
+
+.ticket-status.cancelled {
+    color: #b91c1c;
+    background: rgba(239, 68, 68, 0.11);
+}
+
+/* Dark mode status */
+
+[data-theme="dark"] .ticket-status {
+    color: #6ee7b7;
+    background: rgba(52, 211, 153, 0.15);
+}
+
+[data-theme="dark"] .ticket-status.cancelled {
+    color: #fca5a5;
+    background: rgba(248, 113, 113, 0.15);
+}
+
+/* ==========================================
+   8. RUTE PERJALANAN
+   Penjemputan -> Tujuan
+   ========================================== */
+
+.ticket-route {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 38px minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+
+    padding: 25px 22px;
+}
+
+.route-point {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    gap: 7px;
+}
+
+.route-label {
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.route-name {
+    display: block;
+    width: 100%;
+    color: var(--text-main);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+.route-time {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.route-time i {
+    color: var(--primary);
+    font-size: 12px;
+}
+
+/* Ikon arah perjalanan */
+
+.route-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+
+    width: 38px;
+    height: 38px;
+
+    color: var(--primary);
+    background: rgba(75, 106, 80, 0.09);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+
+    font-size: 15px;
+}
+
+[data-theme="dark"] .route-arrow {
+    background: rgba(133, 168, 140, 0.12);
+}
+
+/* ==========================================
+   9. INFORMASI BUS, PLAT, KURSI, TANGGAL
+   ========================================== */
+
+.ticket-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 22px;
+
+    padding: 16px 22px;
+
+    background: rgba(75, 106, 80, 0.035);
+    border-top: 1px dashed var(--border-color);
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.ticket-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.ticket-meta span i {
+    flex: 0 0 auto;
+    color: var(--primary);
+    font-size: 13px;
+}
+
+[data-theme="dark"] .ticket-meta {
+    background: rgba(133, 168, 140, 0.06);
+}
+
+/* ==========================================
+   10. BAGIAN BAWAH KARTU
+   TOTAL BAYAR & DETAIL
+   ========================================== */
+
+.ticket-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    padding: 19px 22px;
+}
+
+.ticket-price-label {
+    display: block;
+    margin-bottom: 5px;
+
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.ticket-price {
+    display: block;
+    color: var(--primary);
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.ticket-detail-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    flex: 0 0 auto;
+
+    padding: 10px 15px;
+
+    color: #ffffff;
+    background: var(--primary);
+    border: 1px solid var(--primary);
+    border-radius: 10px;
+
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.5;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.history-ticket:hover .ticket-detail-link {
+    filter: brightness(0.95);
+}
+
+.ticket-detail-link i {
+    font-size: 11px;
+}
+
+/* ==========================================
+   11. KEADAAN KOSONG
+   ========================================== */
+
+.history-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    padding: 55px 24px;
+    margin-top: 10px;
+
+    text-align: center;
+
+    background: var(--bg-surface);
+    border: 1px dashed var(--border-color);
+    border-radius: 20px;
+}
+
+.history-empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 76px;
+    height: 76px;
+    margin-bottom: 22px;
+
+    color: var(--primary);
+    background: rgba(75, 106, 80, 0.10);
+    border-radius: 24px;
+
+    font-size: 30px;
+}
+
+.history-empty h2 {
+    margin: 0 0 10px;
+    color: var(--text-main);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 3vw, 25px);
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.history-empty p {
+    max-width: 430px;
+    margin: 0 0 24px;
+
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.history-empty a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    min-height: 46px;
+    padding: 12px 20px;
+
+    color: #ffffff;
+    background: var(--primary);
+    border: 1px solid var(--primary);
+    border-radius: 12px;
+
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition:
+        transform 0.2s ease,
+        filter 0.2s ease;
+}
+
+.history-empty a:hover {
+    filter: brightness(0.95);
+    transform: translateY(-1px);
+}
+
+.history-empty a:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
+}
+
+[data-theme="dark"] .history-empty-icon {
+    background: rgba(133, 168, 140, 0.15);
+}
+
+/* ==========================================
+   12. RESPONSIVE TABLET
+   ========================================== */
+
+@media (max-width: 768px) {
+    .history-container {
+        padding-top: 24px;
+    }
+
+    .history-heading {
+        margin-bottom: 22px;
+    }
+
+    .history-summary {
+        gap: 12px;
+    }
+
+    .summary-card {
+        gap: 12px;
+        padding: 17px;
+        border-radius: 15px;
+    }
+
+    .summary-icon {
+        flex-basis: 42px;
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        font-size: 18px;
+    }
+
+    .summary-value {
+        font-size: 22px;
+    }
+
+    .ticket-route {
+        grid-template-columns: minmax(0, 1fr) 32px minmax(0, 1fr);
+        gap: 10px;
+        padding: 22px 18px;
+    }
+
+    .route-arrow {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+    }
+
+    .route-name {
+        font-size: 14px;
+    }
+
+    .ticket-meta {
+        gap: 11px 16px;
+        padding: 15px 18px;
+    }
+
+    .ticket-top,
+    .ticket-bottom {
+        padding-right: 18px;
+        padding-left: 18px;
+    }
+}
+
+/* ==========================================
+   13. RESPONSIVE MOBILE
+   ========================================== */
+
+@media (max-width: 480px) {
+    .history-container {
+        padding: 22px 16px 90px;
+    }
+
+    .history-heading h1 {
+        font-size: 25px;
+    }
+
+    .history-heading p {
+        font-size: 12px;
+    }
+
+    .history-summary {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .summary-card {
+        padding: 16px;
+    }
+
+    .summary-icon {
+        flex-basis: 44px;
+        width: 44px;
+        height: 44px;
+    }
+
+    .summary-label {
+        font-size: 11px;
+    }
+
+    .summary-value {
+        font-size: 22px;
+    }
+
+    .history-notice {
+        gap: 9px;
+        padding: 13px;
+        margin-bottom: 25px;
+        font-size: 11px;
+    }
+
+    #history-list {
+        gap: 23px;
+    }
+
+    .history-date-heading {
+        margin-bottom: 12px;
+        font-size: 14px;
+    }
+
+    .history-list {
+        gap: 13px;
+    }
+
+    .history-ticket {
+        border-radius: 15px;
+    }
+
+    .ticket-top {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 9px;
+        padding: 15px;
+    }
+
+    .ticket-id {
+        font-size: 11px;
+    }
+
+    .ticket-status {
+        padding: 6px 10px;
+        font-size: 9px;
+    }
+
+    .ticket-route {
+        grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr);
+        gap: 7px;
+        padding: 20px 13px;
+    }
+
+    .route-point {
+        gap: 6px;
+    }
+
+    .route-label {
+        font-size: 10px;
+    }
+
+    .route-name {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .route-time {
+        gap: 4px;
+        font-size: 10px;
+    }
+
+    .route-time i {
+        font-size: 10px;
+    }
+
+    .route-arrow {
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+    }
+
+    .ticket-meta {
+        gap: 10px;
+        padding: 14px 13px;
+    }
+
+    .ticket-meta span {
+        flex: 1 1 calc(50% - 10px);
+        font-size: 10px;
+        gap: 6px;
+    }
+
+    .ticket-meta span i {
+        font-size: 11px;
+    }
+
+    .ticket-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 14px;
+        padding: 16px 13px;
+    }
+
+    .ticket-price-label {
+        font-size: 10px;
+    }
+
+    .ticket-price {
+        font-size: 18px;
+    }
+
+    .ticket-detail-link {
+        width: 100%;
+        min-height: 42px;
+        padding: 10px 12px;
+        font-size: 11px;
+    }
+
+    .history-empty {
+        padding: 40px 18px;
+    }
+
+    .history-empty-icon {
+        width: 65px;
+        height: 65px;
+        margin-bottom: 18px;
+        border-radius: 20px;
+        font-size: 25px;
+    }
+
+    .history-empty h2 {
+        font-size: 21px;
+    }
+
+    .history-empty p {
+        font-size: 12px;
+    }
+}
+
+/* ==========================================
+   14. MOBILE KECIL
+   ========================================== */
+
+@media (max-width: 350px) {
+    .history-container {
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+
+    .ticket-route {
+        grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr);
+        gap: 5px;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .route-arrow {
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
+    }
+
+    .route-name {
+        font-size: 11px;
+    }
+
+    .ticket-meta span {
+        flex-basis: 100%;
+    }
+}
+
+/* ==========================================
+   15. REDUCED MOTION
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .history-ticket,
+    .history-empty a,
+    .summary-card {
+        transition: none;
+    }
+
+    .history-ticket:hover,
+    .history-empty a:hover {
+        transform: none;
+    }
 }
