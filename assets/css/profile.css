@@ -305,10 +305,14 @@ input:checked + .slider:before {
     transform: scale(1);
 }
 
-/* Gembok Sembunyiin GTranslate Asli */
 #google_translate_element {
-    display: none !important;
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
 }
+
 iframe.goog-te-banner-frame, 
 .goog-te-banner-frame,
 #goog-gt-tt, 

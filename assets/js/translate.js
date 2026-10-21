@@ -1,32 +1,22 @@
-// File: assets/js/translate.js
-
-// 1. Inisialisasi Google Translate secara sembunyi-sembunyi
 function googleTranslateElementInit() {
     new google.translate.TranslateElement({
         pageLanguage: 'id',
-        includedLanguages: 'en,ja,ko', // Sesuai daftar tombol custom
+        includedLanguages: 'id,en,ja,ko',
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
         autoDisplay: false
     }, 'google_translate_element');
 }
 
-// 2. Fungsi gaib buat maksa ganti bahasa dari tombol custom
 function changeAppLanguage(langCode) {
-    const combo = document.querySelector('.goog-te-combo');
-    if (combo) {
-        combo.value = langCode;
-        combo.dispatchEvent(new Event('change'));
-        
-        // Simpan status bahasa aktif biar UI Pop-Up kita ga salah nampilin tanda centang (check)
-        localStorage.setItem('custom_app_lang', langCode);
-        updateActiveLanguageUI(langCode);
-    } else {
-        // Tunggu bentar kalo Google belum kelar loading
-        setTimeout(() => changeAppLanguage(langCode), 150);
-    }
+    const gTransCookie = `/id/${langCode}`;
+    
+    document.cookie = `googtrans=${gTransCookie}; path=/`;
+    document.cookie = `googtrans=${gTransCookie}; domain=${window.location.hostname}; path=/`;
+    
+    localStorage.setItem('custom_app_lang', langCode);
+    window.location.reload();
 }
 
-// 3. Update Visual Tanda Centang (Checkmark) di pop-up
 function updateActiveLanguageUI(langCode) {
     document.querySelectorAll('.lang-option').forEach(btn => {
         if (btn.getAttribute('data-lang') === langCode) {
@@ -37,16 +27,34 @@ function updateActiveLanguageUI(langCode) {
     });
 }
 
-// 4. Inject script Google Translate
 (function() {
+    const style = document.createElement('style');
+    style.innerHTML = `
+        body { top: 0px !important; position: static !important; }
+        iframe.goog-te-banner-frame, 
+        .goog-te-banner-frame, 
+        .skiptranslate iframe, 
+        #goog-gt-tt, 
+        .goog-te-balloon-frame, 
+        .VIpgJd-Zvi9od-aZ2wEe-wOHMyf, 
+        #google_translate_element { 
+            display: none !important; 
+        }
+    `;
+    document.head.appendChild(style);
+
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
     document.body.appendChild(script);
 
-    // Otomatis tandai bahasa aktif pas pertama kali buka pop-up
     document.addEventListener('DOMContentLoaded', () => {
-        const savedLang = localStorage.getItem('custom_app_lang') || 'id';
+        let savedLang = localStorage.getItem('custom_app_lang');
+        if (!savedLang) {
+            const match = document.cookie.match(/googtrans=\/id\/([a-z]{2})/);
+            savedLang = match ? match[1] : 'id';
+            localStorage.setItem('custom_app_lang', savedLang);
+        }
         setTimeout(() => updateActiveLanguageUI(savedLang), 300);
     });
 })();

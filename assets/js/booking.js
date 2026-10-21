@@ -1,9 +1,6 @@
 
 document.addEventListener("DOMContentLoaded", () => {
-    // ==========================================
     // 1. DATA LOKASI
-    // ==========================================
-
     const faculties = [
         { id: "gerbang-utama-unesa", name: "Gerbang Utama UNESA", campus: "Kampus 1 - Ketintang" },
         { id: "rumpun-informatika", name: "Rumpun Informatika", campus: "Kampus 1 - Ketintang" },
@@ -24,9 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: "psikologi", name: "Fakultas Psikologi", campus: "Kampus 2 - Lidah Wetan" }
     ];
 
-    // ==========================================
     // 2. AMBIL ELEMEN HTML
-    // ==========================================
 
     const bookingForm = document.getElementById("bookingForm");
 
@@ -63,9 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const dateTimeError = document.getElementById("dateTimeError");
     const passengerError = document.getElementById("passengerError");
 
-    // ==========================================
+    
     // 3. PERIKSA ELEMEN HTML
-    // ==========================================
+    
 
     const requiredElements = {
         bookingForm,
@@ -106,9 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // ==========================================
     // 4. TANGGAL MINIMAL HARI INI
-    // ==========================================
 
     function getLocalDateString() {
         const now = new Date();
@@ -121,12 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     travelDate.min = getLocalDateString();
 
-    // ==========================================
     // 5. PEMILIH JAM DAN MENIT
-    // Jam: 06-21
-    // Menit: 01-60
-    // Bisa diketik langsung atau memakai panah.
-    // ==========================================
 
     let selectedHour = 8;
     let selectedMinute = 30;
