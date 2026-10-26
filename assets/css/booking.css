@@ -1,7 +1,7 @@
 
 :root {
   --booking-primary: var(--primary, #42684b);
-  --booking-bg: var(--background, #f4f6f2);
+  --booking-bg: var(--background, #ffffff);
   --booking-surface: var(--surface, #ffffff);
   --booking-text: var(--text, #26352a);
   --booking-muted: var(--text-secondary, #7b857b);

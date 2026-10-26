@@ -117,3 +117,26 @@ if (toggleSwitch) {
         }    
     });
 }
+document.addEventListener('DOMContentLoaded', () => {
+    const btnSeeVouchers = document.getElementById('btn-see-vouchers');
+    const voucherModal = document.getElementById('voucher-modal');
+    const closeVoucherBtn = document.getElementById('close-voucher');
+
+    if (btnSeeVouchers && voucherModal) {
+        btnSeeVouchers.addEventListener('click', (e) => {
+            e.preventDefault(); // Biar ga scroll ke atas
+            voucherModal.classList.add('active');
+        });
+
+        closeVoucherBtn.addEventListener('click', () => {
+            voucherModal.classList.remove('active');
+        });
+
+        // Klik di luar box putih buat nutup
+        voucherModal.addEventListener('click', (e) => {
+            if(e.target === voucherModal) {
+                voucherModal.classList.remove('active');
+            }
+        });
+    }
+});

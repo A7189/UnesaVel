@@ -136,7 +136,7 @@
             </div>
             
             <div class="map-container">
-                <div class="map-bg" style="background-image: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=600&q=80');"></div>
+                <div class="map-bg" style="background-image: url('../assets/images/maps.png');"></div>
                 <div class="map-overlay"></div>
                 
                 <div class="bus-pin" style="top: 45%; left: 40%;" data-id="Bus 01" data-seats="4" data-loc="Sekitar Royal Plaza" data-est="5 Mnt">
@@ -164,11 +164,11 @@
                 </div>
             </div>
         </section>
-
 <section class="promo-section">
             <div class="section-header">
                 <h3>Promo Khusus</h3>
-                <a href="#" class="see-all">See all</a>
+                <!-- INI TOMBOL YANG UDAH DIBENERIN -->
+                <a href="javascript:void(0)" class="see-all" id="btn-see-vouchers">See all</a>
             </div>
             
             <div class="ticket-list">
@@ -218,12 +218,63 @@
                 </div>
             </div>
         </section>
+    </div> <!-- INI PENUTUP APP-SHELL NYA -->
 
+    <!-- ==========================================
+         MODAL POP-UP VOUCHER & REDEEM (DI LUAR APP-SHELL)
+         ========================================== -->
+    <div class="modal-overlay" id="voucher-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Voucher & Promo</h3>
+                <button class="close-modal" id="close-voucher"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <!-- Bagian Redeem Code -->
+            <div class="redeem-section">
+                <input type="text" placeholder="Masukkan kode promo..." class="redeem-input">
+                <button class="btn-redeem">Redeem</button>
+            </div>
+            
+            <div class="section-divider"></div>
+            <h4 style="margin: 0 0 12px; font-size: 14px;">Voucher Kamu</h4>
+            
+            <!-- List Voucher Pakai UI Dashboard Lu Sendiri -->
+<div class="voucher-list-modal">
+    
+    <!-- Voucher 1 -->
+    <div class="ticket-card" style="margin-bottom: 12px; box-shadow: none; border: 1px solid rgba(75, 106, 80, 0.1);">
+        <div class="ticket-left">
+            <span class="promo-tag" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">🎟️ Diskon Spesial</span>
+            <h4 style="font-size: 14px; margin-top: 8px;">Potongan Rp 2.000</h4>
+            <p class="time"><i class="fa-regular fa-clock"></i> Berakhir 31 Okt 2026</p>
+        </div>
+        <div class="ticket-divider"></div>
+        <div class="ticket-right" style="justify-content: center;">
+            <button class="btn-claim" type="button" style="width: 100%; padding: 8px 16px;">Pakai</button>
+        </div>
     </div>
+
+    <!-- Voucher 2 -->
+    <div class="ticket-card" style="margin-bottom: 12px; box-shadow: none; border: 1px solid rgba(75, 106, 80, 0.1);">
+        <div class="ticket-left">
+            <span class="promo-tag" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white;">⚡ Flash Sale</span>
+            <h4 style="font-size: 14px; margin-top: 8px;">Diskon 50%</h4>
+            <p class="time"><i class="fa-regular fa-clock"></i> Khusus hari ini</p>
+        </div>
+        <div class="ticket-divider"></div>
+        <div class="ticket-right" style="justify-content: center;">
+            <button class="btn-claim" type="button" style="width: 100%; padding: 8px 16px;">Pakai</button>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
     <div id="bottom-nav-container"></div>
     <script src="../assets/js/navbar.js"></script>
     <script src="../assets/js/script.js"></script>
     <script src="../assets/js/translate.js"></script>
-</body>
 </body>
 </html>
